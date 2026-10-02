@@ -1,0 +1,32 @@
+domains:
+  - id: cicd-automation
+    name: "CI/CD & Automation"
+    summary: "Pipeline orchestration, GitOps reconciliation, and deployment workflows"
+    icon: "GitBranch"
+    subsystems:
+      - id: argocd
+        name: "ArgoCD"
+        type: "GitOps Operator"
+        logoKey: "argocd"
+        description: "Declarative, GitOps continuous delivery tool for Kubernetes"
+        techStackLogos: ["argocd", "kubernetes", "helm", "kustomize"]
+        gitopsPath: "clusters/production"
+        repoUrl: "https://github.com/example/gitops-manifests"
+        components:
+          - name: "ApplicationSet Controller"
+            spec: "Automated multi-cluster app deployment"
+          - name: "Repo Server"
+            spec: "Clones Git repos & renders manifests"
+      - id: github-actions
+        name: "GitHub Actions"
+        type: "CI Orchestrator"
+        logoKey: "githubactions"
+        description: "Automated workflows for testing, linting, and container builds"
+        techStackLogos: ["githubactions", "docker", "terraform"]
+        repoUrl: "https://github.com/example/pipeline-templates"
+        components:
+          - name: "Self-Hosted Runners"
+            spec: "Kubernetes-backed runner scale set (ARC)"
+          - name: "Build Caching"
+            spec: "s3-backed action cache for fast container layers"
+            

@@ -1,0 +1,550 @@
+================================================================================
+                           CAREER MASTER RECORD
+================================================================================
+
+--------------------------------------------------------------------------------
+COMPANY: adMarketplace (New York, NY)
+TENURE: Oct 2016 – May 2026
+--------------------------------------------------------------------------------
+
+COMPANY: adMarketplace (New York, NY)
+TENURE: Oct 2016 – May 2026
+
+ROLES:
+  * Sr. Engineering Manager & Lead Infrastructure Architect / Staff Platform Engineer
+  * Lead DevOps Engineer
+  * Systems Engineer
+
+COMPANY SCOPE:
+  AdMarketplace operates within the Advertising Technology (AdTech) industry,
+  serving low-latency (<50ms) services on a distributed "big data" and
+  Kubernetes-native machine learning (ML) platform. The hybrid infrastructure
+  (private and public cloud) supports 100+ engineers across 4 U.S. data center
+  locations, handling 600+ microservices and 1,500+ workflows and pipelines.
+  Acted as visionary leader, architect, team lead, project manager, mentor,
+  public advocate, and Scrum Master.
+
+ACCOMPLISHMENTS & TECHNICAL DOMAINS:
+
+  A. Engineering Leadership, Culture & Operations
+     - People & Strategic Management: Led, managed, and mentored cross-functional
+       platform and infrastructure engineering teams (mentored 15+ engineers),
+       driving hiring, career development, and engineering quality.
+     - Agile & Architecture Governance: Acted as Scrum Master, managing daily
+       risk, strategic planning, cross-functional alignment, drift, and scope
+       course-correction. Served as a member of the Architecture Review Board
+       (ARB) and engineering guilds.
+     - DevOps Evangelism & Community: Hosted weekly open office hours,
+       bi-monthly tech talks, workshops, and fireside chats. Integrated feedback
+       collection directly into developer portals.
+     - Strategic Planning: Developed OKR initiatives, high-level architectural
+       plans, and long-term modernization roadmaps.
+
+  B. Cloud-Native Transformation, Multi-Cloud & Hybrid Infrastructure
+     - Hybrid Cloud Architecture: Spearheaded company-wide transition from
+       legacy data centers to a multi-account AWS Kubernetes (EKS) architecture
+       across 4 accounts (dev, stage, prod, mgmt).
+     - Private Cloud Data Centers: Built and managed two full-stack private
+       cloud data centers with 200+ Dell physical bare-metal hosts, 600+ KVM
+       virtual instances, and Ceph storage for AWS cloud bursting.
+     - Zero-Downtime Migration: Led the architecture and zero-downtime end-to-end
+       migration of 600+ microservices to AWS EKS.
+     - Global Edge Serving: Established a global point of presence in AWS using
+       Terraform to enhance edge-serving capabilities.
+
+  C. Internal Developer Platform (IDP) & Developer Autonomy
+     - IDP & Golden Paths: Created a centralized Internal Developer Portal (IDP)
+       with developer-managed "golden path" templates and automated scaffolding.
+     - Self-Service Autonomy: Empowered 100+ engineers with full self-service
+       autonomy over cloud/on-prem provisioning, environments, app onboarding,
+       event-driven systems, and experimentation environments via REST APIs.
+     - Universal Orchestration: Designed workflow automation using Argo Workflows,
+       Crossplane, Terraform, and GitOps to eliminate manual provisioning and
+       cognitive load.
+
+  D. GitOps, CI/CD & SDLC Modernization
+     - GitOps Adoption: Orchestrated a Kubernetes-native, self-service,
+       API-driven GitOps platform using Argo CD, Argo Workflows, Argo Events,
+       Argo Rollouts, and Kustomize (achieved 100% adoption across all teams).
+     - EKS Bootstrapping: EKS cluster bootstrapping and management delivered
+       via Argo CD GitOps pipelines.
+     - CI/CD Pipeline Migration: Modernized legacy CI/CD (Bitbucket, Jenkins,
+       Jenkins + Ansible) by migrating 900+ repos to GitHub Actions and K8s-native Argo
+       Workflows and Argo Events.
+     - Python Pipeline Tooling: Developed custom Python libraries for CI/CD
+       pipelines and operational utility functions.
+     - Quality Assurance Shift-Left: Replaced "Docker Compose" and manual QA
+       with Argo WF/CD full integration testing pipelines, contract testing,
+       and declarative validation tests.
+     - Service Mesh: Implemented Linkerd service mesh in lower environments
+       for QE observability and latency troubleshooting.
+
+  E. High-Throughput Streaming & Distributed Storage Infrastructure
+     - Multi-Region Messaging & Caching: Designed, operated, and maintained
+       high-availability, multi-region Apache Kafka (MSK, including Schema Registry,
+       Kafka Connect, and MirrorMaker) and RabbitMQ clusters to support
+       ultra-low-latency distributed ad-serving pipelines.
+     - High-Throughput NoSQL & OLAP Engines: Managed, tuned, and operated
+       self-hosted Aerospike, ClickHouse, and Vespa Cloud vector database clusters
+       for real-time data ingestion, hybrid/vector search, and high-volume analytics.
+     - Bare-Metal Datacenter Storage: Provisioned and maintained Ceph Storage and
+       NAS arrays across physical datacenters to support stateful workloads and
+       KVM virtual instances.
+
+  F. Software Supply Chain Security & DevSecOps
+     - Artifact Integrity & Pipeline Security: Integrated Snyk, JFrog Xray, and
+       SonarQube/SonarCloud directly into automated CI/CD pipelines for static
+       analysis, container vulnerability scanning, and license compliance.
+     - Automated Provenance & Compliance: Implemented Software Bill of Materials
+       (SBOM) generation and zero-day vulnerability patch automation within build
+       pipelines, authoring security procedure documentation that directly supported
+       obtaining SOC 2 certification.
+     - Policy Enforcement Gateways: Deployed Open Policy Agent (OPA) as a security
+       and policy control gateway within the Kubernetes platform to enforce declarative
+       guardrails across infrastructure deployments.
+     - Secrets & Identity Integration: Integrated Akeyless (HashiCorp Vault) for
+       K8s pod secrets injection. Integrated web identity and service accounts into the SDLC.
+
+  G. Advanced AI, MLOps & Vector Search
+     - AI Tooling & Compliance Guardrails: Evaluated and safely rolled out AI-assisted
+       engineering tools (Claude Code, Windsurf/Codex, GitHub Copilot, ChatGPT) into
+       engineering workflows by establishing centralized LLM proxy gateways with automated
+       PII sanitization to enforce organizational data guardrails.
+     - Low-Latency Search & Tensor Ranking: Deployed production Vespa Cloud search
+       infrastructure, optimizing schema definitions (services.xml), multi-phase tensor
+       ranking, and real-time streaming ingestion via Kafka for sub-50ms hybrid search
+       (Vector + BM25) at high QPS.
+     - Automated Retraining Pipelines: Built DataOps and MLOps workflows leveraging Argo
+       Events, Argo Workflows, Kubeflow, MLflow, and Feature Stores to automatically trigger
+       model retraining based on metric drift detection, replacing legacy Hadoop Spark,
+       Airflow, Azkaban, and EMR setups.
+
+  H. Financial Operations (FinOps) & Cost Engineering
+     - 50% Cloud Spend Reduction: Cut company-wide cloud spend by 50% ($50k annual
+       OpEx reduction specifically on DataOps/MLOps).
+     - Dynamic Node Scaling & Bin-Packing: Replaced rigid compute setups with dynamic
+       autoscaling using Karpenter and Kubernetes Horizontal Pod Autoscaling (HPA) to
+       optimize instance bin-packing, right-sizing, and spot instance utilization.
+     - Automated Inventory & Allocation: Utilized AI-driven tooling to build an automated
+       Kubernetes resource inventory and reconciliation system, dynamically labeling and
+       tagging cluster resources to feed into Kubecost dashboards for fine-grained,
+       cross-environment cost visibility.
+
+  I. Observability & SRE Practice
+     - Observability Migration: Replaced fragmented legacy monitoring tools
+       (Prometheus, ELK/Graylog, Nagios, Catchpoint, Logstash, Filebeat, Telegraf,
+       Graphite, Grafana) with a standardized Datadog (APM/Logs) and OpenTelemetry
+       (OTel) stack.
+     - Incident Response: Integrated Datadog with PagerDuty for incident response
+       and reduced MTTR.
+     - DevEx Metrics: Partnered with SRE to instrument and track developer experience
+       metrics (build times, deployment frequency, MTTR).
+
+  J. Bare-Metal, Networking & Datacenter Operations
+     - Physical Infrastructure & Switching: Managed multi-datacenter operations
+       consisting of 200+ Dell physical hosts and 600+ KVM virtual machines; spearheaded
+       physical network upgrades, including swapping legacy Juniper Top-of-Rack (TOR)
+       switches for high-performance Arista switches.
+     - Provisioning Automation: Built bare-metal and VM provisioning engines using The
+       Foreman, Puppet (Roles & Profiles/Hiera), and PXE/Kickstart workflows before
+       transitioning to cloud-native paradigms.
+     - Full Datacenter Decommissioning: Orchestrated the end-to-end cloud migration and
+       subsequent hardware decommissioning of two physical datacenters into a multi-region,
+       multi-account AWS environment with zero downtime during the transition.
+
+TECH STACK:
+  [Cloud & K8s Platforms]       AWS (EKS, VPC, EC2, EMR, Lambda), Kubernetes,
+                                Rancher, CoreOS, KVM, Docker Swarm, Crossplane
+  [GitOps & CI/CD]              Argo CD, Argo Workflows, Argo Events, Argo
+                                Rollouts, Kustomize, GitHub Actions, Jenkins,
+                                Ansible, Bitbucket, Artifactory, SonarQube /
+                                SonarCloud
+  [Infrastructure as Code]      Terraform, Terraform Cloud Operator, Puppet,
+                                Hiera, Foreman, Ansible
+  [Data, ML & Search]           Vespa Cloud, Apache Kafka (MSK, Schema Registry,
+                                MirrorMaker), ClickHouse, Aerospike, RabbitMQ,
+                                Databricks, Kubeflow, MLflow, Spark Operator,
+                                Cloudera CDH5, Hadoop (HDFS/Yarn), Vertica, MySQL
+                                (Tungsten), Redis, Solr, Airflow
+  [AI Developer Tools]          Claude Code, Windsurf / Codex, GitHub Copilot,
+                                ChatGPT, Centralized LLM Proxy Gateways
+  [Observability & SRE]         Datadog (APM, Logging), OpenTelemetry, PagerDuty,
+                                Linkerd, Kubecost, Prometheus, Grafana,
+                                Telegraf, Nagios, ELK / Graylog / Filebeat,
+                                Catchpoint, Graphite
+  [Security & Identity]         Open Policy Agent (OPA), Snyk, JFrog Xray, Akeyless,
+                                HashiCorp Vault, LDAP, Active Directory, SBOM
+  [Hardware & Networking]       Arista Switches, Juniper Switches, F5,
+                                NetScaler, Dell Servers, BIND DNS, DHCP, KVM
+  [Storage & File Systems]      Ceph Storage, NAS, SAN, NFS, ZFS, AWS S3, AWS EFS
+  [Programming & Scripting]     Python, Bash, Shell
+
+--------------------------------------------------------------------------------
+COMPANY: Collective (New York, NY)
+TENURE: Dec 2015 – Oct 2016
+--------------------------------------------------------------------------------
+
+ROLES:
+  * Linux Systems Engineer, Systems Operations
+  * Linux Systems Engineer, Technical Operations
+  * Linux Systems Engineer / Systems Engineer
+
+COMPANY SCOPE:
+  * Industry: Global Advertising Technology (AdTech) provider with international
+    operations and presence.
+  * Scale: Managed, engineered, and optimized a hybrid private cloud infrastructure
+    supporting 700+ servers distributed across 3 U.S. data centers and multiple
+    private cloud services.
+
+ACCOMPLISHMENTS & TECHNICAL DOMAINS:
+
+  A. Cloud Infrastructure & Automation (AWS & IaC)
+     - AWS Region Provisioning: Served as an early adopter of Terraform,
+       implementing it from the ground up to provision and automate resources
+       within their AWS region to facilitate a cloud scale-out initiative.
+     - AWS & Infrastructure Design: Built out AWS infrastructure and designed
+       new technologies within production and DevOps environments.
+
+  B. Enterprise Configuration Management & Automation
+     - Puppet Architecture Overhaul: Redesigned and modernized the Puppet setup
+       using Hiera "GitOps" and "Roles and Profiles" workflows for improved
+       configuration management and system provisioning control.
+     - The Foreman Integration: Managed The Foreman for infrastructure automation
+       and integrated Puppet Roles into The Foreman to ensure reliability and
+       consistency in server provisioning.
+     - Configuration Tooling: Utilized Puppet with Hiera and CouchDB.
+
+  C. Big Data Platforms, Messaging & Distributed Compute
+     - Big Data Analytics: Successfully introduced and implemented Cloudera
+       CDH5 and Cloudera Manager for enterprise data management and analytics.
+     - Messaging & Coordination Infrastructure: Engineered and managed Kafka,
+       Kafka MirrorMaker, Zookeeper, and Java JVM Monitoring via JMX.
+     - Container Orchestration & Compute: Implemented and managed Mesosphere /
+       Mesos Sphere and Docker for container orchestration, resource management,
+       agility, and scalability.
+
+  D. Observability, Performance Analytics & Edge Operations
+     - Monitoring & Graphing Stack: Built ground-up monitoring systems and graphed
+       performance analytics using Nagios, NRPE, NRDP, CheckMK, OMD, Graphite,
+       Grafana, Riemann, Collectd, Sensu, and Diamond.
+     - Edge & Network Services: Managed NGINX, HAProxy, NSOne DNS, and CatchPoint.
+
+TECH STACK:
+  [Cloud & Virtualization]      Amazon AWS, Private Cloud Services, Docker,
+                                Mesosphere / Mesos Sphere
+  [IaC & Config Management]     Terraform, Puppet (Hiera, Roles & Profiles),
+                                The Foreman, CouchDB
+  [Big Data, Messaging & MW]    Cloudera CDH5, Cloudera Manager, Apache Kafka,
+                                Kafka MirrorMaker, Zookeeper, JMX
+  [Observability & Monitoring]  Nagios, NRPE, NRDP, CheckMK, OMD, Graphite,
+                                Grafana, Riemann, Collectd, Sensu, Diamond,
+                                CatchPoint
+  [Networking & Traffic]        NGINX, HAProxy, NSOne DNS
+  [Data Center Operations]      Linux, 3x U.S. Data Centers (700+ servers)
+
+
+--------------------------------------------------------------------------------
+COMPANY: AppNexus (now Xandr / Microsoft) (New York, NY)
+TENURE: Dec 2012 – Aug 2015
+--------------------------------------------------------------------------------
+
+ROLES:
+  * Linux Systems Engineer / Linux Systems Engineer
+  * Linux Systems Administrator, Systems Operations
+  * Linux Systems Administrator, Technical Operations
+  * Solutions Architect / SA (SysOps Team)
+
+COMPANY SCOPE:
+  * Industry & Impact: Prominent Advertising Technology (AdTech) platform
+    ("the tech which pays for the internet").
+  * Data Processing Scale: Big data infrastructure ingesting 170TB of new data
+    daily and executing 5 million ETL transactions per second.
+  * Global Footprint: Managed 10,000+ Dell physical servers across 200+ racks and
+    4,000+ Xen virtual instances/machines distributed across 3 global data centers
+    in Europe and Asia, supporting hundreds of engineers.
+  * Team Structure: Key SysOps / Technical Operations team member (team of 5)
+    directly responsible for all operational systems and DevOps support across
+    the entire plant (excluding enterprise internal IT/networking).
+
+ACCOMPLISHMENTS & TECHNICAL DOMAINS:
+
+  A. Data Center Provisioning & Private Cloud Management
+     - Data Center Expansion: Orchestrated the ground-up provisioning of 200 racks
+       across 3 data centers in Europe and Asia, deploying 5,000+ servers to
+       expand global operational capacity.
+     - Private Cloud Administration: Engineered and managed a global private cloud
+       infrastructure (10,000+ physical Dell servers, 4,000+ Xen VMs) using Xen,
+       TFTP, PXE boot, Kickstart, yum, and Puppet.
+     - Bare-Metal & Storage Tuning: Executed hardware performance tuning, debugging,
+       and diagnostics for physical servers, Top-of-Rack (TOR) switches, and
+       NAS/SAN storage systems (Dell, Nexenta, Isilon).
+
+  B. Continuous Deployment & CI/CD Automation
+     - Build & Deployment Pipelines: Automated continuous deployment pipelines
+       by integrating RPM .spec builds and custom Puppet module development directly
+       into CI/CD build workflows.
+     - Microservices & Agile Operations: Delivered application lifecycle support
+       and automated provisioning for microservices operating under Agile
+       development models.
+
+  C. Observability, Monitoring & Log Aggregation
+     - High-Signal Monitoring: Optimized and scaled observability across 60,000+
+       services using CheckMK (OMD), tuning alerts to achieve low noise and
+       high signal strength.
+     - Enterprise Log Aggregation: Implemented enterprise log collection and
+       aggregation with Sumo Logic.
+     - Full-Stack Monitoring Stack: Managed CheckMK, Cacti, Graphite, Sumo Logic,
+       Nagios, OMD, syslog, sar, and instrumented application metrics directly
+       with engineering teams to map indicators to key operational risks.
+
+  D. Security Posture & Vulnerability Management
+     - Perimeter & Infrastructure Security: Hardened the organization's security
+       posture by implementing Nexpose (vulnerability scanning), Metasploit,
+       F5 Big-IP ASM (Application Security Manager), and VLAN Access Control
+       Lists (ACLs).
+
+  E. Network Performance, Load Balancing & Traffic Management
+     - Traffic & Switching Management: Managed global load balancing, Layer 3
+       routing, BGP, F5 Big-IP, NetScaler load balancers, and Juniper & Arista
+       Top-of-Rack switches to maintain high availability and network stability.
+
+  F. Systems Administration & Linux Internals
+     - Linux Deep-Dive Diagnostics: Supported systems during critical failures/
+       outages, performing core dump analysis, interprocess communication (IPC)
+       troubleshooting, process init debugging, and system tracing using strace
+       across CentOS and Ubuntu environments.
+     - DevOps Infrastructure & Corporate Systems: Engineered and administered
+       critical developer tools and web platforms, including Jira, Confluence,
+       Stash, Crucible, NGINX, JVM, LAMP stack, WordPress, and Joomla.
+     - Big Data Support: Performed operational troubleshooting for Hadoop
+       infrastructure components.
+
+TECH STACK:
+  [OS & Virtualization]         CentOS, Ubuntu, Xen Private Cloud, 4000+ VMs
+  [Provisioning & Deployment]   PXE boot, TFTP, Kickstart, yum, RPM .spec, Puppet
+  [Monitoring & Observability]  CheckMK (60k+ services), Sumo Logic, Graphite,
+                                Cacti, Nagios, OMD, syslog, sar
+  [Networking & Load Balancing] F5 Big-IP (ASM), NetScaler, Layer 3 / BGP,
+                                Juniper Switches, Arista Switches, VLAN ACLs
+  [Security & Vulnerabilities]  Nexpose, Metasploit, F5 Big-IP ASM, VLAN ACLs
+  [Storage & Hardware]          Dell Servers (10,000+ units / 200+ racks),
+                                Nexenta, Isilon NAS/SAN
+  [DevOps & Web Platforms]      Jira, Confluence, Stash, Crucible, NGINX, JVM,
+                                LAMP Stack, WordPress, Joomla
+  [Big Data Context]            Hadoop, 170TB/day ingestion, 5M ETL txns/sec
+
+
+--------------------------------------------------------------------------------
+COMPANY: GRM Information Management Services (Jersey City, NJ)
+TENURE: Dec 2008 – Dec 2012
+--------------------------------------------------------------------------------
+
+ROLES:
+  * Senior Systems Administrator, Systems Operations and IT
+  * Lead Systems Engineer, SysOps / IT
+  * Lead Systems Administrator / Architect
+
+COMPANY SCOPE:
+  * Industry: Digital document warehousing, record inventory management, and
+    data migration services.
+  * Global Footprint: Built, managed, and distributed IT infrastructure across
+    20+ locations spanning 11 U.S. states and 3 Chinese provinces.
+  * Team & Leadership: Led and mentored a team of 3 to 5 direct FTEs, developers,
+    and contractors (mentoring junior engineers into Senior roles).
+  * Acquisitions & Department Mergers: Absorbed, relocated, and assumed command and
+    control over 5 acquired IT departments, consolidating them into core data
+    centers.
+  * Financial & Cost Impact: Delivered a strategic architectural vision that
+    reduced tech spend by 40% (and achieved massive savings across core
+    infrastructure engineering).
+
+ACCOMPLISHMENTS & TECHNICAL DOMAINS:
+
+  A. Data Center Architecture & Private Cloud Build
+     - Ground-Up Data Center Modernization: Built a fully redundant, highly
+       available data center and private cloud in the warehouse.
+     - Hardware & Facility Overhaul: Rebuilt the data center facility, including
+       new circuits, A/C, racks, UPS power, wiring, generators, servers, switches,
+       firewalls, and SAN storage.
+     - Virtualization Cluster: Configured a VMware vSphere 4-node cluster with
+       VMware Data Recovery (VDR) and executed Physical-to-Virtual (P2V) server
+       migrations.
+     - Hardware Stack: Deployed VMware on Dell HP ProLiant DL servers, EMC SAN,
+       HP MSA2342fc SAN, Dell Fiber Channel, and Cisco MDS 9100 fabric switches.
+
+  B. AWS Cloud Migration & Hybrid Infrastructure
+     - AWS Cloud Migration: Consolidated and migrated distributed on-premises
+       MS SQL Servers and email services to Amazon AWS.
+     - AWS Web Server Farm: Deployed and configured a farm of ~60 CentOS web
+       servers on Amazon EC2, VPC, ELB, and EBS.
+     - Disaster Recovery (DR): Designed and deployed a Cold Disaster Recovery (DR)
+       site for IT operations in AWS.
+
+  C. Enterprise Directory, Mail & Platform Migrations
+     - SUSE / Novell to Microsoft Active Directory Migration: Migrated enterprise
+       IT infrastructure from Novell SUSE Linux ES 10 / eDirectory to MS Active
+       Directory (Windows Server 2008) with 500 accounts and 1TB of user data.
+     - Google Apps Migration: Migrated Novell GroupWise 8 email server on SUSE 10
+       (500 users, 1TB data) to Google Apps.
+     - Citrix Virtualization: Deployed Citrix XenDesktop and XenApp farm across
+       9 cluster nodes.
+     - Enterprise Databases: Administered MS SQL Server 2008 clusters supporting
+       MS Dynamics 10, GoldMine, and O'Neil database applications.
+
+  D. Networking, Security & Remote Operations
+     - Cisco Network Architecture: Deployed and managed Cisco ASA 5510, PIX 515,
+       MDS 9100 fabric switches, and Cisco 2600 routers.
+     - WAN BGP Failover: Configured BGP failover on Cisco 2600 between Verizon T3
+       and T1 circuits.
+     - Remote Office Connectivity: Designed wireless failover systems for small
+       remote locations using Nexaira cellular devices.
+     - Security & Monitoring: Deployed Barracuda Web & Email Spam filters.
+       Monitored systems with Nagios, Wireshark, Cacti, ntop, and HP ProCurve
+       switches.
+     - Documentation Portal: Designed a custom WordPress site for IT
+       documentation, runbooks, and daily activity logs.
+
+TECH STACK:
+  [Operating Systems]           CentOS 6, Novell SUSE Linux ES 10, Windows
+                                Server 2008 (Active Directory)
+  [Cloud & Virtualization]      Amazon AWS (EC2, VPC, ELB, EBS, Cold DR),
+                                VMware (vSphere 4-node cluster, VDR backup, P2V),
+                                Citrix (XenDesktop, XenApp 9-node farm)
+  [Directory & Email]           MS Active Directory, Novell eDirectory, Google
+                                Apps, Novell GroupWise 8, Novell iPrint,
+                                iFolders, ZenWorks, NSS, Novell Clustering
+  [Databases & Apps]            MS SQL Server 2008 Cluster, MS Dynamics 10,
+                                GoldMine, O'Neil
+  [Networking & Hardware]       Cisco ASA 5510, Cisco PIX 515, Cisco MDS 9100
+                                fabric switch, Cisco 2600 routers (BGP failover),
+                                HP ProCurve switches, Nexaira wireless failover
+                                devices
+  [Storage & Infrastructure]    EMC SAN, HP MSA2342fc SAN, Dell Fiber Channel,
+                                Dell Servers, HP ProLiant DL Servers
+  [Monitoring, Security & Admin]Nagios, Cacti, ntop, Wireshark, Barracuda Web
+                                & Email Spam Filter, BIND, Squid, DHCP, Apache,
+                                Tomcat, MySQL, OTRS, WordPress
+
+
+--------------------------------------------------------------------------------
+COMPANY: Ricoh USA (Pine Brook, NJ)
+TENURE: July 2007 – Dec 2008
+--------------------------------------------------------------------------------
+
+ROLES:
+  * Senior Software Engineer, Product Test and Evaluation Center
+  * Lead Systems Administrator & Lead Unix / Linux Product Engineer
+  * Sole SysOps Engineer for Engineering Departments
+
+COMPANY SCOPE:
+  * Industry: Office equipment, document solutions, and IT services.
+  * Scope: Sole SysOps engineer supporting all software engineering departments,
+    driving quality engineering, infrastructure modernization, and rapid cycle testing.
+
+ACCOMPLISHMENTS & TECHNICAL DOMAINS:
+
+  A. Quality Engineering (QE) & Systems Modernization
+     - Infrastructure Overhaul: Sole SysOps engineer supporting all engineering
+       departments; modernized QE and software development infrastructure and
+       procedures.
+     - Rapid Build Iterations: Developed virtualization policies and procedures
+       ensuring fast iterative cycles between software builds.
+     - Automated Imaging System: Built a PXE Boot menu and Symantec Ghost
+       imaging/restoration system hosted on a Fedora 9 server.
+
+  B. Cross-Platform Operating System & Service Administration
+     - Multi-OS Administration: Administered Solaris 10, Red Hat / Fedora 9,
+       Ubuntu 8, SUSE OES2, NetWare 6.5, macOS X, Windows Server 2003/2008 (Active
+       Directory Forest, Exchange, Citrix, Clusters), 64 desktops, and 45
+       Multi-Function Printer (MFP) devices.
+     - Unix/Linux Core Services: Administered OpenLDAP, LAMP stack, vsftpd,
+       BIND DNS, Samba, CUPS, Backup Exec, MRTG, Nagios monitoring, bash scripting,
+       crontab automation, kernel tuning, kernel compiling, LVM, and RAID
+       configurations.
+
+  C. Network Analysis & Test Coordination
+     - Packet Inspection: Configured Cisco routing across multi-segmented networks
+       with port mirroring for Wireshark packet analysis.
+     - Simulated Workload Testing: Developed Unix/Linux test routines to simulate
+       production-quality data and manage workload test cycles.
+     - International Cross-Functional Leadership: Managed test execution teams,
+       prepared/presented final test reports, and led international coordination
+       meetings across engineering divisions.
+
+TECH STACK:
+  [Operating Systems]           Solaris 10, Red Hat / Fedora 9, Ubuntu 8, SUSE
+                                OES2, NetWare 6.5, macOS X, Windows Server
+                                2003, Windows Server 2008
+  [Directory & Core Services]   OpenLDAP, Active Directory, Exchange, BIND, Samba,
+                                CUPS, vsftpd, LAMP stack
+  [Virtualization & Backup]     Virtualization platforms, PXE Boot menu,
+                                Symantec Ghost imaging & restoration, Backup Exec
+  [Networking & Monitoring]     Cisco routing (multi-segmented, port spanning),
+                                Wireshark, Nagios, MRTG
+  [Systems & Storage Management]Kernel tuning/compiling, LVM, RAID setups, bash
+                                scripting, crontab automation
+  [Hardware]                    Multi-Function Printers / MFPs (45 devices),
+                                Desktops (64 units)
+
+
+--------------------------------------------------------------------------------
+COMPANY: Canon USA, Inc. (Lake Success / New Hyde Park, NY)
+TENURE: Oct 2000 – June 2007
+--------------------------------------------------------------------------------
+
+ROLES:
+  * Product Engineering Specialist, Systems & Software Technical Support Division
+  * Sun Systems Engineer / Systems & Support Test Engineer
+
+COMPANY SCOPE:
+  * Industry: Optical, imaging, and industrial equipment manufacturing.
+  * Scope: Level 3 architectural and support engineer for Solaris print servers
+    and enterprise engines, while building and scaling hardware and software lab infrastructure.
+
+ACCOMPLISHMENTS & TECHNICAL DOMAINS:
+
+  A. Product Engineering & Enterprise High-Volume Print Engines
+     - Solaris Print Engines: Served as Product Engineer on Solaris and
+       Java-driven print servers powering multi-million dollar Kodak co-developed
+       enterprise high-volume print engines.
+     - Level 3 Escalation Support: Functioned as Sun Systems Engineer (Solaris,
+       Sun Fire hardware) and EFI Linux print server engineer, providing Level 3
+       architecture solutions and technical support to global clients,
+       developers, field engineers, and product teams.
+
+  B. Lab Infrastructure, Virtualization & Systems Administration
+     - QE Laboratory Construction: Built and administered the engineering
+       Quality Engineering (QE) laboratory environment.
+     - Virtualization & Imaging: Early adopter of VMware 3.0 ESX Server; built
+       workstation imaging systems using PXE/TFTP and Norton Ghost to manage 150+
+       servers and print engines for rapid iterative testing.
+     - Core Linux Infrastructure: Administered Red Hat 8 Linux systems running
+       BIND DNS, DHCP, Squid proxy, vsftpd, iptables firewall, and routing services.
+     - Database Administration (DBA): Served as DBA on MS SQL Server and call
+       center / bug tracking applications supporting Technical Support.
+     - Network & Backup Management: Managed Veritas Backup Exec and performed deep-
+       packet network traffic analysis using Ethereal (0.10.7) and EtherPeek (5.0).
+
+  C. Quality Assurance, Technical Publications & Training
+     - Testing & Feedback Loops: Established QE alignment, test plan development,
+       bug investigations, and feedback loop processes between clients, QA, and
+       core developers.
+     - Technical Authoring & Seminars: Published official "Technical Publications"
+       for field support and sales teams; lectured at technical training seminars
+       for software engineers, field technicians, and marketing teams on new
+       product releases.
+
+TECH STACK:
+  [OS & Servers]                Solaris (Sun systems), Red Hat 8 Linux,
+                                Linux (EFI print servers)
+  [Virtualization & Deployment] VMware 3.0 ESX Server, PXE / TFTP Boot,
+                                Norton Ghost
+  [Databases & Applications]    MS SQL Server (call center & bug tracking DBs),
+                                Java-driven print engine applications
+  [Networking & Linux Services] BIND, DHCP, Squid, vsftpd, iptables,
+                                network routing
+  [Analysis & Diagnostics]      Ethereal (0.10.7), EtherPeek (5.0)
+  [Backup & Hardware]           Veritas Backup Exec, Sun Fire servers, Kodak
+                                co-developed high-volume print engines, 150+
+                                servers and printers
+================================================================================
