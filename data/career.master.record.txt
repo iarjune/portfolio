@@ -133,8 +133,7 @@ ACCOMPLISHMENTS & TECHNICAL DOMAINS:
   I. Observability & SRE Practice
      - Observability Migration: Replaced fragmented legacy monitoring tools
        (Prometheus, ELK/Graylog, Nagios, Catchpoint, Logstash, Filebeat, Telegraf,
-       Graphite, Grafana) with a standardized Datadog (APM/Logs) and OpenTelemetry
-       (OTel) stack.
+       Graphite, Grafana) with a standardized Datadog (APM/Logs/Metrics/Tracing) stack.
      - Incident Response: Integrated Datadog with PagerDuty for incident response
        and reduced MTTR.
      - DevEx Metrics: Partnered with SRE to instrument and track developer experience
@@ -168,7 +167,7 @@ TECH STACK:
                                 (Tungsten), Redis, Solr, Airflow
   [AI Developer Tools]          Claude Code, Windsurf / Codex, GitHub Copilot,
                                 ChatGPT, Centralized LLM Proxy Gateways
-  [Observability & SRE]         Datadog (APM, Logging), OpenTelemetry, PagerDuty,
+  [Observability & SRE]         Datadog (APM, Logging, Tracing), PagerDuty,
                                 Linkerd, Kubecost, Prometheus, Grafana,
                                 Telegraf, Nagios, ELK / Graylog / Filebeat,
                                 Catchpoint, Graphite
