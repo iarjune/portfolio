@@ -44,9 +44,9 @@ basics:
       My goal is simple: build platforms that make engineering teams faster, systems more resilient, and operational complexity progressively less visible.
   
 resumes:
-  persona1: "https://github.com/devops-end2end/portfolio/blob/main/data/resumes/Ivan.Arjune.347-781-4826_Lead.pdf"
-  persona2: "https://github.com/devops-end2end/portfolio/blob/main/data/resumes/Ivan.Arjune.347-781-4826_Infra.pdf"
-  persona3: "https://github.com/devops-end2end/portfolio/blob/main/data/resumes/Ivan.Arjune.347-781-4826_Platform.pdf"
+  persona1: "https://github.com/iarjune/portfolio/blob/main/data/resumes/Ivan.Arjune.347-781-4826_Lead.pdf"
+  persona2: "https://github.com/iarjune/portfolio/blob/main/data/resumes/Ivan.Arjune.347-781-4826_Infra.pdf"
+  persona3: "https://github.com/iarjune/portfolio/blob/main/data/resumes/Ivan.Arjune.347-781-4826_Platform.pdf"
 
 skills:
   leadership_engineering_management:
