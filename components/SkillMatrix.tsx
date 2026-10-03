@@ -11,11 +11,19 @@ interface SkillCategory {
 
 interface SkillMatrixProps {
   skills: {
-    cloud_k8s: SkillItem[];
-    gitops_cicd: SkillItem[];
-    data_ml_search: SkillItem[];
-    devsecops_observability: SkillItem[];
-    hardware_networking: SkillItem[];
+    leadership_engineering_management: SkillItem[];
+    infrastructure_cloud: SkillItem[];
+    kubernetes_container_platforms: SkillItem[];
+    infrastructure_as_code: SkillItem[];
+    gitops_cicd_release: SkillItem[];
+    mlops_ml_platform: SkillItem[];
+    data_streaming_distributed_systems: SkillItem[];
+    observability_reliability_devsecops: SkillItem[];
+    ai_llm_developer_tooling: SkillItem[];
+    networking_compute: SkillItem[];
+    storage_data_center: SkillItem[];
+    automation_scripting_api: SkillItem[];
+    engineering_tools_collaboration: SkillItem[];
   };
   activePersona: RolePersona;
 }
@@ -29,37 +37,82 @@ const personaHighlightClass: Record<RolePersona, string> = {
 const defaultChipClass = 'bg-zinc-900 border-zinc-800 text-zinc-500';
 
 const categoryMap: Record<string, { title: string; description: string }> = {
-  cloud_k8s: {
-    title: 'Cloud & K8s Platforms',
-    description: 'Multi-cloud architectures, bare-metal clusters, and container orchestration.',
+  leadership_engineering_management: {
+    title: 'Engineering Leadership & Strategy',
+    description:
+      'Technical leadership, engineering strategy, architecture, modernization, delivery, and organizational transformation.',
   },
+
+  infrastructure_cloud: {
+    title: 'Cloud & Infrastructure Engineering',
+    description:
+      'Cloud architecture, hybrid infrastructure, compute platforms, and infrastructure modernization at scale.',
+  },
+
+  kubernetes_container_platforms: {
+    title: 'Kubernetes & Container Platforms',
+    description:
+      'Kubernetes platform engineering, container orchestration, cluster lifecycle management, and cloud-native platforms.',
+  },
+
   infrastructure_as_code: {
-    title: 'IaC & Platform Automation',
-    description: 'Automating entire infrastructure lifecycles from bare-metal provisioning to cloud-native deployments.',
+    title: 'Infrastructure as Code & Automation',
+    description:
+      'Declarative infrastructure, configuration management, provisioning, and automated infrastructure lifecycles.',
   },
-  gitops_cicd: {
-    title: 'GitOps & CI/CD',
-    description: 'Declarative infrastructure-as-code and automated canary delivery workflows.',
+
+  gitops_cicd_release: {
+    title: 'GitOps, CI/CD & Release Engineering',
+    description:
+      'GitOps architectures, continuous delivery, workflow automation, progressive delivery, and release engineering.',
   },
-  ai_developer_tooling: {
-    title: 'AI Tooling & LLMOps',
-    description: 'AI-Augmented development and MLOps integrations.',
+
+  mlops_ml_platform: {
+    title: 'MLOps & ML Platforms',
+    description:
+      'Machine learning infrastructure, model lifecycle automation, ML platforms, feature stores, and model delivery.',
   },
-  scripting_devtools: {
-    title: 'Scripting & Dev Tooling',
-    description: 'Building tools for automation, AI-augmented coding, and secure development workflows.',
+
+  data_streaming_distributed_systems: {
+    title: 'Data, Streaming & Distributed Systems',
+    description:
+      'High-throughput distributed systems, streaming platforms, search, messaging, and large-scale data infrastructure.',
   },
-  data_ml_search: {
-    title: 'Data, MLOps & Vector Search',
-    description: 'High-throughput real-time distributed data pipelines and AI retrieval engines.',
+
+  observability_reliability_devsecops: {
+    title: 'Reliability, Observability & DevSecOps',
+    description:
+      'Observability, reliability engineering, security automation, policy enforcement, secrets management, and incident response.',
   },
-  devsecops_observability: {
-    title: 'DevSecOps, Identity & Observability',
-    description: 'Zero-trust networks, telemetric telemetry tracing, and secrets management.',
+
+  ai_llm_developer_tooling: {
+    title: 'AI, LLM & Developer Tooling',
+    description:
+      'AI-assisted engineering, LLM integrations, developer tooling, centralized AI services, and secure AI workflows.',
   },
-  hardware_networking: {
-    title: 'Datacenter & Networking',
-    description: 'Datacenter hardware engineering, low-latency switching, and edge networks.',
+
+  networking_compute: {
+    title: 'Networking & Compute Infrastructure',
+    description:
+      'Enterprise networking, routing, load balancing, virtualization, bare-metal compute, and datacenter infrastructure.',
+  },
+
+  storage_data_center: {
+    title: 'Storage & Datacenter Infrastructure',
+    description:
+      'Enterprise storage, SAN/NAS, distributed storage, physical infrastructure, and large-scale datacenter operations.',
+  },
+
+  automation_scripting_api: {
+    title: 'Automation, Scripting & APIs',
+    description:
+      'Infrastructure automation, Python and shell scripting, API integration, and engineering productivity tooling.',
+  },
+
+  engineering_tools_collaboration: {
+    title: 'Engineering Tools & Collaboration',
+    description:
+      'Engineering collaboration, documentation, planning, and tools supporting technical delivery at scale.',
   },
 };
 

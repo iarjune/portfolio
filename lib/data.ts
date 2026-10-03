@@ -18,14 +18,19 @@ export interface CareerData {
     value_props: Record<RolePersona, string>;
   };
   skills: {
-    cloud_k8s: SkillItem[];
-    gitops_cicd: SkillItem[];
-    data_ml_search: SkillItem[];
-    devsecops_observability: SkillItem[];
-    hardware_networking: SkillItem[];
+    leadership_engineering_management: SkillItem[];
+    infrastructure_cloud: SkillItem[];
+    kubernetes_container_platforms: SkillItem[];
     infrastructure_as_code: SkillItem[];
-    ai_developer_tooling: SkillItem[];
-    scripting_devtools: SkillItem[];
+    gitops_cicd_release: SkillItem[];
+    mlops_ml_platform: SkillItem[];
+    data_streaming_distributed_systems: SkillItem[];
+    observability_reliability_devsecops: SkillItem[];
+    ai_llm_developer_tooling: SkillItem[];
+    networking_compute: SkillItem[];
+    storage_data_center: SkillItem[];
+    automation_scripting_api: SkillItem[];
+    engineering_tools_collaboration: SkillItem[];
   };
   case_studies: {
     id: string;

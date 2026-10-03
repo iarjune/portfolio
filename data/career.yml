@@ -6,7 +6,7 @@ basics:
   location: "New York, NY"
   status: " Available to Lead your Ops Teams [DevOps | DevEx | SRE | Infra | Platform]"
   value_props:
-# Lead Ops Engineer
+# Lead Ops Engineer and Mgmt
     persona1: |-
       <b>Great engineering organizations don't scale by adding more tools or people to solve operational problems. They scale by building platforms, automation, and engineering practices that make reliability, efficiency, and developer autonomy the default.</b>
 
@@ -17,7 +17,7 @@ basics:
       Whether leading an engineering team or serving as a hands-on technical lead, I focus on outcomes that matter: faster delivery, resilient systems, lower operational overhead, and engineering teams that can scale without accumulating unnecessary complexity.
 
       I'm at my best where challenging technical problems meet opportunities to transform how engineering teams operate.
-
+# Infra & MLOPs Engineer
     persona2: |-
       <b>Production machine learning is only as effective as the infrastructure, data pipelines, and operational systems supporting it. Moving models from experimentation to production—and keeping them reliable, performant, and relevant over time—requires more than ML tooling. It requires a deep understanding of distributed systems, data engineering, infrastructure automation, and production operations.</b>
 
@@ -49,181 +49,243 @@ resumes:
   persona3: "https://github.com/devops-end2end/portfolio/blob/main/data/resumes/Ivan.Arjune.347-781-4826_Platform.pdf"
 
 skills:
-  infrastructure_as_code:
-    - name: "Terraform / Terraform Cloud Operator"
-      personas: [persona2, persona3]
-    - name: "Crossplane"
-      personas: [persona2, persona3]
-    - name: "Ansible"
-      personas: [persona2, persona3]
-    - name: "Puppet (Roles & Profiles / Hiera)"
-      personas: [persona2, persona3]
-    - name: "Kustomize"
-      personas: [persona2, persona3]
-    - name: "HCL Enterprise DSL (HashiCorp)"
-      personas: [persona2, persona3]
-
-  cloud_k8s:
+  leadership_engineering_management:
+    - name: "Technical Leadership"
+      personas: [persona1]
+    - name: "Engineering Strategy & Roadmaps"
+      personas: [persona1]
+    - name: "Platform / Infrastructure Strategy"
+      personas: [persona1, persona3]
+    - name: "Architecture & Technical Standards"
+      personas: [persona1, persona2]
+    - name: "Cross-Functional Technical Leadership"
+      personas: [persona1]
+    - name: "Engineering Team Leadership"
+      personas: [persona1]
+    - name: "Mentoring & Technical Development"
+      personas: [persona1]
+    - name: "Developer Experience Strategy"
+      personas: [persona1, persona3]
+    - name: "Engineering Process & Delivery"
+      personas: [persona1, persona3]
+    - name: "Cloud & Infrastructure Cost Optimization"
+      personas: [persona1, persona2]
+    - name: "Infrastructure Modernization"
+      personas: [persona1, persona2]
+    - name: "Organizational / Technology Transformation"
+      personas: [persona1]
+    - name: "Stakeholder & Executive Communication"
+      personas: [persona1]
+    - name: "Hiring / Team Building"
+      personas: [persona1]
+    - name: "Incident / Operational Leadership"
+      personas: [persona1, persona2]
+    - name: "Technical Program Leadership"
+      personas: [persona1]
+  infrastructure_cloud:
     - name: "AWS (EKS, VPC, EC2, EMR, Lambda)"
-      personas: [persona1, persona2, persona3]
+      personas: [persona1, persona2]
+    - name: "Cloud Architecture"
+      personas: [persona1, persona2]
+    - name: "AWS Infrastructure Architecture"
+      personas: [persona1, persona2]
+    - name: "Hybrid Cloud Infrastructure"
+      personas: [persona1, persona2]
+    - name: "Cloud Cost Optimization"
+      personas: [persona1, persona2]
+  kubernetes_container_platforms:
     - name: "Kubernetes"
-      personas: [persona2, persona3]
+      personas: [persona2]
     - name: "Karpenter"
-      personas: [persona1, persona2, persona3]
-    - name: "Rancher"
-      personas: [persona3]
-    - name: "CoreOS"
-      personas: [persona3]
+      personas: [persona2]
     - name: "Docker"
       personas: [persona2]
-
-  gitops_cicd:
+    - name: "Rancher"
+      personas: [persona2]
+    - name: "CoreOS"
+      personas: [persona2]
+    - name: "Linkerd"
+      personas: [persona2]
+    - name: "Kubeflow"
+      personas: [persona2]
+    - name: "Spark Operator"
+      personas: [persona2]
+  infrastructure_as_code:
+    - name: "Terraform / Terraform Cloud Operator"
+      personas: [persona3]
+    - name: "Crossplane"
+      personas: [persona3]
+    - name: "Ansible"
+      personas: [persona3]
+    - name: "Puppet (Roles & Profiles / Hiera)"
+      personas: [persona2]
+    - name: "Kustomize"
+      personas: [persona3]
+    - name: "HCL Enterprise DSL (HashiCorp)"
+      personas: [persona3]
+    - name: "PXE Boot / Kickstart / TFTP"
+      personas: [persona2]
+  gitops_cicd_release:
     - name: "Argo CD"
-      personas: [persona2, persona3]
+      personas: [persona2]
     - name: "Argo Workflows"
-      personas: [persona2, persona3]
+      personas: [persona2]
     - name: "Argo Events"
-      personas: [persona2, persona3]
+      personas: [persona2]
     - name: "Argo Rollouts"
-      personas: [persona2, persona3]
+      personas: [persona3]
     - name: "GitHub Actions"
-      personas: [persona1, persona2, persona3]
+      personas: [persona3]
     - name: "Jenkins"
-      personas: [persona2]
+      personas: [persona3]
     - name: "Bitbucket"
-      personas: [persona2]
+      personas: [persona3]
     - name: "Artifactory"
       personas: [persona3]
     - name: "SonarQube / SonarCloud"
-      personas: [persona1, persona3]
-
-  data_ml_search:
-    - name: "Vespa Cloud"
+      personas: [persona3]
+    - name: "CI/CD Architecture"
+      personas: [persona3]
+    - name: "GitOps Architecture"
+      personas: [persona3]
+    - name: "Progressive Delivery"
+      personas: [persona3]
+  mlops_ml_platform:
+    - name: "ML Platform Engineering"
       personas: [persona2, persona3]
-    - name: "Apache Kafka (MSK, Schema Registry, MirrorMaker)"
-      personas: [persona2, persona3]
-    - name: "ClickHouse"
-      personas: [persona3]
-    - name: "Aerospike"
-      personas: [persona3]
-    - name: "RabbitMQ"
-      personas: [persona2]
-    - name: "Databricks"
-      personas: [persona3]
-    - name: "Kubeflow"
+    - name: "MLOps"
       personas: [persona2, persona3]
     - name: "MLflow"
-      personas: [persona2, persona3]
+      personas: [persona2]
     - name: "Feature Stores"
-      personas: [persona2, persona3]
+      personas: [persona2]
+    - name: "Kubeflow"
+      personas: [persona2]
+    - name: "Databricks"
+      personas: [persona2]
     - name: "Spark Operator"
-      personas: [persona3]
+      personas: [persona2]
     - name: "Airflow / Azkaban (Legacy)"
-      personas: [persona3]
+      personas: [persona2]
+    - name: "Model Deployment & Serving"
+      personas: [persona2]
+    - name: "ML Infrastructure Automation"
+      personas: [persona2]
+  data_streaming_distributed_systems:
+    - name: "Apache Kafka (MSK, Schema Registry, MirrorMaker)"
+      personas: [persona2]
+    - name: "Vespa Cloud"
+      personas: [persona2]
+    - name: "ClickHouse"
+      personas: [persona2]
+    - name: "Aerospike"
+      personas: [persona2]
+    - name: "RabbitMQ"
+      personas: [persona2]
+    - name: "Spark"
+      personas: [persona2]
+    - name: "Hadoop (HDFS/YARN)"
+      personas: [persona2]
     - name: "Cloudera CDH5"
-      personas: [persona3]
-    - name: "Hadoop (HDFS/Yarn)"
-      personas: [persona3]
-
-  devsecops_observability:
+      personas: [persona2]
+  observability_reliability_devsecops:
     - name: "Datadog (APM, Logging)"
-      personas: [persona1, persona2]
+      personas: [persona3]
     - name: "OpenTelemetry"
-      personas: [persona2, persona3]
-    - name: "PagerDuty"
-      personas: [persona1, persona2]
-    - name: "Linkerd"
       personas: [persona3]
-    - name: "Kubecost"
-      personas: [persona1, persona3]
     - name: "Prometheus"
-      personas: [persona2, persona3]
+      personas: [persona3]
     - name: "Grafana"
-      personas: [persona2, persona3]
+      personas: [persona3]
+    - name: "PagerDuty"
+      personas: [persona3]
     - name: "Open Policy Agent (OPA)"
-      personas: [persona1, persona3]
+      personas: [persona3]
     - name: "Snyk"
-      personas: [persona1, persona2, persona3]
+      personas: [persona3]
     - name: "JFrog Xray"
-      personas: [persona1, persona3]
+      personas: [persona3]
     - name: "Akeyless / HashiCorp Vault"
-      personas: [persona2, persona3]
+      personas: [persona3]
     - name: "SBOM Generation"
-      personas: [persona1, persona3]
+      personas: [persona3]
     - name: "Nexpose / Metasploit"
+      personas: [persona2]
+    - name: "SRE / Reliability Engineering"
+      personas: [persona2]
+    - name: "Incident Response & Observability"
       personas: [persona3]
-
-  ai_developer_tooling:
+    - name: "Security Automation"
+      personas: [persona2]
+  ai_llm_developer_tooling:
     - name: "Claude Code / Windsurf / OpenAI"
-      personas: [persona1, persona2, persona3]
+      personas: [persona3]
     - name: "GitHub Copilot"
-      personas: [persona1, persona2, persona3]
+      personas: [persona3]
     - name: "ChatGPT / LLM Integration"
-      personas: [persona1, persona2, persona3]
+      personas: [persona3]
     - name: "Centralized LLM Proxy Gateways"
-      personas: [persona1, persona3]
+      personas: [persona2]
     - name: "PII Sanitization Pipelines"
-      personas: [persona1, persona3]
-
-  hardware_networking:
-    # Hypervisors & Bare Metal Compute
+      personas: [persona2]
+    - name: "AI-Assisted Developer Workflows"
+      personas: [persona3]
+  networking_compute:
     - name: "The Foreman"
-      personas: [persona2, persona3]
+      personas: [persona2]
     - name: "KVM (600+ VMs)"
-      personas: [persona2, persona3]
+      personas: [persona2]
     - name: "Xen / Xen Private Cloud"
-      personas: [persona3]
+      personas: [persona2]
     - name: "VMware vSphere / ESX"
-      personas: [persona3]
-    # Switching & Load Balancing
+      personas: [persona2]
     - name: "Arista Switches (TOR / Spine)"
-      personas: [persona2, persona3]
+      personas: [persona2]
     - name: "Juniper Switches (TOR)"
-      personas: [persona3]
+      personas: [persona2]
     - name: "F5 Big-IP (ASM / GTM)"
-      personas: [persona2, persona3]
+      personas: [persona2]
     - name: "NetScaler"
-      personas: [persona3]
+      personas: [persona2]
     - name: "Cisco ASA / PIX Firewalls"
-      personas: [persona3]
+      personas: [persona2]
     - name: "Cisco MDS 9100 SAN Fabric"
-      personas: [persona3]
+      personas: [persona2]
     - name: "BGP / Layer 3 Routing"
-      personas: [persona2, persona3]
+      personas: [persona2]
     - name: "VLAN ACLs"
-      personas: [persona3]
-    # Bare-Metal & Physical Servers
-    - name: "Dell PowerEdge Servers (10k+ units)"
-      personas: [persona2, persona3]
-    - name: "HP ProLiant DL Servers"
-      personas: [persona3]
-    - name: "Rack & Stack / Data Center Build-Out"
-      personas: [persona3]
-    # Provisioning & Automation
-    - name: "PXE Boot / Kickstart / TFTP"
-      personas: [persona2, persona3]
-    # Storage
-    - name: "Ceph Storage (Bare-Metal)"
-      personas: [persona2, persona3]
-    - name: "NAS / SAN / NFS / ZFS"
-      personas: [persona3]
-    - name: "EMC SAN / Isilon / Nexenta"
-      personas: [persona3]
-    # DNS & Core Network Services
+      personas: [persona2]
     - name: "BIND DNS / DHCP"
-      personas: [persona2, persona3]
+      personas: [persona2]
     - name: "NGINX / HAProxy"
-      personas: [persona2, persona3]
-
-  scripting_devtools:
+      personas: [persona2]
+  storage_data_center:
+    - name: "Dell PowerEdge Servers (10k+ units)"
+      personas: [persona2]
+    - name: "HP ProLiant DL Servers"
+      personas: [persona2]
+    - name: "Rack & Stack / Data Center Build-Out"
+      personas: [persona2]
+    - name: "Ceph Storage (Bare-Metal)"
+      personas: [persona2]
+    - name: "NAS / SAN / NFS / ZFS"
+      personas: [persona2]
+    - name: "EMC SAN / Isilon / Nexenta"
+      personas: [persona2]
+  automation_scripting_api:
     - name: "Python"
-      personas: [persona2, persona3]
+      personas: [persona3]
     - name: "Bash / Shell Scripting"
-      personas: [persona2, persona3]
-    - name: "Jira / Confluence"
-      personas: [persona1, persona2, persona3]
+      personas: [persona3]
     - name: "REST API Design"
-      personas: [persona2, persona3]
+      personas: [persona3]
+    - name: "Infrastructure Automation"
+      personas: [persona3]
+    - name: "API Automation & Integration"
+      personas: [persona3]
+  engineering_tools_collaboration:
+    - name: "Jira / Confluence"
+      personas: [persona3]
 
 case_studies:
   - id: "eks-migration"
@@ -363,25 +425,28 @@ experience:
     summary: "Led platform engineering, cloud transformation, zero-downtime datacenter decommissioning, and high-throughput infrastructure supporting ultra-low-latency ad serving."
     tags:
       - Leadership
-      - AWS
+      - Scrum Master
+      - Kubernetes
+      - Infrastructure
+      - SRE
+      - Cloud
       - Devops
+      - IaC
+      - Observability
       - CI/CD
+      - DevEx
       - Self Service IDP
       - FinOps
       - DevSecOps
-      - DevEx
       - GitOps
-      - Mem Cached DBs
-      - SQL DBs
-      - Kubernetes
+      - Cache DBs
+      - Big Data
+      - Streaming
+      - MLOps
       - Argo
-      - IaC
-      - Datadog
-      - Databricks
-      - Observability
-      - PagerDuty
-      - Datacenter Ops
-      - Scrum Master
+      - Kubeflow/MLFlow/Feast
+      - Data Center
+
 
     achievements:
       - title: Platform Leadership, Engineering Scale & Governance
