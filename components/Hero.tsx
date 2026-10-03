@@ -154,6 +154,7 @@ export default function Hero({
               width={480}
               height={280}
               className="w-full h-full object-contain"
+              loading="eager"
             />
           </div>
         </div>
