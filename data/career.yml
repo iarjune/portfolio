@@ -6,7 +6,7 @@ basics:
   location: "New York, NY"
   status: " Available to Lead your Ops Teams [DevOps | DevEx | SRE | Infra | Platform]"
   value_props:
-# Lead Ops Engineer and Mgmt
+    # Lead Ops Engineer and Mgmt
     persona1: |-
       <b>Great engineering organizations don't scale by adding more tools or people to solve operational problems. They scale by building platforms, automation, and engineering practices that make reliability, efficiency, and developer autonomy the default.</b>
 
@@ -17,7 +17,7 @@ basics:
       Whether leading an engineering team or serving as a hands-on technical lead, I focus on outcomes that matter: faster delivery, resilient systems, lower operational overhead, and engineering teams that can scale without accumulating unnecessary complexity.
 
       I'm at my best where challenging technical problems meet opportunities to transform how engineering teams operate.
-# Infra & MLOPs Engineer
+    # Infra & MLOPs Engineer
     persona2: |-
       <b>Production machine learning is only as effective as the infrastructure, data pipelines, and operational systems supporting it. Moving models from experimentation to production—and keeping them reliable, performant, and relevant over time—requires more than ML tooling. It requires a deep understanding of distributed systems, data engineering, infrastructure automation, and production operations.</b>
 
@@ -28,8 +28,8 @@ basics:
       Beyond orchestration, I engineer the production environment that ML systems depend on: scalable compute, reliable streaming, observability, security guardrails, and cost-efficient resource utilization. My experience operating complex systems like Kafka, Aerospike, ClickHouse, and Vespa bridges the gap between data-intensive ML workloads and the demands of real-time production systems.
 
       I build MLOps platforms that turn machine learning from a collection of experimental workflows into a repeatable, scalable, and production-ready engineering discipline
-      
-# Platform Engineer
+
+    # Platform Engineer
     persona3: |-
       <b>A successful internal developer platform does more than provision infrastructure—it transforms the way engineering organizations build, deploy, and operate software.</b> I approach platform engineering as product engineering, combining systems architecture, developer experience, and operational excellence to create platforms that make the secure, reliable path the easiest path.
 
@@ -42,7 +42,7 @@ basics:
       I bring the perspective of both a systems engineer who understands what happens beneath the abstractions and a platform architect who understands why those abstractions matter to developers and the business.
 
       My goal is simple: build platforms that make engineering teams faster, systems more resilient, and operational complexity progressively less visible.
-  
+
 resumes:
   persona1: "https://raw.githubusercontent.com/iarjune/portfolio/main/data/resumes/Ivan.Arjune.347-781-4826_Lead.pdf"
   persona2: "https://raw.githubusercontent.com/iarjune/portfolio/main/data/resumes/Ivan.Arjune.347-781-4826_Infra.pdf"
@@ -447,7 +447,6 @@ experience:
       - Kubeflow/MLFlow/Feast
       - Data Center
 
-
     achievements:
       - title: Platform Leadership, Engineering Scale & Governance
         story: Starting as one of two engineers managing the entire infrastructure footprint before post-COVID expansion, grew and led a cross-functional team of 15+ platform, DevOps, and infrastructure engineers. Managed end-to-end team hiring, career development, and engineering governance while bridging product requirements with hosting infrastructure. Acted as Scrum Master to align strategic planning, manage risk, and drive execution across teams, while serving on the Architecture Review Board (ARB) and engineering guilds. Spearheaded developer engagement through weekly open office hours, tech talks, and feedback loops directly integrated into developer portals, using DevEx metrics (build times, deployment frequency, MTTR) to continuously improve engineering velocity and software quality.
@@ -532,13 +531,12 @@ experience:
           - "Consolidated cloud services by leveraging open-source components and pipeline automations in Argo Workflows and Kubernetes to drastically cut Databricks compute costs for data engineering."
           - "Replaced fragmented legacy monitoring tools (Prometheus, ELK/Graylog, Nagios, Catchpoint, Logstash, Filebeat, Telegraf, Graphite, Grafana) with a standardized Datadog (APM Tracing, Logs, Metrics and Alert Mgmt)"
 
-
   - company: "Collective"
     location: "New York, NY"
     tenure: "Dec 2015 – Oct 2016"
     roles:
       - "Linux Systems Engineer"
-    image: "collective.jpg"
+    image: "avgh5n121.webp"
     tags:
       - "AWS"
       - "Terraform"
@@ -628,7 +626,7 @@ experience:
     tenure: "Dec 2008 – Dec 2012"
     roles:
       - "Lead Linux Systems Engineer"
-    image: "grm.jpg"
+    image: "GRM_Logo.jpg"
     tags:
       - "Data Center"
       - "AWS"
@@ -719,7 +717,7 @@ experience:
     tenure: "Oct 2000 – June 2007"
     roles:
       - "Product Engineering Specialist & Unix/Linux Engineer"
-    image: "canon.png"
+    image: "canon-1.png"
     tags:
       - "Product Engineering"
       - "Solaris"
@@ -751,6 +749,3 @@ experience:
         bullets:
           - "Testing & Feedback Loops: Established QE alignment, test plan development, bug investigations, and feedback loop processes between clients, QA, and core developers."
           - "Technical Authoring & Seminars: Published official Technical Publications for field support and sales teams; lectured at technical training seminars for software engineers, field technicians, and marketing teams on new product releases."
-
-
-

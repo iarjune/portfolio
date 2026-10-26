@@ -26,19 +26,19 @@ export const personaConfig: Record<
     buttonLabel: 'Lead Ops Engineer',
     title: 'Lead Ops Engineer',
     subtitle: 'Strategic Operations Leadership, Digital Transformation, and Platform Scale',
-    activeClass: 'bg-blue-600 text-white shadow-lg shadow-blue-500/20',
+    activeClass: 'bg-[#9a3412] text-white shadow-md shadow-[#9a3412]/20',
   },
   persona2: {
     buttonLabel: 'Infrastructure / MLOps Engineer',
     title: 'Infrastructure / MLOps Engineer',
     subtitle: 'Architecting & Modernizing multi-cloud systems for max resiliency and efficiency.',
-    activeClass: 'bg-emerald-600 text-white shadow-lg shadow-emerald-500/20',
+    activeClass: 'bg-[#b45309] text-white shadow-md shadow-[#b45309]/20',
   },
   persona3: {
     buttonLabel: 'Platform Engineer',
     title: 'Platform Engineer',
     subtitle: 'Bridging Systems & Developer Autonomy to Drive High-Velocity Engineering for 20 Years',
-    activeClass: 'bg-purple-600 text-white shadow-lg shadow-purple-500/20',
+    activeClass: 'bg-[#15803d] text-white shadow-md shadow-[#15803d]/20',
   },
 };
 
@@ -61,43 +61,43 @@ export default function Hero({
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
   return (
-    <section className="relative overflow-hidden pt-12 pb-16 border-b border-zinc-800 bg-background">
+    <section className="relative overflow-hidden pt-12 pb-16 border-b border-[#e7e0d3] bg-background">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Status Indicator */}
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-xs sm:text-sm font-mono mb-8">
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#15803d]/30 bg-[#15803d]/10 text-[#166534] text-xs sm:text-sm font-mono mb-8">
           <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#15803d] opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#15803d]"></span>
           </span>
           <span>{careerData.basics.status}</span>
         </div>
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-10">
           <div className="space-y-2">
-            <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-zinc-100">
+            <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-[#292524]">
               {careerData.basics.name}
             </h1>
-            <h2 className="text-xl sm:text-2xl font-semibold text-emerald-400/90 tracking-tight">
+            <h2 className="text-xl sm:text-2xl font-semibold text-[#9a3412] tracking-tight">
               {careerData.basics.label}
             </h2>
-            <p className="text-sm font-mono text-zinc-400">
+            <p className="text-sm font-mono text-[#57534e]">
               {careerData.basics.location}
             </p>
 
-            <div className="pt-1 flex flex-row items-center gap-4">
+            <div className="pt-2 flex flex-row items-center gap-3">
               <a
                 href="https://github.com/orgs/devops-end2end/repositories"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub Profile"
-                className="inline-block opacity-80 hover:opacity-100 transition-opacity"
+                className="p-2 rounded-lg bg-[#ffffff] border border-[#e7e0d3] hover:border-[#9a3412] hover:bg-[#f5efe6] shadow-xs transition-all"
               >
                 <Image
                   src={`${basePath}/GitHub_Invertocat_White.svg`}
                   alt="GitHub"
-                  width={24}
-                  height={24}
-                  className="w-6 h-6 object-contain"
+                  width={20}
+                  height={20}
+                  className="w-5 h-5 object-contain brightness-0"
                 />
               </a>
 
@@ -106,14 +106,14 @@ export default function Hero({
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn Profile"
-                className="inline-block opacity-80 hover:opacity-100 transition-opacity"
+                className="p-2 rounded-lg bg-[#ffffff] border border-[#e7e0d3] hover:border-[#9a3412] hover:bg-[#f5efe6] shadow-xs transition-all"
               >
                 <Image
                   src={`${basePath}/linkedin-social-media.png`}
                   alt="LinkedIn"
-                  width={24}
-                  height={24}
-                  className="w-6 h-6 object-contain"
+                  width={20}
+                  height={20}
+                  className="w-5 h-5 object-contain"
                 />
               </a>
               <a
@@ -121,27 +121,27 @@ export default function Hero({
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Schedule a meeting"
-                className="inline-block opacity-80 hover:opacity-100 transition-opacity"
+                className="p-2 rounded-lg bg-[#ffffff] border border-[#e7e0d3] hover:border-[#9a3412] hover:bg-[#f5efe6] shadow-xs transition-all"
               >
                 <Image
                   src={`${basePath}/icon-calendar-white.png`}
                   alt="Calendar"
-                  width={24}
-                  height={24}
-                  className="w-6 h-6 object-contain"
+                  width={20}
+                  height={20}
+                  className="w-5 h-5 object-contain brightness-0"
                 />
               </a>
               <a
                 href="mailto:iarjune@gmail.com"
                 aria-label="Send Email"
-                className="inline-block opacity-80 hover:opacity-100 transition-opacity"
+                className="p-2 rounded-lg bg-[#ffffff] border border-[#e7e0d3] hover:border-[#9a3412] hover:bg-[#f5efe6] shadow-xs transition-all"
               >
                 <Image
                   src={`${basePath}/mail-icon.png`}
                   alt="Send Email"
-                  width={24}
-                  height={24}
-                  className="w-6 h-6 object-contain"
+                  width={20}
+                  height={20}
+                  className="w-5 h-5 object-contain"
                 />
               </a>
             </div>
@@ -149,7 +149,7 @@ export default function Hero({
 
           <div className="w-60 h-32 sm:w-[480px] sm:h-[280px] flex-start items-start justify-start">
             <Image
-              src={`${basePath}/artwork2.webp`}
+              src={`${basePath}/hiking_selfie_sketch_portfolio.svg`}
               alt="Portfolio Graphic"
               width={480}
               height={280}
@@ -161,10 +161,10 @@ export default function Hero({
 
         {/* Persona Switcher Tabs */}
         <div className="mb-8">
-          <div className="text-xs font-mono uppercase tracking-wider text-zinc-400 mb-3">
+          <div className="text-xs font-mono uppercase tracking-wider text-[#78716c] mb-3">
             Select Perspective
           </div>
-          <div className="inline-flex flex-wrap gap-2 p-1.5 rounded-xl border border-zinc-800 bg-zinc-950/80 backdrop-blur">
+          <div className="inline-flex flex-wrap gap-2 p-1.5 rounded-xl border border-[#e7e0d3] bg-[#ffffff] shadow-xs">
             {(Object.keys(personaConfig) as RolePersona[]).map((key) => {
               const isActive = currentPersona === key;
               return (
@@ -173,7 +173,7 @@ export default function Hero({
                   onClick={() => onPersonaChange(key)}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${isActive
                     ? personaConfig[key].activeClass
-                    : 'text-zinc-400 hover:text-white hover:bg-zinc-800/60'
+                    : 'text-[#57534e] hover:text-[#292524] hover:bg-[#f5efe6]'
                     }`}
                 >
                   [ {personaConfig[key].buttonLabel} ]
@@ -191,14 +191,14 @@ export default function Hero({
           transition={{ duration: 0.3 }}
           className="space-y-4 max-w-4xl"
         >
-          <span className="text-sm font-mono tracking-widest text-zinc-400 uppercase">
+          <span className="text-sm font-mono tracking-widest text-[#b45309] uppercase font-semibold">
             {config.subtitle}
           </span>
-          <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight">
+          <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#292524] leading-tight">
             {displayTitle}
           </h3>
           <p
-            className="text-lg sm:text-xl text-zinc-300 leading-relaxed whitespace-pre-line"
+            className="text-lg sm:text-xl text-[#57534e] leading-relaxed whitespace-pre-line"
             dangerouslySetInnerHTML={{ __html: valueProp }}
           />
         </motion.div>
@@ -210,7 +210,7 @@ export default function Hero({
               href={currentResumeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-5 py-2.5 rounded-lg bg-white text-black font-semibold hover:bg-zinc-200 transition-colors shadow-sm"
+              className="px-5 py-2.5 rounded-lg text-white font-semibold shadow-md transition-all bg-gradient-to-r from-[#7c2d12] to-[#9a3412] hover:from-[#9a3412] hover:to-[#c2410c] shadow-[#9a3412]/25 hover:shadow-lg hover:shadow-[#9a3412]/30"
             >
               Download Tailored Resume
             </a>
@@ -218,25 +218,25 @@ export default function Hero({
 
           <a
             href="#case-studies"
-            className="px-5 py-2.5 rounded-lg border border-zinc-700 bg-zinc-900/80 text-white hover:border-zinc-500 transition-colors font-medium"
+            className="px-5 py-2.5 rounded-lg border border-[#d7cec0] bg-[#ffffff] text-[#9a3412] hover:border-[#9a3412] hover:bg-[#9a3412]/5 transition-colors font-medium shadow-xs"
           >
             View Architecture Cases
           </a>
           <a
             href="#experience"
-            className="px-5 py-2.5 rounded-lg border border-zinc-700 bg-zinc-900/80 text-white hover:border-zinc-500 transition-colors font-medium"
+            className="px-5 py-2.5 rounded-lg border border-[#d7cec0] bg-[#ffffff] text-[#9a3412] hover:border-[#9a3412] hover:bg-[#9a3412]/5 transition-colors font-medium shadow-xs"
           >
             View Experience
           </a>
           <a
             href="#skills"
-            className="px-5 py-2.5 rounded-lg border border-zinc-700 bg-zinc-900/80 text-white hover:border-zinc-500 transition-colors font-medium"
+            className="px-5 py-2.5 rounded-lg border border-[#d7cec0] bg-[#ffffff] text-[#9a3412] hover:border-[#9a3412] hover:bg-[#9a3412]/5 transition-colors font-medium shadow-xs"
           >
             View Skills
           </a>
           <a
             href="#topology"
-            className="px-5 py-2.5 rounded-lg border border-zinc-700 bg-zinc-900/80 text-white hover:border-zinc-500 transition-colors font-medium"
+            className="px-5 py-2.5 rounded-lg border border-[#d7cec0] bg-[#ffffff] text-[#9a3412] hover:border-[#9a3412] hover:bg-[#9a3412]/5 transition-colors font-medium shadow-xs"
           >
             View Systems
           </a>

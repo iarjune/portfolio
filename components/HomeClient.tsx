@@ -55,11 +55,11 @@ export default function HomeClient({ careerData, topologyData }: HomeClientProps
 
       <SkillMatrix skills={careerData.skills} activePersona={activePersona} />
 
-      <div id="topology" className="bg-black">
+      {/* <div id="topology" className="border-t border-[#e7e0d3] bg-[#fbf8f3]">
         <TopologyViewer data={topologyData} />
-      </div>
+      </div> */}
 
-      <footer className="border-t border-zinc-900 py-8 px-4 sm:px-6 lg:px-8 text-center text-xs font-mono text-zinc-500">
+      <footer className="border-t border-[#e7e0d3] bg-[#f5efe6] py-8 px-4 sm:px-6 lg:px-8 text-center text-xs font-mono text-[#57534e]">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
           <div>Next.js Static Export (SSG) • Deployed via GitHub Actions</div>
         </div>

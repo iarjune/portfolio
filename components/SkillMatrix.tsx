@@ -29,12 +29,12 @@ interface SkillMatrixProps {
 }
 
 const personaHighlightClass: Record<RolePersona, string> = {
-  persona1: 'bg-blue-600/20 border-blue-500/50 text-blue-300 shadow-sm shadow-blue-500/10',
-  persona2: 'bg-emerald-600/20 border-emerald-500/50 text-emerald-300 shadow-sm shadow-emerald-500/10',
-  persona3: 'bg-purple-600/20 border-purple-500/50 text-purple-300 shadow-sm shadow-purple-500/10',
+  persona1: 'bg-[#9a3412]/10 border-[#9a3412]/40 text-[#7c2d12] shadow-xs font-semibold',
+  persona2: 'bg-[#b45309]/10 border-[#b45309]/40 text-[#78350f] shadow-xs font-semibold',
+  persona3: 'bg-[#15803d]/10 border-[#15803d]/40 text-[#14532d] shadow-xs font-semibold',
 };
 
-const defaultChipClass = 'bg-zinc-900 border-zinc-800 text-zinc-500';
+const defaultChipClass = 'bg-[#f5efe6] border-[#e2dacb] text-[#57534e]';
 
 const categoryMap: Record<string, { title: string; description: string }> = {
   leadership_engineering_management: {
@@ -127,11 +127,11 @@ export default function SkillMatrix({ skills, activePersona }: SkillMatrixProps)
   });
 
   return (
-    <section id="skills" className="py-16 border-b border-zinc-800">
+    <section id="skills" className="py-16 border-b border-[#e7e0d3]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-10">
-          <h2 className="text-3xl font-bold tracking-tight text-white">Skills</h2>
-          <p className="text-zinc-400 mt-2 text-base">
+          <h2 className="text-3xl font-bold tracking-tight text-[#292524]">Skills</h2>
+          <p className="text-[#57534e] mt-2 text-base">
             Categorized skills across infrastructure architecture, platform engineering, and enterprise operations.
           </p>
         </div>
@@ -140,11 +140,11 @@ export default function SkillMatrix({ skills, activePersona }: SkillMatrixProps)
           {skillCategories.map((category) => (
             <div
               key={category.title}
-              className="rounded-xl border border-zinc-800 bg-zinc-950 p-6 flex flex-col justify-between hover:border-zinc-700 transition-all hover:shadow-md"
+              className="rounded-xl border border-[#e7e0d3] bg-[#ffffff] p-6 flex flex-col justify-between hover:border-[#9a3412]/40 transition-all hover:shadow-md shadow-xs"
             >
               <div>
-                <h3 className="text-lg font-bold text-white mb-1">{category.title}</h3>
-                <p className="text-xs text-zinc-400 mb-5 leading-relaxed">{category.description}</p>
+                <h3 className="text-lg font-bold text-[#292524] mb-1">{category.title}</h3>
+                <p className="text-xs text-[#57534e] mb-5 leading-relaxed">{category.description}</p>
                 <div className="flex flex-wrap gap-2">
                   {category.skills.map((skill) => {
                     const isHighlighted = skill.personas?.includes(activePersona) ?? false;

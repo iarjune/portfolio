@@ -21,16 +21,22 @@ function MermaidDiagram({ chart, id }: { chart: string; id: string }) {
   React.useEffect(() => {
     mermaid.initialize({
       startOnLoad: false,
-      theme: 'dark',
+      theme: 'neutral',
       securityLevel: 'loose',
       themeVariables: {
-        fontFamily: 'inherit',
-        primaryColor: '#3b82f6',
-        primaryTextColor: '#f8fafc',
-        primaryBorderColor: '#60a5fa',
-        lineColor: '#94a3b8',
-        secondaryColor: '#1e293b',
-        tertiaryColor: '#0f172a'
+        fontFamily: '"Inter", "Segoe UI", system-ui, sans-serif',
+        primaryColor: '#f5efe6',
+        primaryTextColor: '#292524',
+        primaryBorderColor: '#9a3412',
+        lineColor: '#78716c',
+        secondaryColor: '#fbf8f3',
+        tertiaryColor: '#ffffff',
+        mainBkg: '#ffffff',
+        nodeBorder: '#9a3412',
+        clusterBkg: '#f5efe6',
+        clusterBorder: '#e7e0d3',
+        titleColor: '#292524',
+        edgeLabelBackground: '#fbf8f3'
       }
     });
 
@@ -55,7 +61,7 @@ function MermaidDiagram({ chart, id }: { chart: string; id: string }) {
   return (
     <div
       ref={containerRef}
-      className="w-full flex justify-center items-center overflow-x-auto p-4 bg-slate-950/60 rounded-lg border border-slate-800"
+      className="w-full flex justify-center items-center overflow-x-auto p-4 bg-[#ffffff] rounded-xl border border-[#e7e0d3] shadow-xs"
       dangerouslySetInnerHTML={{ __html: svgContent }}
     />
   );
@@ -71,8 +77,8 @@ export default function CaseStudies({ caseStudies }: CaseStudiesProps) {
   return (
     <section className="py-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="mb-8">
-        <h2 className="text-3xl font-bold tracking-tight text-slate-100">Architecture Cases</h2>
-        <p className="text-slate-400 mt-2">
+        <h2 className="text-3xl font-bold tracking-tight text-[#292524]">Architecture Cases</h2>
+        <p className="text-[#57534e] mt-2">
           Deep-dive technical architectural transformations, trade-offs, and measurable engineering outcomes.
         </p>
       </div>
@@ -81,56 +87,56 @@ export default function CaseStudies({ caseStudies }: CaseStudiesProps) {
         {caseStudies.map((study) => (
           <Card
             key={study.id}
-            className="cursor-pointer border-slate-800 bg-slate-900/50 hover:bg-slate-900/80 transition-all hover:border-slate-700 flex flex-col justify-between"
+            className="cursor-pointer border-[#e7e0d3] bg-[#ffffff] hover:border-[#9a3412]/40 hover:shadow-md transition-all flex flex-col justify-between rounded-xl shadow-xs"
             onClick={() => setSelectedStudy(study)}
           >
-            <CardHeader>
-              <CardTitle className="text-lg text-slate-100">{study.title}</CardTitle>
-              <CardDescription className="text-slate-400 line-clamp-2 mt-1">
+            <CardHeader className="pb-3 border-b border-[#f4ede2]">
+              <CardTitle className="text-lg text-[#292524]">{study.title}</CardTitle>
+              <CardDescription className="text-[#57534e] line-clamp-2 mt-1">
                 {study.problem}
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-4">
               <div className="flex flex-wrap gap-2 mb-4">
                 {study.metrics.map((metric, idx) => (
-                  <Badge key={idx} variant="secondary" className="bg-slate-800 text-cyan-400 border-slate-700">
+                  <Badge key={idx} variant="secondary" className="bg-[#9a3412]/10 text-[#7c2d12] border border-[#9a3412]/30 font-mono text-xs">
                     {metric}
                   </Badge>
                 ))}
               </div>
-              <p className="text-sm text-slate-300 line-clamp-3">{study.solution}</p>
+              <p className="text-sm text-[#57534e] line-clamp-3 leading-relaxed">{study.solution}</p>
             </CardContent>
           </Card>
         ))}
       </div>
 
       <Dialog open={!!selectedStudy} onOpenChange={(open) => !open && setSelectedStudy(null)}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-slate-900 border-slate-800 text-slate-100">
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-[#ffffff] border-[#e7e0d3] text-[#292524] shadow-2xl">
           {selectedStudy && (
             <>
               <DialogHeader>
-                <DialogTitle className="text-2xl font-bold text-slate-100">{selectedStudy.title}</DialogTitle>
-                <DialogDescription className="text-slate-400 mt-2">
+                <DialogTitle className="text-2xl font-bold text-[#292524]">{selectedStudy.title}</DialogTitle>
+                <DialogDescription className="text-[#57534e] mt-2 text-base">
                   {selectedStudy.problem}
                 </DialogDescription>
               </DialogHeader>
               <div className="mt-6 space-y-6">
                 <div>
-                  <h4 className="text-sm font-semibold text-slate-300 uppercase tracking-wider mb-2">Metrics & Outcomes</h4>
+                  <h4 className="text-sm font-semibold text-[#9a3412] uppercase tracking-wider mb-2">Metrics & Outcomes</h4>
                   <div className="flex flex-wrap gap-2">
                     {selectedStudy.metrics.map((metric, idx) => (
-                      <Badge key={idx} variant="secondary" className="bg-slate-800 text-cyan-400 border-slate-700">
+                      <Badge key={idx} variant="secondary" className="bg-[#9a3412]/10 text-[#7c2d12] border border-[#9a3412]/30 font-mono text-xs">
                         {metric}
                       </Badge>
                     ))}
                   </div>
                 </div>
                 <div>
-                  <h4 className="text-sm font-semibold text-slate-300 uppercase tracking-wider mb-2">Proposed Solution</h4>
-                  <p className="text-slate-300 text-sm leading-relaxed">{selectedStudy.solution}</p>
+                  <h4 className="text-sm font-semibold text-[#9a3412] uppercase tracking-wider mb-2">Proposed Solution</h4>
+                  <p className="text-[#57534e] text-sm leading-relaxed">{selectedStudy.solution}</p>
                 </div>
                 <div>
-                  <h4 className="text-sm font-semibold text-slate-300 uppercase tracking-wider mb-2">Architecture Diagram</h4>
+                  <h4 className="text-sm font-semibold text-[#9a3412] uppercase tracking-wider mb-2">Architecture Diagram</h4>
                   <MermaidDiagram chart={selectedStudy.architecture} id={selectedStudy.id} />
                 </div>
               </div>
