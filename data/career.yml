@@ -230,6 +230,8 @@ skills:
       personas: [persona2]
     - name: "AI-Assisted Developer Workflows"
       personas: [persona3]
+    - name: "Vespa vector db"
+      personas: [persona3]
   networking_compute:
     - name: "The Foreman"
       personas: [persona2]
