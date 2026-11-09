@@ -4,6 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { CareerData, RolePersona } from '@/lib/data';
 import Image from 'next/image';
+import { Command } from 'lucide-react';
 
 export interface HeroProps {
   careerData: CareerData;
@@ -64,13 +65,30 @@ export default function Hero({
     <section className="relative overflow-hidden pt-12 pb-16 border-b border-[#e7e0d3] bg-background">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Status Indicator */}
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#15803d]/30 bg-[#15803d]/10 text-[#166534] text-xs sm:text-sm font-mono mb-8">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#15803d] opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#15803d]"></span>
-          </span>
-          <span>{careerData.basics.status}</span>
+        {/* Top Bar: Status Indicator & Command Palette Message */}
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-8">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#15803d]/30 bg-[#15803d]/10 text-[#166534] text-xs sm:text-sm font-mono">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#15803d] opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#15803d]"></span>
+            </span>
+            <span>{careerData.basics.status}</span>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => {
+              window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true }));
+            }}
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#e7e0d3] bg-[#ffffff] text-[#57534e] hover:text-[#292524] hover:border-[#9a3412]/50 text-xs font-mono shadow-xs transition-colors cursor-pointer group"
+          >
+            <Command className="w-3.5 h-3.5 text-[#9a3412] group-hover:scale-110 transition-transform" />
+            <span>Press</span>
+            <kbd className="px-1.5 py-0.5 rounded bg-[#f5efe6] border border-[#e7e0d3] text-[10px] font-semibold text-[#292524]">⌘K</kbd>
+            <span className="text-[#a8a29e]">/</span>
+            <kbd className="px-1.5 py-0.5 rounded bg-[#f5efe6] border border-[#e7e0d3] text-[10px] font-semibold text-[#292524]">Ctrl+K</kbd>
+            <span>for Command Palette</span>
+          </button>
         </div>
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-10">
           <div className="space-y-2">

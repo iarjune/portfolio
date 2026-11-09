@@ -7,15 +7,12 @@ import CareerTimeline from '@/components/CareerTimeline';
 import SkillMatrix from '@/components/SkillMatrix';
 import CommandPalette from '@/components/CommandPalette';
 import CaseStudies from '@/components/CaseStudies';
-import { getSystemTopology } from '@/lib/topology';
-import TopologyViewer from '@/components/TopologyViewer';
 
 interface HomeClientProps {
   careerData: CareerData;
-  topologyData: ReturnType<typeof getSystemTopology>;
 }
 
-export default function HomeClient({ careerData, topologyData }: HomeClientProps) {
+export default function HomeClient({ careerData }: HomeClientProps) {
   const [activePersona, setActivePersona] = useState<RolePersona>('persona3');
 
   const personaLabels: Record<RolePersona, { title: string }> = {
