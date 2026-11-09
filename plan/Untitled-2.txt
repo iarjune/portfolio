@@ -1,0 +1,183 @@
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Builds
+System designs
+Core Intent: To prove hands-on technical depth, tool fluency, and engineering craftsmanship.
+
+    What it answers for a technical audience (Staff Engineers, Tech Leads, Engineering Managers):
+
+        Can this person actually sit at a terminal, write production-grade code, configure complex Kubernetes controllers, wire up a GitOps pipeline, and troubleshoot deep systems issues without just managing others?
+
+    Key Characteristics:
+
+        Focuses on the "How" and the "Implementation".
+
+        Centers around concrete artifacts, specific tool integrations (e.g., configuring Crossplane custom resources, writing custom Argo workflows, building a Backstage developer portal template from scratch).
+
+        Demonstrates that you are deeply practitioner-focused and haven't lost touch with the metal as you've moved into leadership.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Enterprise Golden Path & Platform Engineering
+
+Self-service developer portals, automated service scaffolding across multiple runtimes, and declarative cloud infrastructure provisioning.
+Backstage Application Scaffolder
+
+Developer Portal
+
+Automated onboarding templates to scaffold new application repositories with production-ready defaults.
+Crossplane AWS Infrastructure Provisioner
+
+Infrastructure Control Plane
+
+Self-service Crossplane templates enabling developers to declaratively attach AWS backing services to their application stacks.
+GitHub Actions (ARC)
+
+CI Orchestrator
+
+Kubernetes-native action runners for parallel container compilation, security, and verification.
+GitHub Reusable Workflows
+
+Pipeline Templates
+
+Standardized CI/CD workflow building blocks shared across enterprise engineering teams.
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+GitOps Progressive Deployment & Telemetry
+
+Declarative continuous delivery, canary deployments, edge networking, and real-time observability on EKS Anywhere.
+Backstage Delivery Scaffolder
+
+GitOps Provisioner
+
+Generates Kustomize overlays (test/prod) and GitOps manifests inside the central monorepo.
+ArgoCD & GitOps
+
+GitOps Controller
+
+Declarative continuous delivery engine enforcing Git target state across clusters.
+Argo Rollouts
+
+Progressive Delivery
+
+Advanced deployment controller supporting Canary and Blue/Green strategies with automated rollbacks.
+Argo Workflows & Events
+
+Workflow Engine
+
+Container-native workflow engine and event-driven automation framework.
+Envoy API Gateway
+
+API Firewall & Ingress
+
+Modern edge proxy managing incoming traffic, HTTPRoute rules, and API security policies.
+MetalLB
+
+Bare-Metal Load Balancer
+
+Provides network LoadBalancer implementation for the EKS Anywhere bare-metal environment.
+External Secrets & SSM
+
+Secret Management
+
+Syncs sensitive parameters and credentials securely from AWS SSM Parameter Store into Kubernetes Secrets.
+EKS Anywhere & Core Runtime
+
+Kubernetes Platform
+
+On-premises Kubernetes deployment environment backed by dedicated container runtime support.
+Prometheus & Grafana Telemetry
+
+Observability Platform
+
+Comprehensive cluster and application monitoring, metric collection, and operational alerting.++
+
+===========================================
+
+
+Strategic Initiatives
+Transforming Infrastructure. Delivering Business Impact
+A selection of enterprise-scale initiatives focused on modernization, operational excellence, engineering enablement, and business value.
+
+Section	Purpose
+Executive Summary	What was transformed and why
+Business Context	Organizational challenges and business drivers
+Strategic Vision	Target state and transformation strategy
+Architecture & Decisions	Major architectural choices and trade-offs
+Transformation Roadmap	Phases, dependencies, risk mitigation
+Organizational Impact	Teams, governance, operating model
+Business Outcomes	Cost, reliability, velocity, risk
+Technical Deep Dives	Links to individual architecture cases
+
+
+01. Cloud Transformation
+Cloud migrations · Data center exits · Multi-account architecture · Infrastructure modernization
+
+02. Platform Engineering & Developer Enablement
+Internal developer platforms · Golden paths · Self-service · GitOps · CI/CD modernization
+
+03. Cost Optimization & Operational Excellence
+FinOps · Cloud economics · Resource optimization · Operational efficiency
+
+04. Security, Governance & Compliance
+DevSecOps · SOC 2 · Security automation · Policy enforcement · Risk management
+
+05. Reliability & Resilience Engineering
+Observability · SRE · High availability · Disaster recovery · Incident management
+
+06. Data & AI Platform Modernization
+MLOps · Data platforms · Vector search · AI infrastructure · AI governance
+
+/home/iarjune/Documents/Labs/DevOps/portfolio/components/CaseStudies.tsx
+I want to change the design of this component.
+Currently each card represents an initiative.
+I want to replace these cards with these top level domains.
+01. Cloud Transformation
+Cloud migrations · Data center exits · Multi-account architecture · Infrastructure modernization
+
+02. Platform Engineering & Developer Enablement
+Internal developer platforms · Golden paths · Self-service · GitOps · CI/CD modernization
+
+03. Cost Optimization & Operational Excellence
+FinOps · Cloud economics · Resource optimization · Operational efficiency
+
+04. Security, Governance & Compliance
+DevSecOps · SOC 2 · Security automation · Policy enforcement · Risk management
+
+05. Reliability & Resilience Engineering
+Observability · SRE · High availability · Disaster recovery · Incident management
+
+06. Data & AI Platform Modernization
+MLOps · Data platforms · Vector search · AI infrastructure · AI governance
+
+When a domain card is clicked, a list of case study cards for this domain is presented.  When one of these cards is clicked, the expanded window transistions to the case study content.
+
+For the domain cards, i will be filled with an image with a title and subtitle below it.  See attached image for reference. 
+
+I want the career.yml data updated to allow management of this new feature.
+
+  
+
+Works as expected.
+
+I want to expand the case study schema to 
+    - id: "eks-migration"
+        title:
+        problem:
+        solution:
+        metrics: []
+        architecture:
+        deep-dive:
+
+
+Executive Summary	What was transformed and why
+Business Context	Organizational challenges and business drivers
+Strategic Vision	Target state and transformation strategy
+Architecture & Decisions	Major architectural choices and trade-offs
+Transformation Roadmap	Phases, dependencies, risk mitigation
+Organizational Impact	Teams, governance, operating model
+Business Outcomes	Cost, reliability, velocity, risk
+Technical Deep Dives	Links to individual architecture cases
+

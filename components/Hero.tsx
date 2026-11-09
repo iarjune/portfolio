@@ -220,7 +220,7 @@ export default function Hero({
             href="#case-studies"
             className="px-5 py-2.5 rounded-lg border border-[#d7cec0] bg-[#ffffff] text-[#9a3412] hover:border-[#9a3412] hover:bg-[#9a3412]/5 transition-colors font-medium shadow-xs"
           >
-            View Architecture Cases
+            View Strategic Initiatives
           </a>
           <a
             href="#experience"
@@ -233,12 +233,6 @@ export default function Hero({
             className="px-5 py-2.5 rounded-lg border border-[#d7cec0] bg-[#ffffff] text-[#9a3412] hover:border-[#9a3412] hover:bg-[#9a3412]/5 transition-colors font-medium shadow-xs"
           >
             View Skills
-          </a>
-          <a
-            href="#topology"
-            className="px-5 py-2.5 rounded-lg border border-[#d7cec0] bg-[#ffffff] text-[#9a3412] hover:border-[#9a3412] hover:bg-[#9a3412]/5 transition-colors font-medium shadow-xs"
-          >
-            View Systems
           </a>
         </div>
       </div>

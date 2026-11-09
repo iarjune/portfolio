@@ -17,9 +17,9 @@ export default function InspectorDrawer({ subsystem, isOpen, onClose }: Props) {
       if (!open) onClose();
     }}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 bg-[#1c1917]/50 backdrop-blur-xs z-40 transition-opacity" />
+        <Dialog.Overlay className="fixed inset-0 bg-[#1c1917]/50 backdrop-blur-xs z-[60] transition-opacity" />
         <Dialog.Content 
-          className="fixed right-0 top-0 h-full w-full max-w-md bg-[#ffffff] p-6 shadow-2xl z-50 transform transition-transform duration-300 ease-in-out flex flex-col gap-6 overflow-y-auto border-l border-[#e7e0d3] text-[#292524]"
+          className="fixed right-0 top-0 h-full w-full max-w-md bg-[#ffffff] p-6 shadow-2xl z-[70] transform transition-transform duration-300 ease-in-out flex flex-col gap-6 overflow-y-auto border-l border-[#e7e0d3] text-[#292524]"
           onInteractOutside={(e) => {
             // Optional: prevent closing if needed, or handle outside interaction
           }}

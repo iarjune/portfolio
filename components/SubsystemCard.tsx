@@ -21,8 +21,8 @@ export default function SubsystemCard({ subsystem, onClick }: Props) {
         />
       </div>
       <div>
-        <h3 className="font-semibold text-lg text-[#292524]">{subsystem.name}</h3>
-        <p className="text-sm font-medium text-[#9a3412] mt-1">
+        <h3 className="font-semibold text-sm text-[#292524]">{subsystem.name}</h3>
+        <p className="text-xs font-medium text-[#9a3412] mt-1">
           {subsystem.type}
         </p>
       </div>

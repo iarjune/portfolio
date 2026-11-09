@@ -1,12 +1,37 @@
 import fs from 'fs';
 import path from 'path';
 import * as yaml from 'js-yaml';
+import { Subsystem } from '@/types/topology';
 
 export type RolePersona = 'persona1' | 'persona2' | 'persona3';
 
 export interface SkillItem {
   name: string;
   personas?: RolePersona[];
+}
+
+export interface DeepDiveSection {
+  title: string;
+  content: string;
+}
+
+export interface CaseStudy {
+  id: string;
+  title: string;
+  problem: string;
+  solution: string;
+  metrics: string[];
+  architecture: string;
+  deep_dive_sections?: DeepDiveSection[];
+  subsystems?: Subsystem[];
+}
+
+export interface StrategicDomain {
+  id: string;
+  title: string;
+  subtitle: string;
+  image: string;
+  case_studies: CaseStudy[];
 }
 
 export interface CareerData {
@@ -32,14 +57,7 @@ export interface CareerData {
     automation_scripting_api: SkillItem[];
     engineering_tools_collaboration: SkillItem[];
   };
-  case_studies: {
-    id: string;
-    title: string;
-    problem: string;
-    solution: string;
-    metrics: string[];
-    architecture: string;
-  }[];
+  strategic_domains: StrategicDomain[];
   experience: {
     company: string;
     image: string;

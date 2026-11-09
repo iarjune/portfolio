@@ -46,7 +46,9 @@ export default function HomeClient({ careerData, topologyData }: HomeClientProps
         personaLabels={personaLabels}
         resumeUrls={careerData.resumes}
       />
-
+      <div id="case-studies">
+        <CaseStudies domains={careerData.strategic_domains} />
+      </div>
       <CareerTimeline careerData={formattedExperience} />
 
       <SkillMatrix skills={careerData.skills} activePersona={activePersona} />
