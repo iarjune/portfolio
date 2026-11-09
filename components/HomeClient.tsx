@@ -47,17 +47,9 @@ export default function HomeClient({ careerData, topologyData }: HomeClientProps
         resumeUrls={careerData.resumes}
       />
 
-      <div id="case-studies">
-        <CaseStudies caseStudies={careerData.case_studies} />
-      </div>
-
       <CareerTimeline careerData={formattedExperience} />
 
       <SkillMatrix skills={careerData.skills} activePersona={activePersona} />
-
-      { <div id="topology" className="border-t border-[#e7e0d3] bg-[#fbf8f3]">
-        <TopologyViewer data={topologyData} />
-      </div> }
 
       <footer className="border-t border-[#e7e0d3] bg-[#f5efe6] py-8 px-4 sm:px-6 lg:px-8 text-center text-xs font-mono text-[#57534e]">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">

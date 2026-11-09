@@ -77,9 +77,9 @@ export default function CaseStudies({ caseStudies }: CaseStudiesProps) {
   return (
     <section className="py-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="mb-8">
-        <h2 className="text-3xl font-bold tracking-tight text-[#292524]">Architecture Cases</h2>
+        <h2 className="text-3xl font-bold tracking-tight text-[#292524]">Core Transformations</h2>
         <p className="text-[#57534e] mt-2">
-          Deep-dive technical architectural transformations, trade-offs, and measurable engineering outcomes.
+          Digital transformations, trade-offs, and measurable outcomes.
         </p>
       </div>
 
