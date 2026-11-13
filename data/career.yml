@@ -56,35 +56,94 @@ strategic_domains:
     case_studies:
       - id: "eks-migration"
         title: "Zero-Downtime AWS EKS Migration"
-        problem: "Legacy data centers were reaching capacity, creating compute bottlenecks and deployment friction for 600+ microservices."
-        solution: "Spearheaded a zero-downtime migration to a multi-account AWS EKS architecture. Leveraged GitOps, Argo CD, and Crossplane to provide self-service environments, migrating 1,500+ pipelines without interrupting ad-serving."
+        problem: "Legacy data centers were reaching capacity, creating compute bottlenecks and deployment friction for 600+ microservices supporting sub-50ms ad serving."
+        solution: "Spearheaded a zero-downtime migration to a multi-account AWS EKS architecture spanning 4 accounts (dev, stage, prod, mgmt). Leveraged GitOps, Argo CD, and Crossplane to migrate 1,500+ pipelines and 600+ microservices without interrupting real-time ad serving."
         metrics:
-          - "600+ Microservices"
-          - "1,500+ Pipelines"
-          - "Zero Downtime"
+          - "600+ Microservices Migrated"
+          - "1,500+ Pipelines Modernized"
+          - "Zero Ad-Serving Downtime"
         architecture: |
           graph TD
-            A[Legacy Datacenter] -->|Zero-Downtime Sync| B(AWS Multi-Account EKS)
+            A[Legacy Datacenter Infra] -->|Zero-Downtime Sync| B(AWS Multi-Account EKS)
             B --> C[Dev Account]
             B --> D[Stage Account]
             B --> E[Prod Account]
             B --> F[Mgmt Account]
-            F -->|GitOps| C & D & E
+            F -->|GitOps Reconciliation| C & D & E
+        deep_dive_sections:
+          - title: "Multi-Account Isolation & Network Architecture"
+            content: |
+              • Implemented a strict multi-account AWS architecture separating management, development, staging, and production boundaries via AWS Organizations and Control Tower.
+              • Configured isolated VPCs with private subnets, NAT gateways, and transit gateways to ensure low-latency peering and secure cross-account communication for high-throughput ad exchanges.
+          - title: "Zero-Downtime Migration Strategy & Execution"
+            content: |
+              • Executed phased canary traffic shifting from bare-metal load balancers to AWS Application Load Balancers (ALB) and Envoy Gateways.
+              • Maintained state synchronization between legacy on-premises databases and AWS-hosted managed data stores during the transition window to achieve zero packet loss and zero downtime.
+        subsystems:
+          - id: aws-multi-account-eks
+            name: "AWS Multi-Account EKS Clusters"
+            type: "Compute Platform"
+            logoKey: "kubernetes"
+            description: "Production-grade managed Kubernetes clusters distributed across isolated AWS accounts for workload segmentation."
+            techStackLogos: ["kubernetes", "aws", "terraform"]
+            components:
+              - name: "Control Plane Isolation"
+                spec: "Dedicated EKS control planes in management and production accounts with automated cluster bootstrapping via Argo CD."
+              - name: "Node Group Autoscaling"
+                spec: "Dynamic worker node provisioning using Karpenter and spot instance integration for optimal cost and performance."
 
-      - id: "datacenter-consolidation-aws"
-        title: "Hybrid Data Center Build & AWS Migration (GRM)"
-        problem: "Fragmented IT systems across 20+ national/international locations and acquired companies caused excessive operational overhead."
-        solution: "Constructed a highly available VMware vSphere data center, consolidated 5 acquired IT departments, and migrated core database/web workloads to AWS (EC2, VPC, ELB). Reduced overall technology spend by 40%."
+          - id: envoy-gateway-routing
+            name: "Envoy Gateway & Ingress Routing"
+            type: "Networking & Edge"
+            logoKey: "envoy"
+            description: "High-performance edge routing and traffic management for sub-50ms ad serving endpoints."
+            techStackLogos: ["envoy", "aws", "kubernetes"]
+            components:
+              - name: "Traffic Shifting"
+                spec: "Managed zero-downtime canary routing from legacy bare-metal infrastructure to AWS EKS services."
+              - name: "SSL Termination & Security"
+                spec: "Centralized TLS termination and WAF policy enforcement at the AWS Edge."
+
+      - id: "datacenter-decommissioning"
+        title: "Full Datacenter Decommissioning & Hybrid Cloud Transition"
+        problem: "Maintaining two legacy physical data centers with 200+ physical Dell hosts and 600+ KVM virtual instances incurred heavy recurring CapEx, OpEx and poor scalability."
+        solution: "Orchestrated the complete end-to-end migration and hardware decommissioning of two physical data centers into a multi-region, multi-account AWS environment."
         metrics:
-          - "40% Tech Spend Reduction"
-          - "5 Acquired IT Depts Merged"
-          - "60+ AWS Node Web Farm"
+          - "200+ Dell Bare-Metal Hosts Retired"
+          - "600+ KVM Services"
+          - "200+ Data Engineering Pipelines"
+          - "100% Docker Containerized & Migrated to AWS EKS"
+          - "Two Physical Datacenters (east and west) Decommissioned"
+          - "100% Workload Availability During Transition"
+          # TODO : Update diagram for east and west datacenters and regions
         architecture: |
           graph TD
-            A[Distributed Locations / Acquired Depts] --> B[Consolidated On-Prem Data Center]
-            B -->|VMware vSphere Cluster| C[Private Cloud]
-            B -->|Cloud Migration| D[AWS EC2 / VPC / ELB Farm]
-            D --> E[Cold DR Site in AWS]
+            A[Physical Datacenters: 200+ Dell Hosts & 600+ VMs] -->|Cloud-Native Migration| B(Multi-Region AWS Environment)
+            B --> C[EKS Container Workloads]
+            B --> D[Managed AWS Data Services]
+            E[Hardware Retirement & Decommissioning] --> F[Full Cloud-Native Operation]
+        deep_dive_sections:
+          - title: "Hardware Asset and Services Inventory Mapping"
+            content: |
+              • Cataloged over 1000 components, mapping dependencies between services, multi-teneant backing services and hardware.
+              • Classified workloads into containerizable microservices for AWS EKS or managed data services, eliminating redundant legacy virtual machines.
+          - title: "Built b"
+          - title: "Physical Decommissioning & Financial Exit"
+            content: |
+              • Executed secure data sanitization, physical drive destruction protocols, and rack de-installation following enterprise compliance standards.
+              • Eliminated datacenter lease expenses, power, and cooling overhead, realizing immediate capital and operational cost savings.
+        subsystems:
+          - id: physical-bare-metal-fleet
+            name: "Physical Bare-Metal Fleet"
+            type: "Data Center Infrastructure"
+            logoKey: "linux"
+            description: "Legacy physical server inventory managed via The Foreman and Puppet before cloud migration."
+            techStackLogos: ["linux", "puppet", "dell"]
+            components:
+              - name: "Dell Hardware Management"
+                spec: "Maintained 200+ Dell physical servers running KVM virtualization and Ceph storage."
+              - name: "Provisioning Automation"
+                spec: "PXE boot, Kickstart, and Foreman-driven bare-metal configuration management."
 
   - id: "platform-engineering"
     title: "Platform Engineering & Developer Enablement"
@@ -93,30 +152,30 @@ strategic_domains:
     case_studies:
       - id: "idp-gitops"
         title: "Self-Service IDP & 100% ArgoCD GitOps"
-        problem: "Engineers faced significant cognitive load and manual toil when provisioning cloud resources and pipelines."
-        solution: "Created an Internal Developer Portal (IDP) with 'golden path' templates. Orchestrated a K8s-native, API-driven GitOps platform using the Argo suite, achieving 100% adoption and full developer autonomy."
+        problem: "Engineers faced significant cognitive load, manual toil, and inconsistent configurations when provisioning cloud resources and deployment pipelines."
+        solution: "Created a centralized Internal Developer Portal (IDP) with developer-managed 'golden path' templates. Orchestrated a Kubernetes-native, API-driven GitOps platform using the Argo suite, achieving 100% adoption across all engineering teams."
         metrics:
-          - "100+ Engineers"
+          - "100+ Engineers Empowered"
           - "100% GitOps Adoption"
-          - "Full Autonomy"
+          - "Full Developer Autonomy"
         architecture: |
           graph TD
-            A[Developer] -->|IDP Portal| B(Golden Paths)
-            B --> C[Git Repository]
-            C -->|Trigger| D[Argo Events / Workflows]
+            A[Developer] -->|IDP Portal| B(Golden Paths & Scaffolding)
+            B --> C[GitHub Repository]
+            C -->|Trigger| D[Argo Events & Workflows]
             C -->|Sync| E[Argo CD]
             E --> F[EKS Cluster]
         deep_dive_sections:
           - title: "Architecture Decisions & Trade-offs"
             content: |
-              • Chose Backstage for developer portal to establish a single catalog across polyglot runtimes.
-              • Implemented Crossplane XRDs instead of ad-hoc Terraform PRs to enable API-driven cloud service provisioning.
-              • Enforced GitOps reconciliation via ArgoCD ApplicationSets across production and staging clusters.
+              • Chose Backstage as the foundational developer portal to establish a unified catalog and self-service interface across polyglot microservice architectures.
+              • Implemented Crossplane Composite Resource Definitions (XRDs) instead of ad-hoc Terraform PR workflows to enable declarative, API-driven cloud service provisioning.
+              • Enforced GitOps reconciliation via Argo CD ApplicationSets across production and staging clusters to maintain state drift visibility.
           - title: "Implementation Strategy & Golden Paths"
             content: |
-              Standardized golden path templates covering CI/CD (GitHub Actions ARC), progressive delivery (Argo Rollouts), and automated secrets synchronization (External Secrets & AWS SSM).
+              • Standardized golden path templates covering CI/CD (GitHub Actions ARC), progressive delivery (Argo Rollouts), and automated secrets synchronization (External Secrets & Akeyless).
+              • Integrated automated feedback collection directly into the IDP to continuously refine developer experience and reduce onboarding time.
         subsystems:
-          # --- DEVELOPER PORTAL & SERVICE SCAFFOLDING ---
           - id: backstage-service-onboarding
             name: "Backstage Application Scaffolder"
             type: "Developer Portal"
@@ -124,60 +183,59 @@ strategic_domains:
             description: "Automated onboarding templates to scaffold new application repositories with production-ready defaults."
             techStackLogos: ["backstage", "github", "kubernetes"]
             gitopsPath: "templates/app-scaffolding"
-            repoUrl: "https://github.com/devops-end2end/gitops/tree/main/components/backstage"
             components:
-              - name: "Service On-bording Portal"
-                spec: "Provisions a goldenpath GitHub repository application repository and dedicated ECR container repository."
+              - name: "Service Onboarding Portal"
+                spec: "Provisions a golden-path GitHub application repository and dedicated container registry."
               - name: "Language Runtimes"
-                spec: "Supports Go, Java, Python, Node.js Frontend, and Node.js Backend"
-              - name: "Base Standards"
-                spec: "Pre-configured health endpoints (/health on port 8000) and automated integration tests"
+                spec: "Supports Go, Java, Python, and Node.js runtimes with pre-configured health endpoints and metrics."
 
-          # --- INFRASTRUCTURE COMPONENT ONBOARDING (CROSSPLANE) ---
           - id: crossplane-infra-onboarding
             name: "Crossplane AWS Infrastructure Provisioner"
             type: "Infrastructure Control Plane"
             logoKey: "crossplane"
-            description: "Self-service Crossplane templates enabling developers to declaratively attach AWS backing services to their application stacks."
+            description: "Self-service Crossplane templates enabling developers to declaratively attach AWS backing services."
             techStackLogos: ["crossplane", "terraform", "aws", "kubernetes"]
-            gitopsPath: "templates/infra-provisioning"
-            repoUrl: "https://github.com/devops-end2end/gitops/tree/main/components/crossplane"
             components:
-              - name: "Composite Resource Definitions (XRDs)"
-                spec: "Exposes simplified architectural abstractions for backing services with zero manual IAM or VPC toil"
-              - name: "AWS Provider Integration"
-                spec: "Provision managed resources including RDS databases, S3 buckets, and SQS queues directly via GitOps"
-              - name: "Credential & Config Injection"
-                spec: "Automatically wires cloud resource connection strings and credentials into Kubernetes Secrets"
+              - name: "Composite Resource Definitions"
+                spec: "Exposes simplified architectural abstractions for backing databases and queues with zero manual IAM toil."
+              - name: "Credential Injection"
+                spec: "Automatically wires cloud resource connection strings into Kubernetes Secrets via External Secrets operator."
 
+      - id: "cicd-migration"
+        title: "Migration of 900+ Projects & Pipelines to GitHub Actions & Argo CD"
+        problem: "Legacy CI/CD pipelines relying on Bitbucket, Jenkins, and Ansible suffered from slow build times, flaky execution, and maintenance bottlenecks."
+        solution: "Modernized enterprise CI/CD by migrating 900+ repositories and pipelines from legacy Jenkins and Bitbucket systems to GitHub Actions ARC and K8s-native Argo Workflows and Argo CD."
+        metrics:
+          - "900+ Repositories Migrated"
+          - "100% CI/CD Modernization"
+          - "Significantly Reduced Build Times"
+        architecture: |
+          graph TD
+            A[Legacy Bitbucket / Jenkins] -->|Pipeline Migration| B(GitHub Actions ARC)
+            B --> C[Argo Workflows & Events]
+            C --> D[K8s Build Runners]
+            D --> E[Argo CD GitOps Deployment]
+        deep_dive_sections:
+          - title: "Pipeline Modernization & Reusable Workflows"
+            content: |
+              • Designed standardized GitHub reusable workflows for Go, Java, Python, and Node.js applications, establishing consistent build, test, and container packaging standards.
+              • Replaced legacy monolithic Jenkins instances with elastic Kubernetes-backed GitHub Actions Runner Controller (ARC) pods scaling dynamically on EKS.
+          - title: "GitOps Continuous Delivery Integration"
+            content: |
+              • Connected build outputs directly to GitOps repositories, updating image tag manifests automatically to trigger Argo CD synchronization.
+              • Eliminated manual deployment scripts and established full traceability from code commit to production release.
+        subsystems:
           - id: github-actions-arc
-            name: "GitHub Actions (ARC)"
+            name: "GitHub Actions Runner Controller (ARC)"
             type: "CI Orchestrator"
             logoKey: "githubactions"
-            description: "Kubernetes-native action runners for parallel container compilation, security, and verification."
-            techStackLogos:
-              ["githubactions", "kubernetes", "docker", "amazon-ecr"]
-            repoUrl: "https://github.com/devops-end2end/gitops/tree/main/components/gh-arc"
+            description: "Kubernetes-backed runner scale set for parallel container compilation, testing, and security scanning."
+            techStackLogos: ["githubactions", "kubernetes", "docker"]
             components:
-              - name: "Action Runner Controller"
-                spec: "Kubernetes-backed runner scale set (ARC) for elasticity"
-              - name: "Security & Compliance"
-                spec: "Org standards validation, SAST scanning, SBOM generation, and supply chain attestation"
-              - name: "Build & Release Engine"
-                spec: "Semantic versioning, image compilation, ECR push, TEST validation, and automated PROD promotion"
-
-          - id: github-reusable-workflows
-            name: "GitHub Reusable Workflows"
-            type: "Pipeline Templates"
-            logoKey: "githubactions"
-            description: "Standardized CI/CD workflow building blocks shared across enterprise engineering teams."
-            techStackLogos: ["githubactions", "go", "java", "nodejs", "python"]
-            repoUrl: "https://github.com/devops-end2end/github-workflows/tree/main/.github/workflows"
-            components:
-              - name: "Language Build Pipelines"
-                spec: "go-docker-build.yaml, java-docker-build.yaml, python-docker-build.yaml, nodejs-fe-docker-build.yaml, nodejs-be-docker-build.yaml"
-              - name: "Container & Delivery Pipelines"
-                spec: "docker-image-build-push2ecr.yaml, argocd-deployment.yaml, rm-argocd-appset.yaml"
+              - name: "Elastic Runner Scaling"
+                spec: "Auto-scales build runners on EKS based on active workflow queue depth."
+              - name: "Security Gateways"
+                spec: "Integrates Snyk and SonarQube checks directly into the runner execution pipeline."
 
   - id: "cost-optimization"
     title: "Cost Optimization & Operational Excellence"
@@ -185,20 +243,89 @@ strategic_domains:
     image: "cost-optimization.jpg"
     case_studies:
       - id: "finops-optimization"
-        title: "FinOps & Cloud Spend Reduction"
-        problem: "Cloud costs were spiraling due to rigid compute setups and inefficient resource allocation across data and ML operations."
-        solution: "Implemented dynamic node autoscaling with Karpenter and HPA. Built automated Kubernetes resource inventory systems tagged to Kubecost, optimizing bin-packing and spot instances."
+        title: "FinOps & 50% Cloud Spend Reduction"
+        problem: "Cloud costs were spiraling across data and ML operations due to rigid compute setups, over-provisioned instances, and lack of granular cost visibility."
+        solution: "Implemented dynamic node autoscaling with Karpenter and Kubernetes HPA. Built automated Kubernetes resource inventory systems tagged to Kubecost dashboards, optimizing bin-packing and spot instance utilization."
         metrics:
-          - "50% Spend Reduction"
-          - "$50k OpEx Savings"
-          - "Dynamic Autoscaling"
+          - "50% Cloud Spend Reduction"
+          - "$50k Annual DataOps OpEx Savings"
+          - "Automated Bin-Packing & Spot Instances"
         architecture: |
           graph TD
-            A[EKS Cluster Workload] --> B{Karpenter / HPA}
-            B -->|Scale Up| C[Spot Instances]
-            B -->|Bin-Packing| D[Right-Sized Nodes]
-            C & D --> E[Kubecost Monitoring]
-            E --> F[50% Cost Reduction]
+            A[EKS Cluster Workloads] --> B{Karpenter / HPA Autoscaling}
+            B -->|Dynamic Provisioning| C[Spot Instances]
+            B -->|Optimized Bin-Packing| D[Right-Sized Nodes]
+            C & D --> E[Kubecost Inventory & Attribution]
+            E --> F[50% Cost Reduction Achieved]
+        deep_dive_sections:
+          - title: "FinOps Governance & Tagging Automation"
+            content: |
+              • Developed automated Kubernetes resource tagging controllers to enforce strict cost-center attribution across all microservices and namespaces.
+              • Integrated custom tagging schemas with Kubecost to provide engineering managers and finance teams with real-time visibility into cloud expenditure.
+          - title: "Dynamic Compute Bin-Packing & Spot Orchestration"
+            content: |
+              • Replaced rigid static EC2 instance fleets with Karpenter provisioners, enabling sub-second node scaling and intelligent workload bin-packing.
+              • Utilized AWS Spot instances for fault-tolerant data processing and batch workflows, slashing compute expenses without compromising reliability.
+        subsystems:
+          - id: karpenter-autoscaling
+            name: "Karpenter Node Provisioner"
+            type: "Cost Optimization"
+            logoKey: "karpenter"
+            description: "High-performance Kubernetes autoscaler optimizing node selection, spot utilization, and bin-packing."
+            techStackLogos: ["karpenter", "kubernetes", "aws"]
+            components:
+              - name: "Sub-Second Provisioning"
+                spec: "Directly provisions optimal EC2 instance types based on pod resource requirements and availability."
+              - name: "Spot Interruption Handling"
+                spec: "Gracefully drains and reschedules workloads during AWS spot termination notices."
+
+          - id: kubecost-attribution
+            name: "Kubecost Analytics Engine"
+            type: "FinOps Dashboard"
+            logoKey: "kubecost"
+            description: "Granular cost allocation platform tracking expenditure by team, service, and namespace."
+            techStackLogos: ["kubecost", "kubernetes", "prometheus"]
+            components:
+              - name: "Cost Allocation Tagging"
+                spec: "Automated attribution of shared cluster resources to specific business units."
+              - name: "Spend Optimization Recommendations"
+                spec: "Provides actionable right-sizing and idle resource cleanup insights."
+
+      - id: "infrastructure-cost-reduction-grm"
+        title: "40% Technology Spend Reduction via Architectural Consolidation"
+        problem: "Acquisitions and decentralized IT management across 20+ locations created massive infrastructure redundancy and escalating tech spend."
+        solution: "Designed a centralized architectural vision, consolidating 5 acquired IT departments, constructing a consolidated VMware vSphere data center, and migrating web workloads to AWS."
+        metrics:
+          - "40% Overall Tech Spend Reduction"
+          - "5 Acquired IT Departments Consolidated"
+          - "Centralized Private Cloud & AWS Hybrid"
+        architecture: |
+          graph TD
+            A[5 Acquired IT Depts & 20+ Locations] --> B[Architectural Consolidation]
+            B --> C[Centralized VMware vSphere Private Cloud]
+            B --> D[AWS Cloud Web Farm Migration]
+            C & D --> E[40% Cost Reduction & Unified Operations]
+        deep_dive_sections:
+          - title: "Organizational & Infrastructure Consolidation"
+            content: |
+              • Assumed direct leadership over 5 acquired IT departments, standardizing operating procedures, tooling, and hardware vendor contracts.
+              • Merged disparate email, directory, and database systems into a unified enterprise architecture.
+          - title: "Hybrid Private/Public Cost Strategy"
+            content: |
+              • Built a highly efficient VMware vSphere cluster for core local workloads while leveraging AWS EC2 and VPC for scalable web hosting and disaster recovery.
+              • Eliminated redundant software licenses, duplicate hardware maintenance contracts, and third-party vendor expenses.
+        subsystems:
+          - id: vmware-vsphere-cluster
+            name: "VMware vSphere Enterprise Cluster"
+            type: "Private Cloud"
+            logoKey: "vmware"
+            description: "Consolidated enterprise virtualization cluster providing high availability for core databases and applications."
+            techStackLogos: ["vmware", "windows", "linux"]
+            components:
+              - name: "P2V Server Migration"
+                spec: "Executed Physical-to-Virtual migrations to reduce physical hardware footprint."
+              - name: "Automated Backup & Recovery"
+                spec: "Configured VMware Data Recovery (VDR) for resilient business continuity."
 
   - id: "security-governance"
     title: "Security, Governance & Compliance"
@@ -207,39 +334,198 @@ strategic_domains:
     case_studies:
       - id: "devsecops-supply-chain"
         title: "DevSecOps Integration & Enterprise Compliance"
-        problem: "Lack of automated security guardrails in build pipelines delayed deployments and risked compliance standards."
-        solution: "Embedded Snyk, JFrog Xray, and SonarQube into CI/CD pipelines, automated SBOM generation, and implemented Open Policy Agent (OPA) K8s gatekeepers with Akeyless secrets injection. Authored documentation supporting SOC 2 certification."
+        problem: "Lack of automated security guardrails in build pipelines delayed deployments and risked compliance standards for enterprise clients."
+        solution: "Embedded Snyk, JFrog Xray, and SonarQube into CI/CD pipelines. Automated SBOM generation, implemented Open Policy Agent (OPA) K8s gatekeepers, and authored security procedures supporting SOC 2 certification."
         metrics:
-          - "100% Pipeline Security Scans"
+          - "100% Automated Security Scans"
           - "Automated SBOM & Patching"
-          - "SOC 2 Compliance Support"
+          - "SOC 2 Certification Achieved"
+        architecture: |
+          graph TD
+            A[Code Commit] --> B[GitHub Actions / Argo Pipelines]
+            B --> C[Snyk / SonarQube / Xray Scanning]
+            B --> D[Automated SBOM Generation]
+            C & D --> E[Open Policy Agent Gatekeeper]
+            E --> F[Secure Deployment to EKS]
+        deep_dive_sections:
+          - title: "Automated Supply Chain Security & Scanning"
+            content: |
+              • Integrated static application security testing (SAST) and container vulnerability scanning into every CI/CD pipeline using Snyk and SonarQube.
+              • Generated Software Bill of Materials (SBOM) artifacts automatically during image builds to maintain complete supply chain provenance.
+          - title: "Policy Enforcement & Secrets Governance"
+            content: |
+              • Deployed Open Policy Agent (OPA) Gatekeeper to enforce declarative compliance policies and security guardrails across all Kubernetes deployments.
+              • Integrated Akeyless and HashiCorp Vault for secure, dynamic runtime secrets injection into Kubernetes pods, eliminating static credentials.
+        subsystems:
+          - id: opa-gatekeeper
+            name: "Open Policy Agent (OPA) Gatekeeper"
+            type: "Policy Enforcement"
+            logoKey: "opa"
+            description: "Admission webhook enforcing security and governance policies across Kubernetes clusters."
+            techStackLogos: ["opa", "kubernetes"]
+            components:
+              - name: "Constraint Templates"
+                spec: "Enforces mandatory labeling, container image whitelisting, and root privilege restrictions."
+              - name: "Audit Controller"
+                spec: "Continuously scans existing cluster resources for compliance drift."
+
+          - id: akeyless-secrets-manager
+            name: "Akeyless Secrets Management"
+            type: "Security & Credentials"
+            logoKey: "akeyless"
+            description: "Enterprise secrets management integrated with Kubernetes workloads for secure credential injection."
+            techStackLogos: ["akeyless", "kubernetes", "aws"]
+            components:
+              - name: "Dynamic Secret Rotation"
+                spec: "Automates database credential and API token rotation."
+              - name: "Pod Secret Injection"
+                spec: "Securely injects secrets into runtime memory without writing to disk."
+                
+              
+            
+      - id: "public-workload-security"
+        title: "Zero-Day Vulnerability Discovery and Alerting System"
+        problem: "Limited visibility into the vulnerability posture of internet-facing Kubernetes applications made it difficult to continuously assess exposure and prioritize remediation."
+        solution: "Designed and implemented an observability system to locate, report and alert teams concerning top priority vulnerabilities in internet-facing services in Kubernetes.  The cronjob scanner dynamically discovers internet-facing Ingress resources, correlates public endpoints with container images, and executes Snyk Container scans, exporting findings to Datadog."
+        metrics:
+          - "Scheduled Continuous Security Assessments"
+          - "Dynamic Public Workload Discovery"
+          - "Datadog Security Metrics Integration"
+          - "Historical Vulnerability Trend Analysis"
+          - "Team Based Security Alerting & Reporting" 
         architecture: |
           graph LR
-            A[Code Commit] --> B[GitHub Actions / Argo WF]
-            B --> C[Snyk / SonarQube / Xray]
-            B --> D[SBOM Generation]
-            C & D --> E[OPA Gatekeeper & Akeyless Injection]
-            E --> F[Secure EKS Deployment]
-
+            A[Kubernetes Cluster] --> B[Public Ingress Discovery]
+            B --> C[Service / Deployment Correlation]
+            C --> D[Container Image Discovery]
+            D --> E[Snyk Container Scanning]
+            E --> F[Vulnerability Aggregation]
+            F --> G[JSON / CSV Reports]
+            G --> H[Datadog Metrics Integration]
+            H --> I[Security Dashboards]
+            H --> J[Trend Analysis]
+            H --> K[Alerting & Reporting]
+        deep_dive_sections:
+          - title: "Exposure-Aware Security Discovery"
+            content: |
+              • Developed automated discovery routines to identify internet-facing Kubernetes applications across namespaces by evaluating AWS ALB annotations and public IngressClass conventions.
+              • Correlated exposed endpoints with backend Services, Deployments, and container images to establish accurate blast-radius maps.
+          - title: "Containerized Scheduled Assessment"
+            content: |
+              Packaged the scanner as a containerized workload and deployed it as a Kubernetes CronJob. Established recurring security assessments without requiring manual execution or integration into individual application build pipelines. Implemented configurable parallel scanning to efficiently assess multiple application images within each execution cycle.
+          - title: "Vulnerability Intelligence & Metrics Integration"
+            content: |
+              Integrated Snyk Container to assess discovered images against known vulnerability intelligence. Aggregated unique Critical, High, Medium, and Low findings and generated structured JSON output designed for ingestion into Datadog as metrics. Preserved application, image, and exposure context to support security analysis.
+          - title: "Observability & Automated Alerting & Reporting"
+            content: |
+              • Exported structured vulnerability findings directly into Datadog as custom metrics, enabling real-time security dashboards, historical trend analysis, alerting and reporting..
+              • Enabled security and engineering teams to monitor the vulnerability posture of publicly exposed workloads over time and identify applications requiring remediation.
+        subsystems:
+          - id: kubernetes-exposure-scanner
+            name: "Kubernetes Exposure Scanner"
+            type: "Security Assessment"
+            logoKey: "kubernetes"
+            description: "Containerized discovery and vulnerability assessment engine targeting internet-facing Kubernetes workloads."
+            techStackLogos: ["kubernetes", "snyk", "bash"]
+            components:
+              - name: "Public Ingress Parser"
+                spec: "Identifies internet-facing endpoints across all cluster namespaces."
+              - name: "Snyk Vulnerability Assessment"
+                spec: "Executes concurrent container scans and aggregates findings by severity."
+            repoUrl: "https://github.com/devops-end2end/k8s-public-service-vul-scanner"
+          - id: datadog-security-observability
+            name: "Datadog Security Observability"
+            type: "Security Analytics & Monitoring"
+            logoKey: "datadog"
+            description: "Centralized security metrics platform for monitoring vulnerability posture, tracking trends, and operationalizing remediation through dashboards and alerts."
+            techStackLogos: ["datadog", "kubernetes"]
+            components:
+              - name: "Metrics Ingestion"
+                spec: "Ingests structured vulnerability assessment results and indexes findings as Datadog metrics."
+              - name: "Security Dashboards"
+                spec: "Visualizes vulnerability counts by severity, application, container image, and exposure context."
+              - name: "Vulnerability Trend Analysis"
+                spec: "Tracks vulnerability posture across recurring assessment intervals to identify emerging risks and remediation progress."
+              - name: "Alerting & Reporting"
+                spec: "Uses Datadog metrics to support security alerts, operational reporting, and remediation prioritization."
+	
   - id: "reliability-resilience"
     title: "Reliability & Resilience Engineering"
     subtitle: "Observability · SRE · High availability · Disaster recovery · Incident management"
     image: "reliability-resilience.jpg"
     case_studies:
       - id: "global-private-cloud"
-        title: "Global Private Cloud Architecture (AppNexus)"
-        problem: "Rapid international growth required scaling big data infrastructure processing 170TB daily and 5M ETL transactions/sec."
-        solution: "Engineered and expanded global private cloud infrastructure across 3 data centers in Europe and Asia, provisioning 200+ racks (10,000+ bare-metal Dell servers, 4,000+ Xen VMs) with automated PXE/Kickstart and Puppet deployment pipelines."
+        title: "Global Private Cloud Architecture at Scale (AppNexus)"
+        problem: "Rapid international growth required scaling big data infrastructure processing 170TB of data daily and executing 5 million ETL transactions per second."
+        solution: "Engineered and expanded global private cloud infrastructure across 3 data centers in Europe and Asia, provisioning 200+ racks (10,000+ bare-metal Dell servers, 4,000+ Xen VMs) with automated PXE/Kickstart and Puppet pipelines."
         metrics:
           - "10,000+ Physical Servers"
-          - "170TB Ingestion Daily"
-          - "200+ Racks Provisioned"
+          - "170TB Daily Data Ingestion"
+          - "5M ETL Transactions / Sec"
         architecture: |
           graph TD
-            A[5M ETL Txns/sec] --> B[Global Data Centers - 3 Regions]
-            B --> C[10k+ Dell Bare-Metal Servers]
-            B --> D[4k+ Xen Virtual Instances]
+            A[5M ETL Transactions / Sec] --> B[Global Data Centers - 3 Regions]
+            B --> C[10,000+ Dell Bare-Metal Servers]
+            B --> D[4,000+ Xen Virtual Instances]
             E[Automated PXE / Kickstart / Puppet] --> C & D
+        deep_dive_sections:
+          - title: "Global Scale-Out & Hardware Architecture"
+            content: |
+              • Provisioned 200 server racks across 3 international data centers in Europe and Asia, deploying over 10,000 Dell physical servers and 4,000 Xen virtual machines.
+              • Tuned Linux kernel parameters, top-of-rack (TOR) networking switches, and NAS/SAN storage arrays (Nexenta, Isilon) to handle extreme big data throughput.
+          - title: "Automation & Provisioning Pipelines"
+            content: |
+              • Built end-to-end automated provisioning pipelines using PXE boot, TFTP, Kickstart, and customized RPM spec builds managed via Puppet.
+              • Maintained 99.99% infrastructure availability across massive distributed clusters supporting hundreds of engineers and real-time ad exchanges.
+        subsystems:
+          - id: xen-private-cloud
+            name: "Global Xen Private Cloud"
+            type: "Virtualization Infrastructure"
+            logoKey: "linux"
+            description: "Large-scale virtual machine infrastructure powering global ad-serving and big data analytics."
+            techStackLogos: ["linux", "xen", "puppet"]
+            components:
+              - name: "Xen Hypervisor Fleet"
+                spec: "Managed 4,000+ Xen virtual machines distributed across international data centers."
+              - name: "Bare-Metal Provisioning"
+                spec: "Automated zero-touch server provisioning via PXE and Kickstart."
+
+      - id: "observability-sre-transformation"
+        title: "Standardized Datadog Observability & Incident Response"
+        problem: "Fragmented monitoring tools (Prometheus, ELK, Nagios, Graphite) caused alert fatigue, delayed root-cause analysis, and extended MTTR during outages."
+        solution: "Replaced fragmented legacy monitoring with a standardized Datadog APM, logging, metrics, and tracing stack integrated with PagerDuty, establishing high-signal observability across all microservices."
+        metrics:
+          - "Unified Datadog Observability Stack"
+          - "Integrated PagerDuty Incident Response"
+          - "Significantly Reduced MTTR"
+        architecture: |
+          graph TD
+            A[Microservices & K8s Pods] --> B[Datadog Agent & APM]
+            B --> C[Logs, Metrics & Distributed Tracing]
+            C --> D[Unified Datadog Dashboards]
+            C --> E[PagerDuty Incident Escalation]
+            E --> F[Reduced MTTR & SRE Efficiency]
+        deep_dive_sections:
+          - title: "Observability Consolidation Strategy"
+            content: |
+              • Consolidated disparate monitoring systems into a single unified Datadog platform covering APM, infrastructure metrics, log management, and distributed tracing.
+              • Instrumented 600+ microservices with standardized trace headers to track latency bottlenecks across complex ad-serving workflows.
+          - title: "SRE Incident Management & Alert Tuning"
+            content: |
+              • Partnered with SRE teams to establish SLO-based alerting and integrate Datadog directly with PagerDuty for intelligent on-call routing.
+              • Eliminated alert noise and significantly reduced Mean Time to Resolution (MTTR) during critical production incidents.
+        subsystems:
+          - id: datadog-apm-tracing
+            name: "Datadog APM & Tracing"
+            type: "Observability Platform"
+            logoKey: "datadog"
+            description: "Comprehensive application performance monitoring and distributed tracing engine."
+            techStackLogos: ["datadog", "kubernetes", "python", "go"]
+            components:
+              - name: "Distributed Tracing"
+                spec: "Tracks requests across 600+ microservices to identify sub-50ms latency bottlenecks."
+              - name: "Log Aggregation & Indexing"
+                spec: "Centralized log collection and parsing across all EKS clusters."
 
   - id: "data-ai-platform"
     title: "Data & AI Platform Modernization"
@@ -248,35 +534,125 @@ strategic_domains:
     case_studies:
       - id: "vespa-search"
         title: "Sub-50ms Vespa Cloud Vector Search"
-        problem: "Real-time ad serving required extremely low latency (<50ms) hybrid search (Vector + BM25) across massive datasets."
-        solution: "Deployed production Vespa Cloud search infrastructure. Optimized multi-phase tensor ranking and real-time streaming ingestion via Kafka, significantly improving query performance at high QPS."
+        problem: "Real-time ad serving required extremely low latency (<50ms) hybrid search combining vector embeddings and BM25 ranking across massive scale datasets."
+        solution: "Deployed production Vespa Cloud search infrastructure. Optimized multi-phase tensor ranking and real-time streaming ingestion via Kafka, achieving sub-50ms query latency at high QPS."
         metrics:
-          - "<50ms Latency"
-          - "High QPS"
-          - "Hybrid Search"
+          - "<50ms Query Latency"
+          - "High QPS Ad Serving"
+          - "Hybrid Vector + BM25 Search"
         architecture: |
           graph LR
-            A[Kafka Streaming] --> B[Vespa Cloud]
-            B --> C{Hybrid Search}
-            B --> D[Vector Rank]
-            B --> E[BM25 Rank]
-            D & E --> F[Sub-50ms Response]
+            A[Kafka Real-Time Streaming] --> B[Vespa Cloud Cluster]
+            B --> C{Hybrid Search Engine}
+            B --> D[Vector Tensor Ranking]
+            B --> E[BM25 Text Ranking]
+            D & E --> F[Sub-50ms Response Time]
+        deep_dive_sections:
+          - title: "Tensor Ranking & Schema Optimization"
+            content: |
+              • Configured custom `services.xml` schemas and multi-phase tensor ranking expressions in Vespa Cloud to execute complex matching algorithms in under 50ms.
+              • Combined approximate nearest neighbor (ANN) vector search with traditional BM25 keyword matching for optimal ad relevance and click-through rates.
+          - title: "Real-Time Ingestion Pipeline"
+            content: |
+              • Engineered high-throughput real-time streaming ingestion pipelines from Apache Kafka directly into Vespa cluster nodes.
+              • Maintained consistency and sub-second index freshness across high-volume advertising campaigns.
+        subsystems:
+          - id: vespa-cloud-cluster
+            name: "Vespa Cloud Search Engine"
+            type: "Vector & Text Search"
+            logoKey: "vespa"
+            description: "Distributed big data serving engine optimized for real-time vector search and tensor ranking."
+            techStackLogos: ["vespa", "kafka", "aws"]
+            components:
+              - name: "Multi-Phase Tensor Ranking"
+                spec: "Executes complex machine learning ranking models over indexed vector embeddings."
+              - name: "Real-Time Kafka Ingestion"
+                spec: "Ingests streaming ad telemetry and campaign updates with zero indexing lag."
 
       - id: "mlops-ai-governance"
         title: "Automated MLOps Retraining & AI Governance Platform"
-        problem: "Legacy MLOps pipelines (Hadoop Spark, Airflow) were slow and complex, and unmanaged AI developer tools posed data leak risks."
+        problem: "Legacy MLOps pipelines (Hadoop Spark, Airflow) were slow and complex, and unmanaged adoption of AI developer tools posed severe data leakage and compliance risks."
         solution: "Constructed modern event-driven MLOps pipelines using Kubeflow, MLflow, and Argo Workflows triggered by metric drift. Established centralized LLM proxy gateways with automated PII sanitization to safely roll out AI tools (Claude Code, Copilot, ChatGPT)."
         metrics:
-          - "Automated Model Retraining"
-          - "PII Sanitized AI Gateways"
-          - "Legacy Hadoop Phase-out"
+          - "Automated Drift-Triggered Retraining"
+          - "PII-Sanitized Centralized LLM Gateways"
+          - "Legacy Hadoop & Airflow Replacement"
         architecture: |
           graph TD
-            A[Metric Drift Event] --> B[Argo Events / Workflows]
-            B --> C[Kubeflow & MLflow Pipeline]
-            B --> D[Model Retraining & Validation]
+            A[Metric Drift Detection] --> B[Argo Events & Workflows]
+            B --> C[Kubeflow & MLflow Training Pipelines]
+            B --> D[Automated Model Validation & Deployment]
             E[Developer AI Tools] --> F[Centralized LLM Proxy]
-            F -->|PII Sanitization| G[External LLM Providers]
+            F -->|Automated PII Sanitization| G[External LLM Providers]
+        deep_dive_sections:
+          - title: "Event-Driven MLOps & Model Retraining"
+            content: |
+              • Replaced legacy Hadoop and Airflow data pipelines with modern event-driven workflows powered by Argo Events, Argo Workflows, and Kubeflow.
+              • Implemented automated model monitoring to detect feature and metric drift, triggering seamless retraining and deployment pipelines via MLflow.
+          - title: "Enterprise AI Governance & PII Sanitization"
+            content: |
+              • Established a centralized LLM proxy gateway supporting Claude Code, GitHub Copilot, and ChatGPT across engineering teams.
+              • Implemented automated PII masking and data sanitization filters to ensure proprietary source code and sensitive data never leaked to external AI vendors.
+        subsystems:
+          - id: kubeflow-mlflow-platform
+            name: "Kubeflow & MLflow MLOps Engine"
+            type: "Machine Learning Platform"
+            logoKey: "kubeflow"
+            description: "Scalable machine learning pipeline orchestration and model registry platform."
+            techStackLogos: ["kubeflow", "mlflow", "kubernetes", "python"]
+            components:
+              - name: "Automated Retraining Pipelines"
+                spec: "Triggers model training upon statistical detection of data or concept drift."
+              - name: "Model Registry & Tracking"
+                spec: "Manages artifact versioning, lineage, and promotion to production inference endpoints."
+
+          - id: centralized-llm-proxy
+            name: "Centralized LLM Proxy Gateway"
+            type: "AI Security & Governance"
+            logoKey: "openai"
+            description: "Secure enterprise gateway for developer AI tools featuring automated PII sanitization and rate limiting."
+            techStackLogos: ["python", "kubernetes", "openai", "docker"]
+            components:
+              - name: "PII Sanitization Engine"
+                spec: "Automatically redacts internal IP addresses, credentials, and customer data from prompt payloads."
+              - name: "Access & Cost Governance"
+                spec: "Monitors token consumption and enforces usage quotas across engineering teams."
+
+      - id: "scheduling-platform-migration"
+        title: "Scheduling Platform & Airflow Migration to Argo Workflows & K8s Spark"
+        problem: "Legacy scheduling and data processing platforms relying on Hadoop YARN, Azkaban, Django, Skybot, and Airflow suffered from resource contention, scaling limits, and high maintenance overhead."
+        solution: "Engineered a comprehensive migration of batch data pipelines and scheduling platforms from legacy Hadoop YARN and Airflow to Kubernetes-native Argo Workflows and the K8s Spark Operator."
+        metrics:
+          - "Legacy Scheduling Platforms Replaced"
+          - "Kubernetes-Native Spark Operator Adoption"
+          - "Optimized Batch Processing Scale"
+        architecture: |
+          graph TD
+            A[Legacy Hadoop YARN / Airflow / Azkaban] -->|Platform Modernization| B(Argo Workflows Orchestration)
+            B --> C[Kubernetes Spark Operator]
+            C --> D[Elastic EKS Batch Compute]
+            D --> E[High-Throughput Data Pipeline Execution]
+        deep_dive_sections:
+          - title: "Migration Architecture & Containerization"
+            content: |
+              • Migrated hundreds of complex data processing jobs from legacy Hadoop YARN, Azkaban, and Airflow environments into containerized Argo Workflows.
+              • Adopted the Kubernetes Spark Operator to execute distributed spark jobs directly on EKS, eliminating heavy dependency on dedicated Hadoop clusters.
+          - title: "Operational Efficiency & Reliability"
+            content: |
+              • Established declarative workflow definitions with built-in retries, timeout handling, and parallel execution stages.
+              • Reduced cluster resource wastage through dynamic container scheduling and spot instance integration.
+        subsystems:
+          - id: k8s-spark-operator
+            name: "Kubernetes Spark Operator"
+            type: "Distributed Compute"
+            logoKey: "apachespark"
+            description: "Native Kubernetes operator for managing Apache Spark applications with automated scaling and lifecycle management."
+            techStackLogos: ["apachespark", "kubernetes", "docker"]
+            components:
+              - name: "Custom Resource Definition (CRD)"
+                spec: "Declares Spark applications as Kubernetes objects for native GitOps management."
+              - name: "Dynamic Executor Scaling"
+                spec: "Automatically scales spark driver and executor pods based on workload demands."
 
 experience:
   - company: "adMarketplace"

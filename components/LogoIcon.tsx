@@ -6,7 +6,8 @@ import {
   SiKubernetes,
   SiHelm,
   SiDocker,
-  SiTerraform
+  SiTerraform,
+  SiDatadog
 } from 'react-icons/si';
 import {
   GitBranch,
@@ -47,6 +48,8 @@ export default function LogoIcon({ logoKey, className = "w-5 h-5" }: Props) {
       return <SiDocker className={className} />;
     case 'terraform':
       return <SiTerraform className={className} />;
+    case 'datadog':
+      return <SiDatadog className={className} />;
 
     // Platform & Developer Experience
     case 'backstage':
