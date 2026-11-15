@@ -1,0 +1,31 @@
+strategic_domains:
+  - id: (fixed string): "cloud-transformation", "platform-engineering", "cost-optimization", "security-governance", "reliability-resilience", "data-ai-platform"
+    title: Display name of the strategic domain
+    subtitle: Tagline or bulleted list of focus areas summarizing the domain's scope
+    image: Image asset path or filename representing the domain
+    case_studies: Each item under case_studies documents an end-to-end project or technical initiative
+      - id: Unique slug/key for the case study
+        title: Headline title of the project or initiative
+        problem: Description of legacy challenges, bottlenecks, technical debt, or business constraints prior to the initiative.
+        solution: Strategic approach, architectural decisions, and technologies deployed to solve the problem
+        metrics: [list of strings] Quantifiable outcomes, key performance indicators (KPIs), or business impacts
+        architecture: | 
+          (multiline string)  Architectural diagram definition (formatted in Mermaid.js syntax)
+        deep_dive_sections:
+          - title: Heading for the section
+            content: |
+              (optional) multiline string Detailed technical narrative, bullet points, or execution steps
+            image: "(optional) sdlc.jpg"
+            links: (optional)
+              - label:
+                url: 
+        subsystems: Detailed building blocks or platform components deployed as part of the case study
+          - id: Subsystem identifier
+            name: Human-readable name of the subsystem
+            type: Category or functional role (e.g., "Developer Portal", "Infrastructure Control Plane", "CI Orchestrator"
+            logoKey: (string): Identifier for looking up UI logos/icons (e.g., "backstage", "crossplane")
+            description: Summary of what the subsystem does and its purpose in the architecture.
+            techStackLogos: List of technology icon keys associated with the subsystem (e.g., ["backstage", "github", "kubernetes"]).
+            components: Granular capabilities, specifications, or sub-modules within this subsystem.
+              - name: Name of the feature, component, or resource
+                spec: Technical description, configuration specification, or capability summary.

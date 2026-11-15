@@ -31,11 +31,11 @@ basics:
 
     # Platform Engineer
     persona3: |-
-      <b>A successful internal developer platform does more than provision infrastructure—it transforms the way engineering organizations build, deploy, and operate software.</b> I approach platform engineering as product engineering, combining systems architecture, developer experience, and operational excellence to create platforms that make the secure, reliable path the easiest path.
+      <b>A successful internal developer platform does more than provision infrastructure, it transforms the way engineering teams build, deploy, and operate software.</b> I approach platform engineering as a product, combining systems architecture, developer experience, and operational excellence to create platforms that make the secure, reliable path the easiest path.
 
-      I've spent my career turning fragmented infrastructure and manual operational processes into cohesive, self-service engineering ecosystems. At adMarketplace, I helped transform a complex hybrid environment into a Kubernetes-native platform, building developer portals, automated provisioning workflows, and standardized delivery patterns that empowered 100+ engineers to operate infrastructure with greater autonomy. By bringing infrastructure, CI/CD, and GitOps together, I helped establish a consistent engineering experience across hundreds of microservices and modernize delivery pipelines spanning more than 900 repositories.
+      I've spent my career turning fragmented infrastructure and manual operational processes into cohesive, self-service engineering ecosystems. At adMarketplace, I transformed a complex hybrid environment into a Kubernetes-native platform, building developer portals, automated provisioning workflows, and standardized delivery patterns that empowered 100+ engineers to operate infrastructure with greater autonomy. By bringing infrastructure, CI/CD, and GitOps together, I helped establish a consistent engineering experience across hundreds of microservices and modernize delivery pipelines spanning more than 900 repositories.
 
-      My philosophy is to engineer away friction without engineering away control. I build golden paths that accelerate delivery while embedding security, policy enforcement, observability, and cost governance into the platform itself. Rather than treating these capabilities as separate operational responsibilities, I integrate them into the developer workflow—making reliability, compliance, and efficiency natural outcomes of good engineering.
+      My philosophy is to engineer away friction without engineering away control. I build golden paths that accelerate delivery while embedding security, policy enforcement, observability, and cost governance into the platform itself. Rather than treating these capabilities as separate operational responsibilities, I integrate them into the developer workflow, making reliability, compliance, and efficiency natural outcomes of good engineering.
 
       I measure platform success by its impact on the people and systems it serves: less cognitive overhead, faster feedback, greater developer autonomy, and lower operational costs. That approach has helped me drive company-wide cloud cost reductions of 50%, standardize enterprise observability, and introduce secure AI-assisted engineering workflows.
 
@@ -49,6 +49,365 @@ resumes:
   persona3: "https://raw.githubusercontent.com/iarjune/portfolio/main/data/resumes/Ivan.Arjune.347-781-4826_Platform.pdf"
 
 strategic_domains:
+  - id: "platform-engineering"
+    title: "Platform Engineering & Developer Enablement"
+    subtitle: "Internal developer platforms · Golden paths · Self-service · GitOps · CI/CD modernization"
+    image: "platform-engineering.jpg"
+    case_studies:
+      - id: "enterprise-gitops"
+        title: "Continuous Deployment, Declarative GitOps & Progressive Delivery"
+        problem: "Application delivery and infrastructure management had evolved into fragmented operational practices. Application deployments were orchestrated through an Internal Developer Platform using Ansible, relying on imperative execution rather than continuous reconciliation of desired state. This introduced procedural dependencies, configuration drift, inconsistent deployment behavior, and limited visibility into the actual state of production environments.  Infrastructure provisioning was managed independently through Terraform, creating a separate operational model for cloud resources and Kubernetes workloads. There was no unified mechanism for managing application and infrastructure lifecycles through a consistent declarative interface."
+        solution: "Architected and implemented a unified, Kubernetes-native GitOps platform that transformed DevOps from a collection of specialized operational processes into a self-service, declarative platform with centralized governance and distributed engineering autonomy.  The solution leveraged Argo CD, ApplicationSets, Kustomize, Argo Rollouts, and Crossplane to automate environment-based release promotion, end-to-end validation, multi-cluster production deployments, progressive delivery, and cloud infrastructure provisioning. Established Git as the single source of truth, centralized privileged deployment execution within platform-managed controllers, and enabled engineering teams to independently consume infrastructure through declarative APIs, achieving 100% adoption across application delivery and infrastructure provisioning."
+        metrics:
+          - "100% GitOps Workflow Adoption"
+          - "100% Declarative and Traceable Deployments & Infra"
+          - "90% Reduction in Manual Intervention"
+          - "70% Reduction in Infrastructure Team dependency"
+          - "Release Rollback in <1min"
+        architecture: |
+          flowchart TD
+
+              subgraph CICD["Deployment Pipeline"]
+                  D["Update Image Tag in Kustomize TEST Overlay "]
+                  E["Monitor Argo CD App Health"]
+                  F["Execute E2E Validation"]
+                  G["Delete TEST Deployment"]
+                  H["Update Image Tag in Kustomize PROD Overlay"]
+
+                  D --> E --> F --> G --> H
+              end
+
+              subgraph GITOPS["GitOps Repository - Kustomize"]
+                  I["Kustomize Base"]
+                  J["TEST Environment Overlay"]
+                  K["PROD Environment Overlay"]
+
+                  I --> J
+                  I --> K
+              end
+
+              subgraph ARGO["Argo CD Control Plane"]
+                  L["Argo CD"]
+                  M["PROD ApplicationSet"]
+                  Mt["TEST ApplicationSet"]
+                  N["Cluster Generator"]
+                  O["East App"]
+                  P["West App"]
+                  Ma["TEST App"]
+
+                  L --> M --> N
+                  L --> Mt
+                  Mt--> Ma
+                  N --> O
+                  N --> P
+              end
+
+              subgraph TEST["Pre-Production - TEST EKS"]
+                  Q["Test EKS Cluster"]
+                  T["End-to-End Validation"]
+
+                  Q --> T
+              end
+
+              subgraph PROD["PROD - Multi-Cluster EKS"]
+                  U["East EKS Cluster"]
+                  V["West EKS Cluster"]
+
+                  W["Argo Rollouts - East"]
+                  X["Argo Rollouts - West"]
+
+                  Yw["Canary Metrics Analysis"]
+                  Ye["Canary Metrics Analysis"]
+                  Zw["Automated Promotion / Rollback"]
+                  Ze["Automated Promotion / Rollback"]
+
+                  U --> W --> Yw --> Zw
+                  V --> X --> Ye --> Ze
+
+              end
+
+              subgraph INFRA["Kubernetes-Native Infrastructure Management"]
+                  AA["Crossplane Control Plane"]
+                  AB["XRDs / Compositions"]
+                  AC["AWS Providers"]
+                  AD["Managed AWS Resources<br/>RDS / S3 / SQS"]
+
+                  AA --> AB --> AC --> AD
+              end
+
+              D --> J
+              J -->|"ArgoCD Sync"| L
+              Ma -->|"Reconcile"| Q
+
+              T -.->|"Validation Result"| F
+
+              H --> K
+              K -->|"ArgoCD Sync"| L
+
+              O -->|"Reconcile"| U
+              P -->|"Reconcile"| V
+
+              L -->|"Infrastructure Claims"| AA
+
+        deep_dive_sections:
+          - title: "SDLC"
+            image: "sdlc.jpg"
+
+          - title: "GitOps Operating Model & Declarative State Management"
+            content: |
+              Established Git as the authoritative source of truth for desired state, using Kubernetes’ continuous reconciliation engines.
+              - Argo CD continuous reconciliation for Infrastructure resources and Kubernetes workloads. 
+              - Service Onboarding standardized K8s manifests and environment overlays. 
+              - Clean separation between CI artifact building and CD execution.
+              - GitOps mono-repo centralized application and infrastructure configuration.
+
+          - title: "Continuous Deployment in GitOps with End-to-End Validation"
+            content: |
+              Designed a Git-driven release promotion pipeline that made successful end-to-end validation a prerequisite for production deployment. The solution introduced a dedicated TEST EKS cluster as a pre-production validation environment. Rather than having CI/CD directly execute Kubernetes deployments, the pipeline updates the desired state in Git and relies on Argo CD to reconcile the environment.
+
+              - Built and published application container images through CI/CD.
+              - Automated updates to the image reference in the Kustomize test overlay.
+              - Triggered Argo CD synchronization to deploy the updated application to the dedicated test EKS cluster.
+              - Implemented deployment health monitoring, allowing the pipeline to wait for the application to reach its expected healthy service state.
+              - Executed end-to-end functional validation against the deployed application.
+              - Removed the test deployment following validation.
+              - Updated the production Kustomize overlay only after successful validation.
+              - Allowed Argo CD to detect and reconcile the production configuration change.
+
+              Release Lifecycle
+              Build → Publish → Update Test Overlay → Argo CD Sync → Health Verification → E2E Validation → Test Cleanup → Update Production Overlay → Production Deployment
+
+          - title: "Multi-Cluster GitOps & Regional Application Management"
+            content: |
+              Managing applications across multiple Kubernetes clusters (East & West) introduces operational complexity, particularly with deployment consistency.  Traditional approaches relying on individually maintained application definitions create configuration duplication, operational overhead, and opportunities for regional deployment divergence.  The organization needed a scalable mechanism to manage multiple production clusters while maintaining centralized governance and independent deployment control.
+
+              I implemented an Argo CD ApplicationSet architecture using the “cluster generator” feature to dynamically discover registered Kubernetes clusters and generate environment-specific applications.
+
+              This established a centralized GitOps control plane capable of managing independent application deployments across East and West production EKS clusters.
+
+              - Registered and labeled production EKS clusters with Argo CD.
+              - Implemented ApplicationSets using the cluster generator.
+              - Leveraged cluster labels to dynamically generate separate Argo CD applications for East and West production clusters.
+              - Used Kustomize overlays to manage environment-specific (east|west) application configuration.
+              - Maintained independent synchronization and reconciliation for each regional application.
+              - Centralized deployment governance while preserving independent cluster-level execution.
+
+              GitOps Repository → Argo CD → ApplicationSet Cluster Generator → East Application + West Application → Independent EKS Reconciliation
+
+              Outcomes
+
+              - Automated application generation and deployment management across multiple production clusters.
+              - Eliminated the need to manually maintain separate application definitions for each region.
+              - Established a centralized management model with independent regional reconciliation.
+              - Improved consistency across production environments.
+              - Created a scalable foundation for onboarding additional Kubernetes clusters.
+
+          - title: "Progressive Delivery & Automated Release Safety"
+            content: |
+              The organization needed controlled release mechanisms that could progressively introduce application changes, evaluate application health, and automatically respond to deployment failures.  In addition, rollback operations introduced operational dependencies and required elevated Kubernetes permissions or cross-team release dependencies.
+
+              I introduced Argo Rollouts as the progressive delivery engine, replacing conventional deployment strategies with controlled canary releases, metrics-driven analysis, and automated promotion or rollback.  The objective was to make production releases controlled, observable, and independently managed by the platform rather than dependent on individual engineers executing privileged deployment operations.
+
+              - Integrated Argo Rollouts into production application delivery.
+              - Implemented canary deployment strategies.
+              - Introduced controlled traffic shaping during application releases.
+              - Integrated metrics analysis into rollout progression.
+              - Established automated promotion criteria based on rollout analysis.
+              - Enabled automated rollback when release health criteria were not satisfied.
+
+          - title: "Kubernetes-Native Infrastructure Management with Crossplane"
+            content: |
+              Although infrastructure was already managed declaratively through Terraform, teams still depended on the infrastructure team for provisioning AWS resources due to high cognitive load and complexity of cross-team collaboration within the terraform mono-repo.
+
+              The organization needed a consistent infrastructure management model that aligned cloud provisioning with the declarative reconciliation architecture being introduced for application delivery.
+
+              I adopted Crossplane to extend Kubernetes-native declarative management beyond application workloads into cloud infrastructure provisioning.  The decision was to use Kubernetes APIs as the interface for defining and managing infrastructure resources, allowing infrastructure and application lifecycles to operate under a consistent reconciliation model.
+
+              - Introduced Crossplane as the infrastructure control plane.
+              - Defined Composite Resource Definitions (XRDs) to establish infrastructure APIs.
+              - Implemented Compositions to translate higher-level infrastructure abstractions into managed resources.
+              - Integrated AWS Providers for cloud resource management.
+              - Established declarative provisioning workflows for AWS services, including RDS, S3, and SQS.
+              - Integrated infrastructure claims and definitions into the broader GitOps operating model.
+              - Centralized infrastructure desired state in version-controlled configuration.
+
+          - title: "Deployment Governance, Least-Privilege Access & Operational Security"
+            content: |
+              The existing deployment model required engineers to possess elevated permissions to manage application deployments and rollbacks.  Deployment governance depended heavily on individual operators and the procedural workflows, limiting centralized control and consistent auditability.
+
+              Shifted deployment authority from individual engineers to centrally managed GitOps controllers and progressive delivery automation.  The architecture established a separation between requesting or authorizing changes and executing privileged operations. Engineers interact with version-controlled desired state, while Argo CD and Argo Rollouts perform the actual deployment and rollout operations through their configured service identities and permissions.
+
+              - Established Git as the controlled interface for declaring application deployment changes.
+              - Delegated Kubernetes synchronization and deployment execution to Argo CD.
+              - Delegated progressive delivery and rollback execution to Argo Rollouts.
+              - Removed the operational requirement for engineers to directly execute privileged Kubernetes deployment commands.
+              - Established Git-based change history and traceability for deployment configuration.
+              - Centralized deployment and rollback workflows through platform-managed automation.
+              - Separated developer-facing deployment responsibilities from cluster-level execution privileges.
+
+        subsystems:
+          - id: gitops-deployment-management
+            name: "Argo CD"
+            type: "GitOps Continuous Delivery"
+            logoKey: "argocd"
+            repoUrl: "https://github.com/devops-end2end/gitops"
+            description: "Continuously reconciles Kubernetes environments against version-controlled desired state, providing centralized deployment management and Git-based change traceability."
+            techStackLogos: ["argocd", "kubernetes", "kustomize", "github"]
+            components:
+              - name: "GitOps Repository"
+                spec: "Stores Kubernetes manifests, Kustomize bases, and environment-specific overlays as the source of truth for application deployments."
+              - name: "Kustomize"
+                spec: "Manages reusable application configuration and environment-specific deployment overlays for TEST and PROD."
+              - name: "Argo CD Applications"
+                spec: "Continuously reconcile application resources in their target Kubernetes clusters with the desired state defined in Git."
+              - name: "ApplicationSets"
+                spec: "Dynamically generate independent East and West production Argo CD Applications using registered cluster metadata."
+              - name: "Cluster Registration"
+                spec: "Registers and labels Kubernetes clusters so Argo CD can target the appropriate deployment environments."
+              - name: "Continuous Reconciliation"
+                spec: "Detects Git changes and synchronizes Kubernetes resources, maintaining alignment between declared and deployed state."
+
+          - id: progressive-delivery
+            name: "Argo Rollouts"
+            type: "Progressive Delivery"
+            logoKey: "argocd"
+            repoUrl: "https://github.com/devops-end2end/templates/tree/main/deployment/argo-rollout"
+            description: "Controls production release progression through canary deployments, traffic shaping, and automated analysis to reduce deployment risk."
+            techStackLogos: ["argo-rollouts", "kubernetes", "aws"]
+            components:
+              - name: "Canary Deployments"
+                spec: "Gradually introduces new application versions into production rather than replacing the existing version all at once."
+              - name: "Traffic Management"
+                spec: "Controls traffic distribution between stable and canary versions during progressive rollout stages."
+              - name: "Metrics Analysis"
+                spec: "Evaluates application and rollout metrics at defined stages to determine whether a release should proceed."
+              - name: "Automated Promotion"
+                spec: "Advances canary releases when configured rollout and analysis criteria are satisfied."
+              - name: "Automated Rollback"
+                spec: "Reverts unsuccessful releases to the stable version when rollout analysis or configured conditions fail."
+              - name: "Regional Rollout Execution"
+                spec: "Executes rollout strategies independently within the East and West production clusters."
+
+          - id: kubernetes-infrastructure-management
+            name: "Crossplane"
+            type: "Kubernetes-Native Infrastructure Management"
+            logoKey: "crossplane"
+            repoUrl: ""
+            description: "Extends the GitOps operating model to cloud infrastructure, allowing engineering teams to provision and manage AWS resources through Kubernetes-native declarative APIs."
+            techStackLogos: ["crossplane", "kubernetes", "aws", "github"]
+            components:
+              - name: "Composite Resource Definitions (XRDs)"
+                spec: "Define the Kubernetes APIs exposed to engineering teams for requesting infrastructure resources."
+              - name: "Compositions"
+                spec: "Translate high-level infrastructure claims into the underlying AWS resources and configuration required to fulfill them."
+              - name: "AWS Providers"
+                spec: "Connect Crossplane to AWS APIs to provision and manage cloud infrastructure resources."
+              - name: "Datadog Providers"
+                spec: "Connect Crossplane to Datadog APIs to provision and manage observability resources, like dashboards and monitors."
+              - name: "Managed Resources"
+                spec: "Represent provisioned AWS resources as Kubernetes resources that Crossplane continuously reconciles."
+              - name: "GitOps Infrastructure Workflows"
+                spec: "Version-controls infrastructure claims and configuration alongside application delivery workflows."
+
+      - id: "idp-goldenpath"
+        title: "Self-Service Portals & Golden Path Templates"
+        problem: "Engineers faced heavy cognitive load, manual provisioning toil, and inconsistent service configurations when onboarding new applications and microservice runtimes. The frequent inconsistencies resulted in significant build and runtime errors, as well as outages."
+        solution: "Created a centralized Backstage Internal Developer Portal (IDP) featuring developer-managed 'golden path' templates, empowering 100+ engineers with full self-service autonomy."
+        metrics:
+          - "100+ Engineers Empowered"
+          - "Standardized Golden Path Templates"
+          - "Full Self-Service Autonomy"
+          - "100% Build and Deployment Consistency"
+          - "All Languages and versions Supported"
+          - "New Service Deployed and Tested in <5mins"
+        architecture: |
+          graph TD
+            A[Developer] -->|Self-Service UI / API| B(Backstage IDP Portal)
+            B --> C[Golden Path App Scaffolding]
+            B --> D[Service Catalog & TechDocs]
+            C --> E[Standardized GitHub & ECR Repo]
+            D & E --> F[Production-Ready Application Stack]
+        deep_dive_sections:
+          - title: "Architecture Decisions & Trade-offs"
+            content: |
+              • Service Onboarding scaffolds a repository, provisions infrastructure, sets up CI/CD pipelines, and deploys a working "Hello World" service out of the box.
+              • Chose Backstage as the IDP to unify service catalogs, documentation, and scaffolding across polyglot microservice runtimes.
+              • Balanced standardization with flexibility by offering extensible golden path templates for Go, Java, Python, and Node.js while keeping core observability, health checks, and security defaults enforced.
+              • Decoupled application scaffolding from infrastructure provisioning so developer portals remain focused on service ownership, API specs, and rapid onboarding.
+
+          - title: "Implementation Strategy & Developer Experience"
+            content: |
+              • Integrated Backstage with GitHub and AWS ECR plugins to automate the onboarding of GitHub and ECR repositories, container registries, health endpoints, and CI/CD configurations in minutes.
+              • Integrated direct feedback loops and usage telemetry into the IDP to continuously iterate on developer experience and eliminate friction.
+        subsystems:
+          - id: backstage-service-onboarding
+            name: "Backstage"
+            type: "Developer Portal"
+            logoKey: "backstage"
+            repoUrl: "https://github.com/devops-end2end/gitops/tree/main/components/backstage"
+            description: "Internal Developers Portal for creating, cataloging and operating services."
+            techStackLogos: ["backstage", "github", "aws", "kubernetes"]
+            components:
+              - name: "Service Onboarding Portal"
+                spec: "Provisions a golden-path application repository and dedicated container repository."
+              - name: "Language Runtimes"
+                spec: "Supports Go, Java, Python, and Node.js runtimes with pre-configured health endpoints and metrics."
+              - name: "GitHub Plugin"
+                spec: "Used for creating the new git repository"
+              - name: “AWS Plugin”
+                spec: “Used for creating the new docker repository”
+              - name: “Kubernetes”
+                spec: “The server is provisioned in k8s”
+              - name: “Postgres”
+                spec: “Backing service for Backstage”
+
+          - id: scaffolding-templates
+            name: "Scaffolder Templates"
+            type: "Developer Portal"
+            logoKey: "backstage"
+            repoUrl: "https://github.com/devops-end2end/templates"
+            description: "Repository of scaffolding templates, used by Backstage Scaffolder when creating a new service, adding infrastructure components to an existing service and/or adding deployment configurations to a service."
+            techStackLogos: ["backstage", "github"]
+            components:
+              - name: "Templates Repo"
+                spec: "Repository of language specific service scaffolding and runtime specific scaffolding."
+
+      - id: "cicd-migration"
+        title: "Migration of 900+ Projects & Pipelines to GitHub Actions & Argo CD"
+        problem: "Legacy CI/CD pipelines relying on Bitbucket, Jenkins, and Ansible suffered from slow build times, flaky execution, and maintenance bottlenecks."
+        solution: "Modernized enterprise CI/CD by migrating 900+ repositories and pipelines from legacy Jenkins and Bitbucket systems to GitHub Actions ARC and K8s-native Argo Workflows and Argo CD."
+        metrics:
+          - "900+ Repositories Migrated"
+          - "100% CI/CD Modernization"
+          - "Significantly Reduced Build Times"
+        architecture: |
+          graph TD
+            A[Legacy Bitbucket / Jenkins] -->|Pipeline Migration| B(GitHub Actions ARC)
+            B --> C[Argo Workflows & Events]
+            C --> D[K8s Build Runners]
+            D --> E[Argo CD GitOps Deployment]
+        deep_dive_sections:
+          - title: "Pipeline Modernization & Reusable Workflows"
+            content: |
+              • Designed standardized GitHub reusable workflows for Go, Java, Python, and Node.js applications, establishing consistent build, test, and container packaging standards.
+              • Replaced legacy monolithic Jenkins instances with elastic Kubernetes-backed GitHub Actions Runner Controller (ARC) pods scaling dynamically on EKS.
+          - title: "GitOps Continuous Delivery Integration"
+            content: |
+              • Connected build outputs directly to GitOps repositories, updating image tag manifests automatically to trigger Argo CD synchronization.
+              • Eliminated manual deployment scripts and established full traceability from code commit to production release.
+        subsystems:
+          - id: github-actions-arc
+            name: "GitHub Actions Runner Controller (ARC)"
+            type: "CI Orchestrator"
+            logoKey: "githubactions"
+            description: "Kubernetes-backed runner scale set for parallel container compilation, testing, and security scanning."
+            techStackLogos: ["githubactions", "kubernetes", "docker"]
+            components:
+              - name: "Elastic Runner Scaling"
+                spec: "Auto-scales build runners on EKS based on active workflow queue depth."
+              - name: "Security Gateways"
+                spec: "Integrates Snyk and SonarQube checks directly into the runner execution pipeline."
+
   - id: "cloud-transformation"
     title: "Cloud Transformation"
     subtitle: "Cloud migrations · Data center exits · Multi-account architecture · Infrastructure modernization"
@@ -144,98 +503,6 @@ strategic_domains:
                 spec: "Maintained 200+ Dell physical servers running KVM virtualization and Ceph storage."
               - name: "Provisioning Automation"
                 spec: "PXE boot, Kickstart, and Foreman-driven bare-metal configuration management."
-
-  - id: "platform-engineering"
-    title: "Platform Engineering & Developer Enablement"
-    subtitle: "Internal developer platforms · Golden paths · Self-service · GitOps · CI/CD modernization"
-    image: "platform-engineering.jpg"
-    case_studies:
-      - id: "idp-gitops"
-        title: "Self-Service IDP & 100% ArgoCD GitOps"
-        problem: "Engineers faced significant cognitive load, manual toil, and inconsistent configurations when provisioning cloud resources and deployment pipelines."
-        solution: "Created a centralized Internal Developer Portal (IDP) with developer-managed 'golden path' templates. Orchestrated a Kubernetes-native, API-driven GitOps platform using the Argo suite, achieving 100% adoption across all engineering teams."
-        metrics:
-          - "100+ Engineers Empowered"
-          - "100% GitOps Adoption"
-          - "Full Developer Autonomy"
-        architecture: |
-          graph TD
-            A[Developer] -->|IDP Portal| B(Golden Paths & Scaffolding)
-            B --> C[GitHub Repository]
-            C -->|Trigger| D[Argo Events & Workflows]
-            C -->|Sync| E[Argo CD]
-            E --> F[EKS Cluster]
-        deep_dive_sections:
-          - title: "Architecture Decisions & Trade-offs"
-            content: |
-              • Chose Backstage as the foundational developer portal to establish a unified catalog and self-service interface across polyglot microservice architectures.
-              • Implemented Crossplane Composite Resource Definitions (XRDs) instead of ad-hoc Terraform PR workflows to enable declarative, API-driven cloud service provisioning.
-              • Enforced GitOps reconciliation via Argo CD ApplicationSets across production and staging clusters to maintain state drift visibility.
-          - title: "Implementation Strategy & Golden Paths"
-            content: |
-              • Standardized golden path templates covering CI/CD (GitHub Actions ARC), progressive delivery (Argo Rollouts), and automated secrets synchronization (External Secrets & Akeyless).
-              • Integrated automated feedback collection directly into the IDP to continuously refine developer experience and reduce onboarding time.
-        subsystems:
-          - id: backstage-service-onboarding
-            name: "Backstage Application Scaffolder"
-            type: "Developer Portal"
-            logoKey: "backstage"
-            description: "Automated onboarding templates to scaffold new application repositories with production-ready defaults."
-            techStackLogos: ["backstage", "github", "kubernetes"]
-            gitopsPath: "templates/app-scaffolding"
-            components:
-              - name: "Service Onboarding Portal"
-                spec: "Provisions a golden-path GitHub application repository and dedicated container registry."
-              - name: "Language Runtimes"
-                spec: "Supports Go, Java, Python, and Node.js runtimes with pre-configured health endpoints and metrics."
-
-          - id: crossplane-infra-onboarding
-            name: "Crossplane AWS Infrastructure Provisioner"
-            type: "Infrastructure Control Plane"
-            logoKey: "crossplane"
-            description: "Self-service Crossplane templates enabling developers to declaratively attach AWS backing services."
-            techStackLogos: ["crossplane", "terraform", "aws", "kubernetes"]
-            components:
-              - name: "Composite Resource Definitions"
-                spec: "Exposes simplified architectural abstractions for backing databases and queues with zero manual IAM toil."
-              - name: "Credential Injection"
-                spec: "Automatically wires cloud resource connection strings into Kubernetes Secrets via External Secrets operator."
-
-      - id: "cicd-migration"
-        title: "Migration of 900+ Projects & Pipelines to GitHub Actions & Argo CD"
-        problem: "Legacy CI/CD pipelines relying on Bitbucket, Jenkins, and Ansible suffered from slow build times, flaky execution, and maintenance bottlenecks."
-        solution: "Modernized enterprise CI/CD by migrating 900+ repositories and pipelines from legacy Jenkins and Bitbucket systems to GitHub Actions ARC and K8s-native Argo Workflows and Argo CD."
-        metrics:
-          - "900+ Repositories Migrated"
-          - "100% CI/CD Modernization"
-          - "Significantly Reduced Build Times"
-        architecture: |
-          graph TD
-            A[Legacy Bitbucket / Jenkins] -->|Pipeline Migration| B(GitHub Actions ARC)
-            B --> C[Argo Workflows & Events]
-            C --> D[K8s Build Runners]
-            D --> E[Argo CD GitOps Deployment]
-        deep_dive_sections:
-          - title: "Pipeline Modernization & Reusable Workflows"
-            content: |
-              • Designed standardized GitHub reusable workflows for Go, Java, Python, and Node.js applications, establishing consistent build, test, and container packaging standards.
-              • Replaced legacy monolithic Jenkins instances with elastic Kubernetes-backed GitHub Actions Runner Controller (ARC) pods scaling dynamically on EKS.
-          - title: "GitOps Continuous Delivery Integration"
-            content: |
-              • Connected build outputs directly to GitOps repositories, updating image tag manifests automatically to trigger Argo CD synchronization.
-              • Eliminated manual deployment scripts and established full traceability from code commit to production release.
-        subsystems:
-          - id: github-actions-arc
-            name: "GitHub Actions Runner Controller (ARC)"
-            type: "CI Orchestrator"
-            logoKey: "githubactions"
-            description: "Kubernetes-backed runner scale set for parallel container compilation, testing, and security scanning."
-            techStackLogos: ["githubactions", "kubernetes", "docker"]
-            components:
-              - name: "Elastic Runner Scaling"
-                spec: "Auto-scales build runners on EKS based on active workflow queue depth."
-              - name: "Security Gateways"
-                spec: "Integrates Snyk and SonarQube checks directly into the runner execution pipeline."
 
   - id: "cost-optimization"
     title: "Cost Optimization & Operational Excellence"
@@ -380,9 +647,7 @@ strategic_domains:
                 spec: "Automates database credential and API token rotation."
               - name: "Pod Secret Injection"
                 spec: "Securely injects secrets into runtime memory without writing to disk."
-                
-              
-            
+
       - id: "public-workload-security"
         title: "Zero-Day Vulnerability Discovery and Alerting System"
         problem: "Limited visibility into the vulnerability posture of internet-facing Kubernetes applications made it difficult to continuously assess exposure and prioritize remediation."
@@ -392,7 +657,7 @@ strategic_domains:
           - "Dynamic Public Workload Discovery"
           - "Datadog Security Metrics Integration"
           - "Historical Vulnerability Trend Analysis"
-          - "Team Based Security Alerting & Reporting" 
+          - "Team Based Security Alerting & Reporting"
         architecture: |
           graph LR
             A[Kubernetes Cluster] --> B[Public Ingress Discovery]
@@ -448,7 +713,7 @@ strategic_domains:
                 spec: "Tracks vulnerability posture across recurring assessment intervals to identify emerging risks and remediation progress."
               - name: "Alerting & Reporting"
                 spec: "Uses Datadog metrics to support security alerts, operational reporting, and remediation prioritization."
-	
+
   - id: "reliability-resilience"
     title: "Reliability & Resilience Engineering"
     subtitle: "Observability · SRE · High availability · Disaster recovery · Incident management"

@@ -8,6 +8,7 @@ import { Badge } from "./ui/badge"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "./ui/dialog"
 import SubsystemCard from "./SubsystemCard"
 import InspectorDrawer from "./InspectorDrawer"
+import DeepDive from "./DeepDive"
 
 function MermaidDiagram({ chart, id }: { chart: string; id: string }) {
   const containerRef = React.useRef<HTMLDivElement>(null);
@@ -71,7 +72,6 @@ export default function CaseStudies({ domains }: CaseStudiesProps) {
   const [selectedCaseStudy, setSelectedCaseStudy] = React.useState<CaseStudy | null>(null);
   const [inspectedSubsystem, setInspectedSubsystem] = React.useState<Subsystem | null>(null);
   const [imageErrors, setImageErrors] = React.useState<Record<string, boolean>>({});
-
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
   const handleDomainClick = (domain: StrategicDomain) => {
@@ -102,7 +102,7 @@ export default function CaseStudies({ domains }: CaseStudiesProps) {
         </p>
       </div>
 
-      {/* Domain Cards Grid (2-Column Layout matching design reference) */}
+      {/* Domain Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {domains.map((domain) => {
           const hasImageError = imageErrors[domain.id];
@@ -116,7 +116,6 @@ export default function CaseStudies({ domains }: CaseStudiesProps) {
               onClick={() => handleDomainClick(domain)}
               className="group cursor-pointer rounded-2xl border border-[#e7e0d3] bg-[#ffffff] overflow-hidden shadow-xs hover:shadow-xl hover:border-[#9a3412]/50 transition-all duration-300 flex flex-col justify-between"
             >
-              {/* Card Visual Header */}
               <div className="aspect-[16/9] w-full overflow-hidden bg-[#1c1917] relative flex items-center justify-center">
                 {!hasImageError ? (
                   /* eslint-disable-next-line @next/next/no-img-element */
@@ -127,7 +126,6 @@ export default function CaseStudies({ domains }: CaseStudiesProps) {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                   />
                 ) : (
-                  /* Fallback Placeholder Visual */
                   <div className="w-full h-full bg-gradient-to-br from-[#292524] via-[#1c1917] to-[#0c0a09] flex flex-col items-center justify-center p-6 text-center">
                     <div className="w-12 h-12 rounded-xl bg-[#9a3412]/20 border border-[#9a3412]/30 flex items-center justify-center mb-3 text-[#f5efe6]">
                       <Layers className="w-6 h-6 text-[#c2410c]" />
@@ -137,14 +135,12 @@ export default function CaseStudies({ domains }: CaseStudiesProps) {
                   </div>
                 )}
 
-                {/* Case Study Count Badge */}
                 <div className="absolute bottom-3 right-3 px-3 py-1 rounded-full text-xs font-mono font-medium bg-[#1c1917]/75 text-[#fbf8f3] backdrop-blur-xs border border-white/10 flex items-center gap-1.5 shadow-sm">
                   <span>{domain.case_studies.length}</span>
                   <span>{domain.case_studies.length === 1 ? 'Initiative' : 'Initiatives'}</span>
                 </div>
               </div>
 
-              {/* Card Content Footer */}
               <div className="p-5 sm:p-6 flex flex-col justify-between flex-grow">
                 <div>
                   <h3 className="text-xl font-bold tracking-tight text-[#292524] group-hover:text-[#9a3412] transition-colors flex items-start justify-between gap-2">
@@ -166,11 +162,10 @@ export default function CaseStudies({ domains }: CaseStudiesProps) {
         })}
       </div>
 
-      {/* Modal Dialog: Level 1 (Case Studies List) & Level 2 (Architecture Deep Dive) */}
+      {/* Modal Dialog */}
       <Dialog open={!!selectedDomain} onOpenChange={handleCloseDialog}>
         <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-[#ffffff] border-[#e7e0d3] text-[#292524] shadow-2xl p-6 sm:p-8 rounded-2xl">
           {selectedDomain && !selectedCaseStudy && (
-            /* Level 1: Domain Overview & Case Studies List */
             <>
               <DialogHeader className="border-b border-[#f4ede2] pb-5">
                 <div className="flex items-center gap-2 mb-2">
@@ -234,7 +229,6 @@ export default function CaseStudies({ domains }: CaseStudiesProps) {
           )}
 
           {selectedDomain && selectedCaseStudy && (
-            /* Level 2: Transitioned View - Case Study Architecture Deep Dive */
             <>
               <div className="border-b border-[#f4ede2] pb-4">
                 <button
@@ -295,7 +289,7 @@ export default function CaseStudies({ domains }: CaseStudiesProps) {
                   <MermaidDiagram chart={selectedCaseStudy.architecture} id={selectedCaseStudy.id} />
                 </div>
 
-                {/* Technical Deep Dive Narrative Sections (preceding component tiles) */}
+                {/* Technical Deep Dive Narrative Sections */}
                 {((selectedCaseStudy.deep_dive_sections && selectedCaseStudy.deep_dive_sections.length > 0) ||
                   (selectedCaseStudy.subsystems && selectedCaseStudy.subsystems.length > 0)) && (
                     <div className="pt-4 border-t border-[#f4ede2] space-y-6">
@@ -304,17 +298,9 @@ export default function CaseStudies({ domains }: CaseStudiesProps) {
                       </h4>
 
                       {selectedCaseStudy.deep_dive_sections?.map((section, idx) => (
-                        <div key={idx} className="space-y-2">
-                          <h5 className="text-sm font-semibold text-[#292524]">
-                            {section.title}
-                          </h5>
-                          <div className="text-[#57534e] text-sm leading-relaxed bg-[#fbf8f3] p-4 rounded-xl border border-[#e7e0d3] whitespace-pre-line">
-                            {section.content}
-                          </div>
-                        </div>
+                        <DeepDive key={idx} section={section} />
                       ))}
 
-                      {/* Subsystem Component Tiles */}
                       {selectedCaseStudy.subsystems && selectedCaseStudy.subsystems.length > 0 && (
                         <div className="space-y-3 pt-2">
                           <h5 className="text-sm font-semibold text-[#292524]">

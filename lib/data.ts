@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import * as yaml from 'js-yaml';
-import { Subsystem } from '@/types/topology';
 
 export type RolePersona = 'persona1' | 'persona2' | 'persona3';
 
@@ -10,9 +9,33 @@ export interface SkillItem {
   personas?: RolePersona[];
 }
 
+export interface DeepDiveLink {
+  label: string;
+  url: string;
+}
+
 export interface DeepDiveSection {
   title: string;
-  content: string;
+  content?: string;
+  image?: string;
+  links?: DeepDiveLink[];
+}
+
+export interface Component {
+  name: string;
+  spec: string;
+}
+
+export interface Subsystem {
+  id: string;
+  name: string;
+  type: string;
+  logoKey: string;
+  description: string;
+  techStackLogos: string[];
+  gitopsPath?: string;
+  repoUrl: string;
+  components: Component[];
 }
 
 export interface CaseStudy {
