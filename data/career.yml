@@ -156,58 +156,35 @@ strategic_domains:
           - title: "GitOps Operating Model & Declarative State Management"
             content: |
               Established Git as the authoritative source of truth for desired state, using Kubernetes’ continuous reconciliation engines.
-              - Argo CD continuous reconciliation for Infrastructure resources and Kubernetes workloads. 
-              - Service Onboarding standardized K8s manifests and environment overlays. 
-              - Clean separation between CI artifact building and CD execution.
               - GitOps mono-repo centralized application and infrastructure configuration.
+              - Service Onboarding standardized K8s manifests and environment overlays. 
+              - Argo CD reconciled for Infrastructure resources and Kubernetes workloads. 
+              - Clean separation between CI artifact building and CD execution.
+              - Application env specific configurations, eg database connections, are part of the CD code base
+              - Kustomize ConfigGenerator injects env vars configmaps during deployment
 
-          - title: "Continuous Deployment in GitOps with End-to-End Validation"
+          - title: "GitOps Auto-Promotion"
             content: |
-              Designed a Git-driven release promotion pipeline that made successful end-to-end validation a prerequisite for production deployment. The solution introduced a dedicated TEST EKS cluster as a pre-production validation environment. Rather than having CI/CD directly execute Kubernetes deployments, the pipeline updates the desired state in Git and relies on Argo CD to reconcile the environment.
-
-              - Built and published application container images through CI/CD.
-              - Automated updates to the image reference in the Kustomize test overlay.
-              - Triggered Argo CD synchronization to deploy the updated application to the dedicated test EKS cluster.
-              - Implemented deployment health monitoring, allowing the pipeline to wait for the application to reach its expected healthy service state.
+              Designed a Git-driven release promotion pipeline that made successful end-to-end validation a prerequisite for production deployment. Rather than having CI/CD directly execute Kubernetes deployments, the pipeline updates the desired state in Git and relies on Argo CD to reconcile the environment.
+              - CD Pipeline automated updates to the image reference in the Kustomize TEST overlay.
+              - Argo CD synchronization manually triggered.
+              - Implemented deployment health monitoring, allowing the pipeline to wait for the environment creation.
               - Executed end-to-end functional validation against the deployed application.
-              - Removed the test deployment following validation.
+              - Removed the test environment following validation.
               - Updated the production Kustomize overlay only after successful validation.
-              - Allowed Argo CD to detect and reconcile the production configuration change.
+              - Production validation and rollback are functions performed by the Argo Rollouts system
 
-              Release Lifecycle
-              Build → Publish → Update Test Overlay → Argo CD Sync → Health Verification → E2E Validation → Test Cleanup → Update Production Overlay → Production Deployment
-
-          - title: "Multi-Cluster GitOps & Regional Application Management"
+          - title: "Regional / Multi-Cluster GitOps Deployments"
             content: |
-              Managing applications across multiple Kubernetes clusters (East & West) introduces operational complexity, particularly with deployment consistency.  Traditional approaches relying on individually maintained application definitions create configuration duplication, operational overhead, and opportunities for regional deployment divergence.  The organization needed a scalable mechanism to manage multiple production clusters while maintaining centralized governance and independent deployment control.
-
-              I implemented an Argo CD ApplicationSet architecture using the “cluster generator” feature to dynamically discover registered Kubernetes clusters and generate environment-specific applications.
-
-              This established a centralized GitOps control plane capable of managing independent application deployments across East and West production EKS clusters.
-
-              - Registered and labeled production EKS clusters with Argo CD.
-              - Implemented ApplicationSets using the cluster generator.
-              - Leveraged cluster labels to dynamically generate separate Argo CD applications for East and West production clusters.
-              - Used Kustomize overlays to manage environment-specific (east|west) application configuration.
-              - Maintained independent synchronization and reconciliation for each regional application.
-              - Centralized deployment governance while preserving independent cluster-level execution.
-
-              GitOps Repository → Argo CD → ApplicationSet Cluster Generator → East Application + West Application → Independent EKS Reconciliation
-
-              Outcomes
-
-              - Automated application generation and deployment management across multiple production clusters.
-              - Eliminated the need to manually maintain separate application definitions for each region.
-              - Established a centralized management model with independent regional reconciliation.
-              - Improved consistency across production environments.
-              - Created a scalable foundation for onboarding additional Kubernetes clusters.
+              To manage multi-cluster deployments, like east and west, implemented the clusterGenerator feature in Argo CD ApplicationSets.  This feature dynamically discovered EKS clusters from the ArgoCD system and created independent East/West production deployments through a unified template.  This was the scalable foundation for onboarding additional regions.
+              - Registered and labeled production EKS clusters in Argo CD.
+              - Templated ApplicationSets implemented the cluster generator feature.  This leverages the cluster labels to dynamically generate separate Argo CD Applications for East and West production clusters.
+              - Used region specific Kustomize overlays to manage env specific application configuration.
+              - CD pipeline independently synchronized and reconciled each regional application.
 
           - title: "Progressive Delivery & Automated Release Safety"
             content: |
-              The organization needed controlled release mechanisms that could progressively introduce application changes, evaluate application health, and automatically respond to deployment failures.  In addition, rollback operations introduced operational dependencies and required elevated Kubernetes permissions or cross-team release dependencies.
-
-              I introduced Argo Rollouts as the progressive delivery engine, replacing conventional deployment strategies with controlled canary releases, metrics-driven analysis, and automated promotion or rollback.  The objective was to make production releases controlled, observable, and independently managed by the platform rather than dependent on individual engineers executing privileged deployment operations.
-
+              Introduced Argo Rollouts as the progressive delivery engine, replacing conventional deployment strategies with controlled canary releases, metrics-driven analysis, and automated promotion or rollback.  The objective was to make production releases controlled, observable, and independently managed by the platform rather than dependent on individual engineers executing privileged deployment operations.
               - Integrated Argo Rollouts into production application delivery.
               - Implemented canary deployment strategies.
               - Introduced controlled traffic shaping during application releases.
@@ -215,15 +192,13 @@ strategic_domains:
               - Established automated promotion criteria based on rollout analysis.
               - Enabled automated rollback when release health criteria were not satisfied.
 
-          - title: "Kubernetes-Native Infrastructure Management with Crossplane"
+          - title: "Democratize Infrastructure with Crossplane"
             content: |
-              Although infrastructure was already managed declaratively through Terraform, teams still depended on the infrastructure team for provisioning AWS resources due to high cognitive load and complexity of cross-team collaboration within the terraform mono-repo.
-
-              The organization needed a consistent infrastructure management model that aligned cloud provisioning with the declarative reconciliation architecture being introduced for application delivery.
+              The cross-team collaboration within the Terraform mono-repo, which I introduced, resulted in increased cognitive load and complexity for development teams. The organization needed a consistent API for infrastructure management, one which aligned with the cloud provisioning with declarative reconciliation architecture being introduced for application delivery.
 
               I adopted Crossplane to extend Kubernetes-native declarative management beyond application workloads into cloud infrastructure provisioning.  The decision was to use Kubernetes APIs as the interface for defining and managing infrastructure resources, allowing infrastructure and application lifecycles to operate under a consistent reconciliation model.
-
               - Introduced Crossplane as the infrastructure control plane.
+              - Created Crossplane manifest templates for the services onboarding system.
               - Defined Composite Resource Definitions (XRDs) to establish infrastructure APIs.
               - Implemented Compositions to translate higher-level infrastructure abstractions into managed resources.
               - Integrated AWS Providers for cloud resource management.
@@ -233,17 +208,15 @@ strategic_domains:
 
           - title: "Deployment Governance, Least-Privilege Access & Operational Security"
             content: |
-              The existing deployment model required engineers to possess elevated permissions to manage application deployments and rollbacks.  Deployment governance depended heavily on individual operators and the procedural workflows, limiting centralized control and consistent auditability.
-
-              Shifted deployment authority from individual engineers to centrally managed GitOps controllers and progressive delivery automation.  The architecture established a separation between requesting or authorizing changes and executing privileged operations. Engineers interact with version-controlled desired state, while Argo CD and Argo Rollouts perform the actual deployment and rollout operations through their configured service identities and permissions.
-
+              Shifted deployment authority from individual engineers to centrally managed GitOps controllers and progressive delivery automation. The architecture established a separation between requesting or authorizing changes and executing privileged operations. Engineers interact with version-controlled desired state, while Argo CD and Argo Rollouts perform the actual deployment and rollout operations through their configured service identities and permissions, backed by SCM-managed service-level access controls and user-level authentication and authorization (AA) across GitOps repositories, Argo CD, and AWS.
               - Established Git as the controlled interface for declaring application deployment changes.
+              - The SCM provided user-level authentication and authorization (AA) and auditing to privileged repositories.
+              - The SCM repositories, or service, level secrets provided permissions to govern access and management across the GitOps repository, Argo CD, and AWS resources.
               - Delegated Kubernetes synchronization and deployment execution to Argo CD.
               - Delegated progressive delivery and rollback execution to Argo Rollouts.
+              - Delegated Infrastructure provisioning to Crossplane.
               - Removed the operational requirement for engineers to directly execute privileged Kubernetes deployment commands.
               - Established Git-based change history and traceability for deployment configuration.
-              - Centralized deployment and rollback workflows through platform-managed automation.
-              - Separated developer-facing deployment responsibilities from cluster-level execution privileges.
 
         subsystems:
           - id: gitops-deployment-management
