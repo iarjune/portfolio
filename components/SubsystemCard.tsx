@@ -1,7 +1,7 @@
 "use client";
 
 import LogoIcon from './LogoIcon';
-import { Subsystem } from '@/types/topology';
+import { Subsystem } from '@/lib/data';
 
 interface Props {
   subsystem: Subsystem;
