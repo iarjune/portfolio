@@ -159,7 +159,8 @@ strategic_domains:
               Established Git as the authoritative source of truth for desired state, using Kubernetes’ continuous reconciliation engines.
               - GitOps mono-repo centralized application and infrastructure configuration.
               - Service Onboarding standardized K8s manifests and environment overlays. 
-              - Argo CD reconciled for Infrastructure resources and Kubernetes workloads. 
+              - Argo CD reconciled for Infrastructure resources and Kubernetes workloads.
+              - Prod and Non-Prod Argo CD clusters for reduced blast radius and independent operations.
               - Clean separation between CI artifact building and CD execution.
               - Application env specific configurations, eg database connections, are part of the CD code base
               - Kustomize ConfigGenerator injects env vars configmaps during deployment
