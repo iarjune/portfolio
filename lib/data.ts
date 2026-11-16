@@ -34,7 +34,7 @@ export interface Subsystem {
   description: string;
   techStackLogos: string[];
   gitopsPath?: string;
-  repoUrl: string;
+  repoUrl?: string;
   components: Component[];
 }
 

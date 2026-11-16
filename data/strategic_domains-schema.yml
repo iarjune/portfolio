@@ -11,7 +11,7 @@ strategic_domains:
         metrics: [list of strings] Quantifiable outcomes, key performance indicators (KPIs), or business impacts
         architecture: | 
           (multiline string)  Architectural diagram definition (formatted in Mermaid.js syntax)
-        deep_dive_sections:
+        deep_dive_sections: (optional)
           - title: Heading for the section
             content: |
               (optional) multiline string Detailed technical narrative, bullet points, or execution steps
@@ -19,7 +19,7 @@ strategic_domains:
             links: (optional)
               - label:
                 url: 
-        subsystems: Detailed building blocks or platform components deployed as part of the case study
+        subsystems: (optional) Detailed building blocks or platform components deployed as part of the case study
           - id: Subsystem identifier
             name: Human-readable name of the subsystem
             type: Category or functional role (e.g., "Developer Portal", "Infrastructure Control Plane", "CI Orchestrator"

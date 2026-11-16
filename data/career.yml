@@ -1,4 +1,5 @@
 # career.yml
+#TODO ADD EXAMPLE OF CROSSPLANE XDRS / COMPOSITIONS
 
 basics:
   name: "Ivan Arjune"
@@ -162,6 +163,9 @@ strategic_domains:
               - Clean separation between CI artifact building and CD execution.
               - Application env specific configurations, eg database connections, are part of the CD code base
               - Kustomize ConfigGenerator injects env vars configmaps during deployment
+            links:
+              - label: "GitOps Repo"
+                url: "https://github.com/devops-end2end/gitops"
 
           - title: "GitOps Auto-Promotion"
             content: |
@@ -173,6 +177,13 @@ strategic_domains:
               - Removed the test environment following validation.
               - Updated the production Kustomize overlay only after successful validation.
               - Production validation and rollback are functions performed by the Argo Rollouts system
+            links:
+              - label: "CICD Workflow"
+                url: "https://github.com/devops-end2end/templates/blob/main/service/python/skeleton/.github/workflows/cicd.yaml"
+              - label: "Deployment Workflow"
+                url: "https://github.com/devops-end2end/github-workflows/blob/main/.github/workflows/argocd-deployment.yaml"
+              - label: "Kustomize Overlays for an API app"
+                url: "https://github.com/devops-end2end/templates/tree/main/deployment/api/skeleton"
 
           - title: "Regional / Multi-Cluster GitOps Deployments"
             content: |
@@ -181,6 +192,9 @@ strategic_domains:
               - Templated ApplicationSets implemented the cluster generator feature.  This leverages the cluster labels to dynamically generate separate Argo CD Applications for East and West production clusters.
               - Used region specific Kustomize overlays to manage env specific application configuration.
               - CD pipeline independently synchronized and reconciled each regional application.
+            links:
+              - label: "Prod ApplicationSet"
+                url: "https://github.com/devops-end2end/templates/blob/main/deployment/api/skeleton/release-configs/prod.yaml"
 
           - title: "Progressive Delivery & Automated Release Safety"
             content: |
@@ -191,6 +205,9 @@ strategic_domains:
               - Integrated metrics analysis into rollout progression.
               - Established automated promotion criteria based on rollout analysis.
               - Enabled automated rollback when release health criteria were not satisfied.
+            links:
+              - label: "Argo Rollouts"
+                url: "https://github.com/devops-end2end/templates/blob/main/deployment/argo-rollout/skeleton/base/rollout.yaml"
 
           - title: "Democratize Infrastructure with Crossplane"
             content: |
@@ -345,137 +362,293 @@ strategic_domains:
               - name: "Templates Repo"
                 spec: "Repository of language specific service scaffolding and runtime specific scaffolding."
 
-      - id: "cicd-migration"
-        title: "Migration of 900+ Projects & Pipelines to GitHub Actions & Argo CD"
-        problem: "Legacy CI/CD pipelines relying on Bitbucket, Jenkins, and Ansible suffered from slow build times, flaky execution, and maintenance bottlenecks."
-        solution: "Modernized enterprise CI/CD by migrating 900+ repositories and pipelines from legacy Jenkins and Bitbucket systems to GitHub Actions ARC and K8s-native Argo Workflows and Argo CD."
+      - id: "cicd-modernization"
+        title: "Enterprise CI/CD Modernization and GitOps Transformation"
+        problem: "Our legacy CI/CD system relies on a self-managed toolchain and fragmented portals, breaking end-to-end release visibility. Because workflows are bespoke teams suffer from duplicated effort teams suffer from duplicated effort, inconsistent build parity between local and runtime environments and diverging quality and security gates that shifted issue discovery far right, surfacing critical bugs, security vulnerabilities, and configuration flaws late in the release cycle rather than early in development. Simultaneously, hosting and maintaining five mission-critical tools in-house trapped Infrastructure and DevOps teams in reactive operational toil—managing upgrades, plugin conflicts, security patches, and scaling rather than strategic improvements. Together, this decentralized, self-hosted model slowed developer velocity, increased outage risks, and created an unsustainable maintenance burden as we scale."
+
+        solution: "To resolve these bottlenecks, our modernization strategy unifies the entire software delivery lifecycle onto a modern, cloud-native developer platform. We migrated 900 repositories from self-managed Bitbucket to GitHub, transitioned SonarQube to SonarQube Cloud, adopted JFrog Cloud Artifactory to centrally cache and proxy build artifacts, host internal organization libraries, and provide vulnerability protection from upstream providers, and integrated Snyk for automated dependency and container security scanning. Additionally, we replaced fragmented Jenkins builds and push-based Ansible deployments with centralized GitHub Actions reusable workflows (ensuring strict build parity) and Argo CD for declarative, GitOps-driven continuous delivery. By shifting pipeline ownership to a dedicated platform team and shifting failure discovery to the left with out-of-the-box quality and security gates, we eliminated code duplication, accelerated developer velocity, and restored end-to-end visibility from code commit to production deployment."
+
         metrics:
-          - "900+ Repositories Migrated"
-          - "100% CI/CD Modernization"
-          - "Significantly Reduced Build Times"
+          - "900+ Repos Migrated"
+          - "100% SaaS Offload"
+          - "Shifted Left Security"
+          - "Standardized GitOps"
+          - "Unified Reusable Workflows"
         architecture: |
           graph TD
-            A[Legacy Bitbucket / Jenkins] -->|Pipeline Migration| B(GitHub Actions ARC)
-            B --> C[Argo Workflows & Events]
-            C --> D[K8s Build Runners]
-            D --> E[Argo CD GitOps Deployment]
+              Dev[Developer Commit] --> GH[GitHub Repositories]
+              GH --> GHA[GitHub Actions Reusable Workflows]
+              subgraph Security & Quality Gates
+                  GHA --> SQ[SonarQube Cloud]
+                  GHA --> Snyk[Snyk Security Scanner]
+              end
+              GHA --> Artifactory[JFrog Cloud Artifactory]
+              Artifactory --> Manifests[GitOps Manifest Repository]
+              Manifests --> ArgoCD[Argo CD]
+              ArgoCD --> K8s[Kubernetes Cluster Runtime]
         deep_dive_sections:
-          - title: "Pipeline Modernization & Reusable Workflows"
+          - title: "900-Repository Migration Strategy & Execution"
             content: |
-              • Designed standardized GitHub reusable workflows for Go, Java, Python, and Node.js applications, establishing consistent build, test, and container packaging standards.
-              • Replaced legacy monolithic Jenkins instances with elastic Kubernetes-backed GitHub Actions Runner Controller (ARC) pods scaling dynamically on EKS.
-          - title: "GitOps Continuous Delivery Integration"
+              Migrating 900 repositories from self-managed Bitbucket Server to GitHub required a structured, automated batch approach to minimize developer disruption and ensure data integrity:
+              - **Phase 1: Automated Inventory & Metadata Auditing:** Extracted repository statistics, active contributors, webhook payloads, and branch protection rules using automated API discovery scripts.
+              - **Phase 2: Automated Bulk Migration Pipeline:** Utilized scripted batch migrations to securely transfer Git history, tags, and branches while mapping legacy user identities to enterprise GitHub handles.
+              - **Phase 3: Centralized Governance & Guardrails:** Applied automated organization-level GitHub settings, enforcing mandatory branch protection, enterprise team mapping, and standard webhooks.
+              - **Phase 4: Staggered Domain Cutover Waves:** Executed migrations in low-risk cohorts grouped by business domain, validating CI/CD workflow triggers and artifact publishing immediately post-cutover.
+          - title: "Pipeline Standardization & Build Parity"
             content: |
-              • Connected build outputs directly to GitOps repositories, updating image tag manifests automatically to trigger Argo CD synchronization.
-              • Eliminated manual deployment scripts and established full traceability from code commit to production release.
+              Eliminating per-project script maintenance and addressing environment drift:
+              - **Reusable Workflows:** Centralized GitHub Actions workflows maintained by the platform team, enforcing compliance, build standards, and security scans across all repositories without code duplication.
+              - **Local-to-Runtime Parity:** Standardized containerized build environments and runtime containers, ensuring developers experience identical build behaviors locally and in pipeline runners.
+          - title: "GitOps Continuous Delivery with Argo CD"
+            content: |
+              Transitioning from push-based deployment models to declarative GitOps:
+              - **Declarative Manifests:** Replaced push-based Ansible scripts with Git-backed Kubernetes manifests.
+              - **Automated Synchronization:** Argo CD continuously monitors state and automatically synchronizes cluster deployments, providing audit trails and instant rollback capabilities.
         subsystems:
-          - id: github-actions-arc
-            name: "GitHub Actions Runner Controller (ARC)"
+          - id: "source-control-ci"
+            name: "Source Control & CI Orchestrator"
             type: "CI Orchestrator"
-            logoKey: "githubactions"
-            description: "Kubernetes-backed runner scale set for parallel container compilation, testing, and security scanning."
-            techStackLogos: ["githubactions", "kubernetes", "docker"]
+            logoKey: "github"
+            description: "Unified code collaboration and centralized build pipelines ensuring strict build parity."
+            techStackLogos: ["github", "github-actions"]
             components:
-              - name: "Elastic Runner Scaling"
-                spec: "Auto-scales build runners on EKS based on active workflow queue depth."
-              - name: "Security Gateways"
-                spec: "Integrates Snyk and SonarQube checks directly into the runner execution pipeline."
+              - name: "GitHub Enterprise Migration"
+                spec: "Migration of 900 legacy Bitbucket repositories with standardized branch protection rules and hooks."
+              - name: "Centralized Reusable Workflows"
+                spec: "Standardized GitHub Actions workflows replacing fragmented per-project Jenkins pipelines."
+          - id: "artifact-security"
+            name: "Artifact & Security Governance"
+            type: "Artifact Repository & Security Scanner"
+            logoKey: "jfrog"
+            description: "Centralized caching, proxying, and automated vulnerability scanning for dependencies and containers."
+            techStackLogos: ["jfrog", "sonarqube", "snyk"]
+            components:
+              - name: "JFrog Cloud Artifactory"
+                spec: "Caches and proxies build artifacts, hosts internal organization libraries, and provides upstream vulnerability protection."
+              - name: "SonarQube Cloud & Snyk"
+                spec: "Shifts issue discovery left with automated static code analysis, dependency checks, and container security scanning."
+          - id: "gitops-delivery"
+            name: "GitOps Continuous Delivery"
+            type: "Deployment Control Plane"
+            logoKey: "argocd"
+            description: "Declarative continuous delivery engine automating synchronization with target Kubernetes environments."
+            techStackLogos: ["argocd", "kubernetes", "ansible"]
+            components:
+              - name: "Argo CD Sync Engine"
+                spec: "Replaces push-based Ansible scripts with automated, pull-based GitOps deployment synchronization."
 
   - id: "cloud-transformation"
     title: "Cloud Transformation"
     subtitle: "Cloud migrations · Data center exits · Multi-account architecture · Infrastructure modernization"
     image: "cloud-transformation.jpg"
     case_studies:
-      - id: "eks-migration"
-        title: "Zero-Downtime AWS EKS Migration"
-        problem: "Legacy data centers were reaching capacity, creating compute bottlenecks and deployment friction for 600+ microservices supporting sub-50ms ad serving."
-        solution: "Spearheaded a zero-downtime migration to a multi-account AWS EKS architecture spanning 4 accounts (dev, stage, prod, mgmt). Leveraged GitOps, Argo CD, and Crossplane to migrate 1,500+ pipelines and 600+ microservices without interrupting real-time ad serving."
+      - id: eks-multi-region-migration
+        title: Zero-Downtime Multi-Region AWS EKS Migration for Sub-50ms Ad Platform
+        problem: "Operating a sub-50ms real-time ad platform across fragmented bare-metal, KVM, and standalone Docker infrastructure in two on-premise data centers introduced critical scalability limits, slow hardware provisioning, and high deployment risk. A sprawling footprint of 600+ microservices, 200+ data pipelines, and untracked legacy cron jobs suffered from environment drift and heavy operational overhead, making multi-region resilience and rapid iteration increasingly difficult."
+        solution: "Architected a multi-region, multi-account AWS foundation (us-east-1 featuring mgmt, test, and prod accounts, and us-west-1 featuring mgmt and prod accounts) anchored by 5 EKS clusters, Direct Connect, and Transit Gateway, and led a phased, zero-downtime migration of the entire platform. By first containerizing legacy workloads onto an interim on-prem Docker platform and upskilling engineering teams through hands-on workshops, I enabled a smooth, incremental cutover powered by Argo CD and Crossplane—moving 600+ services and stateful data stores (Kafka, Aerospike, ClickHouse, Redis, MySQL, RabbitMQ, and HDFS) with zero impact on live ad traffic. To balance migration speed with long-term standardization, I pragmatically transitioned data engineering workloads to AWS Managed Workflows for Apache Airflow (MWAA) first before consolidating them onto Argo Workflows, leaving the entire organization on a unified, cloud-native Kubernetes stack."
         metrics:
-          - "600+ Microservices Migrated"
-          - "1,500+ Pipelines Modernized"
-          - "Zero Ad-Serving Downtime"
+          - "600+ microservices"
+          - "Zero downtime"
+          - "200+ data engineering pipelines"
+          - "5 EKS clusters"
+          - "2 Regions and 3 account structure"
+          - "7 stateful distributed data technologies"
         architecture: |
-          graph TD
-            A[Legacy Datacenter Infra] -->|Zero-Downtime Sync| B(AWS Multi-Account EKS)
-            B --> C[Dev Account]
-            B --> D[Stage Account]
-            B --> E[Prod Account]
-            B --> F[Mgmt Account]
-            F -->|GitOps Reconciliation| C & D & E
+          graph TB
+            subgraph OnPrem["On-Premises Data Centers (East & West)"]
+              Legacy["Bare-Metal & KVM Instances"]
+              InterimDocker["Interim On-Prem Docker Platform"]
+              Legacy -->|"Phase 1: Containerize"| InterimDocker
+            end
+
+            subgraph Network["Hybrid Connectivity"]
+              DX["AWS Direct Connect"]
+              TGW["AWS Transit Gateway"]
+              InterimDocker <--> DX <--> TGW
+            end
+
+            subgraph AWS_East["AWS us-east-1"]
+              MgmtE["mgmt Account (EKS)"]
+              TestE["test Account (EKS)"]
+              ProdE["prod Account (EKS)"]
+            end
+
+            subgraph AWS_West["AWS us-west-1"]
+              MgmtW["mgmt Account (EKS)"]
+              ProdW["prod Account (EKS)"]
+            end
+
+            subgraph Platform["GitOps & Orchestration Layer"]
+              ArgoCD["Argo CD (GitOps Delivery)"]
+              Crossplane["Crossplane (Infra Provisioning)"]
+              MWAA["AWS MWAA (Interim Airflow)"]
+              ArgoWF["Argo Workflows (Target K8s Native)"]
+            end
+
+            TGW <--> AWS_East
+            TGW <--> AWS_West
+            Platform --> AWS_East
+            Platform --> AWS_West
+            MWAA -.->|"Phase 3: Final Consolidation"| ArgoWF
         deep_dive_sections:
-          - title: "Multi-Account Isolation & Network Architecture"
+          - title: Phased Execution & Risk Mitigation Strategy
             content: |
-              • Implemented a strict multi-account AWS architecture separating management, development, staging, and production boundaries via AWS Organizations and Control Tower.
-              • Configured isolated VPCs with private subnets, NAT gateways, and transit gateways to ensure low-latency peering and secure cross-account communication for high-throughput ad exchanges.
-          - title: "Zero-Downtime Migration Strategy & Execution"
+              To prevent disruption to high-throughput, low-latency ad serving, the migration was decoupled into incremental, verifiable phases rather than a single cutover:
+              - **Discovery & Dependency Mapping:** Audited both on-prem data centers to uncover undocumented workloads, legacy cron jobs, and service-to-service dependencies, ranking services by blast radius and business criticality.
+              - **Interim On-Prem Containerization:** Built standardized CI/CD container build pipelines, deployment mechanics, and an on-prem Docker hosting tier. This isolated application containerization risks from cloud networking and infrastructure changes.
+              - **Engineering Enablement:** Conducted hands-on workshops to train product and data teams on Docker workflows, health checks, and Kubernetes deployment patterns before AWS cutover.
+              - **Incremental Traffic Shifting:** Leveraged Direct Connect and Transit Gateway for low-latency hybrid state synchronization while progressively shifting production workloads via Argo CD.
+          - title: Data Engineering Orchestration Trade-off (MWAA to Argo Workflows)
             content: |
-              • Executed phased canary traffic shifting from bare-metal load balancers to AWS Application Load Balancers (ALB) and Envoy Gateways.
-              • Maintained state synchronization between legacy on-premises databases and AWS-hosted managed data stores during the transition window to achieve zero packet loss and zero downtime.
+              Migrating 200+ data pipelines alongside 600+ real-time microservices risked overloading data engineers with simultaneous paradigm shifts:
+              - **Phase 1 (Velocity First):** Containerized existing pipelines and deployed them onto AWS Managed Workflows for Apache Airflow (MWAA), capitalizing on the team's existing Airflow expertise to exit the data centers on schedule.
+              - **Phase 2 (Cloud-Native Consolidation):** Once core ad-serving microservices stabilized on EKS, migrated data engineering pipelines from MWAA to Argo Workflows, unifying compute scheduling, IAM permissions, and observability onto Kubernetes.
         subsystems:
-          - id: aws-multi-account-eks
-            name: "AWS Multi-Account EKS Clusters"
-            type: "Compute Platform"
-            logoKey: "kubernetes"
-            description: "Production-grade managed Kubernetes clusters distributed across isolated AWS accounts for workload segmentation."
-            techStackLogos: ["kubernetes", "aws", "terraform"]
+          - id: aws-multi-account-foundation
+            name: Multi-Region AWS & Hybrid Network Foundation
+            type: Cloud Infrastructure & Networking
+            logoKey: aws
+            description: 5-cluster EKS topology across us-east-1 (mgmt, test, prod) and us-west-1 (mgmt, prod), bridged to on-prem data centers for zero-downtime state replication and traffic cutover.
+            techStackLogos:
+              - aws
+              - kubernetes
+              - terraform
             components:
-              - name: "Control Plane Isolation"
-                spec: "Dedicated EKS control planes in management and production accounts with automated cluster bootstrapping via Argo CD."
-              - name: "Node Group Autoscaling"
-                spec: "Dynamic worker node provisioning using Karpenter and spot instance integration for optimal cost and performance."
-
-          - id: envoy-gateway-routing
-            name: "Envoy Gateway & Ingress Routing"
-            type: "Networking & Edge"
-            logoKey: "envoy"
-            description: "High-performance edge routing and traffic management for sub-50ms ad serving endpoints."
-            techStackLogos: ["envoy", "aws", "kubernetes"]
+              - name: Account & Region Segmentation
+                spec: Dedicated mgmt, test, and prod accounts in us-east-1 and mgmt/prod accounts in us-west-1 with isolated EKS clusters per environment.
+              - name: Hybrid Backbone
+                spec: Redundant AWS Direct Connect circuits paired with Transit Gateway routing for sub-millisecond cross-environment communication during migration.
+          - id: gitops-control-plane
+            name: GitOps Delivery & Infrastructure Control Plane
+            type: Continuous Delivery & IaC
+            logoKey: argocd
+            description: Declarative application deployment and cloud resource provisioning layer governing all 600+ microservices across five clusters.
+            techStackLogos:
+              - argocd
+              - crossplane
+              - kubernetes
+              - docker
             components:
-              - name: "Traffic Shifting"
-                spec: "Managed zero-downtime canary routing from legacy bare-metal infrastructure to AWS EKS services."
-              - name: "SSL Termination & Security"
-                spec: "Centralized TLS termination and WAF policy enforcement at the AWS Edge."
+              - name: Argo CD Progressive Delivery
+                spec: Automated sync, drift detection, and canary/phased rollouts across test and prod EKS clusters.
+              - name: Crossplane Self-Service Resources
+                spec: Kubernetes-native provisioning of supporting AWS infrastructure and IAM bindings alongside application manifests.
+          - id: data-pipeline-orchestration
+            name: Cloud-Native Data Pipeline Engine
+            type: Workflow Orchestration
+            logoKey: argo
+            description: Containerized execution platform for 200+ batch and streaming data engineering workflows.
+            techStackLogos:
+              - argo
+              - airflow
+              - kubernetes
+              - docker
+            components:
+              - name: Phased Orchestration Migration
+                spec: Initial lift-and-shift to AWS MWAA for rapid data center exit, followed by full consolidation onto Argo Workflows on EKS.
+              - name: Stateful Data Layer Integration
+                spec: Native connectivity to Kafka, Aerospike, ClickHouse, Redis, MySQL, RabbitMQ, and Hadoop HDFS clusters.
 
-      - id: "datacenter-decommissioning"
-        title: "Full Datacenter Decommissioning & Hybrid Cloud Transition"
-        problem: "Maintaining two legacy physical data centers with 200+ physical Dell hosts and 600+ KVM virtual instances incurred heavy recurring CapEx, OpEx and poor scalability."
-        solution: "Orchestrated the complete end-to-end migration and hardware decommissioning of two physical data centers into a multi-region, multi-account AWS environment."
+      - id: datacenter-decommissioning
+        title: Full Datacenter Decommissioning & Hybrid Cloud Transition
+        problem: >
+          Maintaining two legacy physical data centers (East and West) housing 200+ physical Dell bare-metal servers and 600+ KVM virtual instances incurred heavy recurring CapEx/OpEx, hardware refresh bottlenecks, and rigid capacity constraints. Years of organic growth had created complex dependencies across multi-tenant backing services, bespoke provisioning tooling, and aging hardware—requiring a disciplined, zero-disruption exit strategy to avoid impacting live traffic.
+        solution: >
+          Orchestrated the end-to-end workload migration, hybrid network cutover, and complete physical decommissioning of both East and West data centers into a multi-region AWS environment (us-east-1 and us-west-1). By cataloging 1,000+ hardware and software components, draining traffic progressively over redundant AWS Direct Connect and Transit Gateway links, and executing compliant media sanitization and rack teardowns, the organization retired 100% of its physical footprint with zero service downtime.
         metrics:
-          - "200+ Dell Bare-Metal Hosts Retired"
+          - "200+ Dell Hosts"
           - "600+ KVM Services"
-          - "200+ Data Engineering Pipelines"
-          - "100% Docker Containerized & Migrated to AWS EKS"
-          - "Two Physical Datacenters (east and west) Decommissioned"
-          - "100% Workload Availability During Transition"
-          # TODO : Update diagram for east and west datacenters and regions
+          - "200+ Data Pipelines"
+          - "100% Dockerized"
+          - "2 Data Centers Decommissioned"
+          - "2 AWS Regions Built"
+          - "5 EKS Clusters"
+          - "5 AWS Accounts"
+          - "100% Availability"
         architecture: |
-          graph TD
-            A[Physical Datacenters: 200+ Dell Hosts & 600+ VMs] -->|Cloud-Native Migration| B(Multi-Region AWS Environment)
-            B --> C[EKS Container Workloads]
-            B --> D[Managed AWS Data Services]
-            E[Hardware Retirement & Decommissioning] --> F[Full Cloud-Native Operation]
+          graph TB
+            subgraph OnPrem_East["On-Prem East Data Center (Decommissioned)"]
+              EastHW["100+ Dell Hosts & KVM"]
+              EastDX["Direct Connect Circuit (East)"]
+              EastHW --- EastDX
+            end
+
+            subgraph OnPrem_West["On-Prem West Data Center (Decommissioned)"]
+              WestHW["100+ Dell Hosts & KVM"]
+              WestDX["Direct Connect Circuit (West)"]
+              WestHW --- WestDX
+            end
+
+            subgraph Hybrid_Bridge["Hybrid Cutover & Drain Layer"]
+              TGW["AWS Transit Gateway"]
+              EastDX <-->|"Progressive Traffic Drain"| TGW
+              WestDX <-->|"Progressive Traffic Drain"| TGW
+            end
+
+            subgraph AWS_East["AWS us-east-1 (Active)"]
+              EKS_East["EKS Clusters (mgmt, test, prod)"]
+              Data_East["Stateful & Managed Data Services"]
+            end
+
+            subgraph AWS_West["AWS us-west-1 (Active)"]
+              EKS_West["EKS Clusters (mgmt, prod)"]
+              Data_West["Stateful & Managed Data Services"]
+            end
+
+            subgraph Decom["Physical Exit & Retirement"]
+              Sanitize["NIST Media Sanitization & Drive Destruction"]
+              Teardown["Rack De-installation & Lease Termination"]
+            end
+
+            TGW --> AWS_East
+            TGW --> AWS_West
+            EastHW -.->|"Post-Drain Hardware Exit"| Sanitize
+            WestHW -.->|"Post-Drain Hardware Exit"| Sanitize
+            Sanitize --> Teardown
         deep_dive_sections:
-          - title: "Hardware Asset and Services Inventory Mapping"
+          - title: Hardware Asset & Service Dependency Mapping
             content: |
-              • Cataloged over 1000 components, mapping dependencies between services, multi-teneant backing services and hardware.
-              • Classified workloads into containerizable microservices for AWS EKS or managed data services, eliminating redundant legacy virtual machines.
-          - title: "Built b"
-          - title: "Physical Decommissioning & Financial Exit"
+              Before powering down any physical infrastructure, a comprehensive audit ensured no critical workloads or hidden dependencies were stranded:
+              - **Full-Stack Inventory:** Cataloged over 1,000 hardware and software components across both East and West facilities, mapping dependencies between compute nodes, backing services, and multi-tenant backing services.
+              - **Workload Classification:** Segmented legacy KVM instances and bare-metal processes into containerizable microservices for AWS EKS or cloud-native data services, eliminating redundant and orphaned virtual machines.
+          - title: Hybrid Network Drain & Zero-Downtime Cutover
             content: |
-              • Executed secure data sanitization, physical drive destruction protocols, and rack de-installation following enterprise compliance standards.
-              • Eliminated datacenter lease expenses, power, and cooling overhead, realizing immediate capital and operational cost savings.
+              To prevent split-brain states or latency spikes during migration, both data centers were bridged to AWS before traffic was shifted:
+              - **Dual-Region Backbone:** Leveraged redundant AWS Direct Connect circuits and Transit Gateway routing to maintain low-latency east-west and hybrid connectivity between on-prem data stores and AWS regions (`us-east-1` and `us-west-1`).
+              - **Controlled Traffic & Circuit Decommission:** Progressively drained DNS, load balancer pools, and state replication streams to AWS, systematically powering down compute racks and terminating colocation circuits only after validation windows cleared.
+          - title: Physical Decommissioning & Financial Exit
+            content: |
+              Once workloads were verified running exclusively on AWS, physical site exits were executed under strict security and compliance controls:
+              - **Secure Media Sanitization:** Executed compliant data wiping, cryptographic erasure, and certified physical drive destruction across all retired Dell servers.
+              - **Facility Exit & Cost Elimination:** Coordinated rack teardowns, hardware liquidation, and colocation lease terminations—eliminating recurring power, cooling, bandwidth, and hardware maintenance overhead.
         subsystems:
           - id: physical-bare-metal-fleet
-            name: "Physical Bare-Metal Fleet"
-            type: "Data Center Infrastructure"
-            logoKey: "linux"
-            description: "Legacy physical server inventory managed via The Foreman and Puppet before cloud migration."
-            techStackLogos: ["linux", "puppet", "dell"]
+            name: Physical Bare-Metal & Virtualization Fleet
+            type: Data Center Infrastructure
+            logoKey: linux
+            description: Legacy physical server, hypervisor, and distributed storage estate across East and West facilities retired during the cloud transition.
+            techStackLogos:
+              - linux
+              - puppet
+              - dell
             components:
-              - name: "Dell Hardware Management"
-                spec: "Maintained 200+ Dell physical servers running KVM virtualization and Ceph storage."
-              - name: "Provisioning Automation"
-                spec: "PXE boot, Kickstart, and Foreman-driven bare-metal configuration management."
+              - name: Dell Compute & Storage Hardware
+                spec: Managed and decommissioned 200+ Dell physical servers running KVM hypervisors.
+              - name: Bare-Metal Provisioning Automation
+                spec: Legacy PXE boot, Kickstart, and The Foreman / Puppet configuration management pipelines retired post-migration.
+          - id: hybrid-cutover-backbone
+            name: Hybrid Cutover & Traffic Drain Backbone
+            type: Network & Migration Infrastructure
+            logoKey: aws
+            description: High-throughput hybrid networking connecting East and West data centers to AWS us-east-1 and us-west-1 during phased workload migration.
+            techStackLogos:
+              - aws
+              - kubernetes
+            components:
+              - name: Multi-Region Hybrid Connectivity
+                spec: Redundant Direct Connect links and AWS Transit Gateway enabling seamless state synchronization and zero-downtime DNS/traffic cutovers.
+              - name: Cloud Target Landing Zone
+                spec: Migrated workloads onto 5 EKS clusters across us-east-1 (mgmt, test, prod) and us-west-1 (mgmt, prod) prior to physical rack power-down.
 
   - id: "cost-optimization"
     title: "Cost Optimization & Operational Excellence"
@@ -485,7 +658,7 @@ strategic_domains:
       - id: "finops-optimization"
         title: "FinOps & 50% Cloud Spend Reduction"
         problem: "Cloud costs were spiraling across data and ML operations due to rigid compute setups, over-provisioned instances, and lack of granular cost visibility."
-        solution: "Implemented dynamic node autoscaling with Karpenter and Kubernetes HPA. Built automated Kubernetes resource inventory systems tagged to Kubecost dashboards, optimizing bin-packing and spot instance utilization."
+        solution: "Implemented dynamic node autoscaling with Karpenter and Kubernetes HPA. Built automated Kubernetes resource inventory systems tagged to Datadog dashboards, optimizing bin-packing and spot instance utilization."
         metrics:
           - "50% Cloud Spend Reduction"
           - "$50k Annual DataOps OpEx Savings"
@@ -495,13 +668,13 @@ strategic_domains:
             A[EKS Cluster Workloads] --> B{Karpenter / HPA Autoscaling}
             B -->|Dynamic Provisioning| C[Spot Instances]
             B -->|Optimized Bin-Packing| D[Right-Sized Nodes]
-            C & D --> E[Kubecost Inventory & Attribution]
+            C & D --> E[Datadog Inventory & Attribution]
             E --> F[50% Cost Reduction Achieved]
         deep_dive_sections:
           - title: "FinOps Governance & Tagging Automation"
             content: |
               • Developed automated Kubernetes resource tagging controllers to enforce strict cost-center attribution across all microservices and namespaces.
-              • Integrated custom tagging schemas with Kubecost to provide engineering managers and finance teams with real-time visibility into cloud expenditure.
+              • Integrated custom tagging schemas with Datadog to provide engineering managers and finance teams with real-time visibility into cloud expenditure.
           - title: "Dynamic Compute Bin-Packing & Spot Orchestration"
             content: |
               • Replaced rigid static EC2 instance fleets with Karpenter provisioners, enabling sub-second node scaling and intelligent workload bin-packing.
@@ -935,7 +1108,7 @@ experience:
         story: Centralized developer autonomy by constructing an Internal Developer Portal (IDP) backed by developer-managed Golden Path scaffolding templates, REST APIs, and Crossplane orchestration. Provided 100+ engineers with full self-service autonomy over environment provisioning, service onboarding, event-driven pipelines, and experimentation setups. This standardized scaffolding eliminated operational friction and cognitive overhead, allowing product teams to seamlessly onboard and manage microservices across all environments.
 
       - title: Bare-Metal Datacenter Operations & Network Modernization
-        story: Managed multi-datacenter operations consisting of 200+ Dell physical hosts, 600+ KVM virtual instances, and Ceph/NAS storage arrays supporting stateful workloads. Spearheaded major physical network upgrades by swapping legacy Juniper Top-of-Rack (TOR) switches for high-performance Arista switches to optimize throughput and lower latency across on-prem infrastructure. Built automated bare-metal and VM provisioning engines using Puppet (Roles & Profiles/Hiera), The Foreman, and PXE/Kickstart workflows to streamline infrastructure lifecycle management prior to cloud-native adoption.
+        story: Managed multi-datacenter operations consisting of 200+ Dell physical hosts and 600+ KVM virtual instances. Spearheaded major physical network upgrades by swapping legacy Juniper Top-of-Rack (TOR) switches for high-performance Arista switches to optimize throughput and lower latency across on-prem infrastructure. Built automated bare-metal and VM provisioning engines using Puppet (Roles & Profiles/Hiera), The Foreman, and PXE/Kickstart workflows to streamline infrastructure lifecycle management prior to cloud-native adoption.
 
       - title: Full Datacenter Decommissioning & Zero-Downtime EKS Migration
         story: Orchestrated the zero-downtime end-to-end cloud migration of 600+ microservices from two legacy physical data centers into the multi-region, multi-account AWS EKS platform. Containerized all legacy workloads with Docker, defined multi-region infrastructure using Terraform, and established global edge-serving points of presence to enhance user-facing latency. Successfully executed the post-migration hardware decommissioning of both physical data centers with zero disruption to ad-serving pipelines.
@@ -947,7 +1120,7 @@ experience:
         story: Designed, operated, and maintained high-availability, multi-region messaging, caching, and database infrastructure—including Apache Kafka (MSK, MirrorMaker, Connect), RabbitMQ, Aerospike, ClickHouse, and Vespa Cloud vector databases—delivering sub-50ms latency for ultra-high-throughput distributed ad-serving pipelines. Modernized data engineering and MLOps by replacing legacy Hadoop, Spark, Airflow, Django, Azkaban, and EMR setups with a unified cloud-native platform using Argo Workflows, Kubeflow, MLflow, and Feature Stores. Built automated model retraining pipelines triggered by metric drift detection and optimized Vespa schemas (services.xml) and multi-phase tensor ranking for real-time hybrid search (Vector + BM25).
 
       - title: FinOps Strategy, Cloud Optimization & Guardrailed AI Adoption
-        story: Reduced company-wide cloud OpEx by 50% ($600K+ in annualized OpEx savings) — achieving massive annual savings on DataOps and MLOps workloads—by implementing dynamic autoscaling via Karpenter and Kubernetes Horizontal Pod Autoscaling (HPA) to optimize spot instance utilization and right-sizing. Consolidated cloud services by leveraging open-source components and pipeline automations in Argo Workflows and Kubernetes to drastically reduce Databricks compute costs, while migrating data engineering workloads off Airflow and Django to enable massive scale. Developed an automated Kubernetes resource inventory and reconciliation tool using AI workflows, labeling cluster resources to feed granular cost data into Kubecost dashboards. Evaluated and safely deployed AI-assisted development tools (Claude Code, Windsurf, GitHub Copilot, ChatGPT) by building centralized LLM proxy gateways equipped with automated PII sanitization to strictly enforce corporate data compliance.
+        story: Reduced company-wide cloud OpEx by 50% ($600K+ in annualized OpEx savings) — achieving massive annual savings on DataOps and MLOps workloads—by implementing dynamic autoscaling via Karpenter and Kubernetes Horizontal Pod Autoscaling (HPA) to optimize spot instance utilization and right-sizing. Consolidated cloud services by leveraging open-source components and pipeline automations in Argo Workflows and Kubernetes to drastically reduce Databricks compute costs, while migrating data engineering workloads off Airflow and Django to enable massive scale. Developed an automated Kubernetes resource inventory and reconciliation tool using AI workflows, labeling cluster resources to feed granular cost data into Datadog dashboards. Evaluated and safely deployed AI-assisted development tools (Claude Code, Windsurf, GitHub Copilot, ChatGPT) by building centralized LLM proxy gateways equipped with automated PII sanitization to strictly enforce corporate data compliance.
 
       - title: Enterprise Observability & Incident Governance
         story: Streamlined a fragmented legacy monitoring stack (Prometheus, ELK/Graylog, Nagios, Catchpoint, Logstash, Filebeat, Telegraf, Graphite, Grafana) into a unified enterprise observability platform based on Datadog (APM Tracing & Logs). Implemented Linkerd service mesh in non-production environments for QE observability, contract testing shift-left, and distributed latency troubleshooting. Connected Datadog directly with PagerDuty for real-time incident routing and automated alert escalations, significantly reducing MTTR across mission-critical ad-serving pipelines.
@@ -974,11 +1147,11 @@ experience:
 
       - category: "Bare-Metal Datacenters & Migration"
         bullets:
-          - "Supported two full-stack private cloud data centers with 200+ Dell physical bare-metal hosts, 600+ KVM virtual instances, and Ceph/NAS storage."
+          - "Supported two full-stack private cloud data centers with 200+ Dell physical bare-metal hosts and 600+ KVM virtual instances."
           - "Built and migrated both data centers to IaC using Puppet (Roles & Profiles/Hiera) and The Foreman with PXE/Kickstart workflows."
           - "Swapped legacy Juniper Top-of-Rack (TOR) switches with high-performance Arista switches during physical network overhauls."
           - "Led zero-downtime end-to-end cloud migration of 600+ microservices to AWS EKS and managed full hardware decommissioning of both physical data centers."
-          - "Provisioned and maintained Ceph Storage and NAS arrays across physical datacenters to support stateful workloads, KVM virtual instances, and AWS cloud bursting."
+          - "Provisioned and maintained NAS arrays across physical datacenters to support stateful workloads and KVM virtual instances."
 
       - category: "CI/CD & DevSecOps"
         bullets:
@@ -1445,8 +1618,6 @@ skills:
     - name: "HP ProLiant DL Servers"
       personas: [persona2]
     - name: "Rack & Stack / Data Center Build-Out"
-      personas: [persona2]
-    - name: "Ceph Storage (Bare-Metal)"
       personas: [persona2]
     - name: "NAS / SAN / NFS / ZFS"
       personas: [persona2]
