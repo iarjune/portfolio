@@ -438,6 +438,48 @@ strategic_domains:
               - name: "Argo CD Sync Engine"
                 spec: "Replaces push-based Ansible scripts with automated, pull-based GitOps deployment synchronization."
 
+  - id: "data-ai-platform"
+    title: "Data & AI Platform Modernization"
+    subtitle: "MLOps · Data platforms · Vector search · AI infrastructure · AI governance"
+    image: "data-ai-platform.jpg"
+    case_studies:
+      - id: "vespa-search"
+        title: "Sub-50ms Vespa Cloud Vector Search"
+        problem: "Real-time ad serving required extremely low latency (<50ms) hybrid search combining vector embeddings and BM25 ranking across massive scale datasets."
+        solution: "Deployed production Vespa Cloud search infrastructure. Optimized multi-phase tensor ranking and real-time streaming ingestion via Kafka, achieving sub-50ms query latency at high QPS."
+        metrics:
+          - "<50ms Query Latency"
+          - "High QPS Ad Serving"
+          - "Hybrid Vector + BM25 Search"
+        architecture: |
+          graph LR
+            A[Kafka Real-Time Streaming] --> B[Vespa Cloud Cluster]
+            B --> C{Hybrid Search Engine}
+            B --> D[Vector Tensor Ranking]
+            B --> E[BM25 Text Ranking]
+            D & E --> F[Sub-50ms Response Time]
+        deep_dive_sections:
+          - title: "Tensor Ranking & Schema Optimization"
+            content: |
+              • Configured custom `services.xml` schemas and multi-phase tensor ranking expressions in Vespa Cloud to execute complex matching algorithms in under 50ms.
+              • Combined approximate nearest neighbor (ANN) vector search with traditional BM25 keyword matching for optimal ad relevance and click-through rates.
+          - title: "Real-Time Ingestion Pipeline"
+            content: |
+              • Engineered high-throughput real-time streaming ingestion pipelines from Apache Kafka directly into Vespa cluster nodes.
+              • Maintained consistency and sub-second index freshness across high-volume advertising campaigns.
+        subsystems:
+          - id: vespa-cloud-cluster
+            name: "Vespa Cloud Search Engine"
+            type: "Vector & Text Search"
+            logoKey: "vespa"
+            description: "Distributed big data serving engine optimized for real-time vector search and tensor ranking."
+            techStackLogos: ["vespa", "kafka", "aws"]
+            components:
+              - name: "Multi-Phase Tensor Ranking"
+                spec: "Executes complex machine learning ranking models over indexed vector embeddings."
+              - name: "Real-Time Kafka Ingestion"
+                spec: "Ingests streaming ad telemetry and campaign updates with zero indexing lag."
+
   - id: "cloud-transformation"
     title: "Cloud Transformation"
     subtitle: "Cloud migrations · Data center exits · Multi-account architecture · Infrastructure modernization"
@@ -651,96 +693,6 @@ strategic_domains:
               - name: Cloud Target Landing Zone
                 spec: Migrated workloads onto 5 EKS clusters across us-east-1 (mgmt, test, prod) and us-west-1 (mgmt, prod) prior to physical rack power-down.
 
-  - id: "cost-optimization"
-    title: "Cost Optimization & Operational Excellence"
-    subtitle: "FinOps · Cloud economics · Resource optimization · Operational efficiency"
-    image: "cost-optimization.jpg"
-    case_studies:
-      - id: "finops-optimization"
-        title: "FinOps & 50% Cloud Spend Reduction"
-        problem: "Cloud costs were spiraling across data and ML operations due to rigid compute setups, over-provisioned instances, and lack of granular cost visibility."
-        solution: "Implemented dynamic node autoscaling with Karpenter and Kubernetes HPA. Built automated Kubernetes resource inventory systems tagged to Datadog dashboards, optimizing bin-packing and spot instance utilization."
-        metrics:
-          - "50% Cloud Spend Reduction"
-          - "$50k Annual DataOps OpEx Savings"
-          - "Automated Bin-Packing & Spot Instances"
-        architecture: |
-          graph TD
-            A[EKS Cluster Workloads] --> B{Karpenter / HPA Autoscaling}
-            B -->|Dynamic Provisioning| C[Spot Instances]
-            B -->|Optimized Bin-Packing| D[Right-Sized Nodes]
-            C & D --> E[Datadog Inventory & Attribution]
-            E --> F[50% Cost Reduction Achieved]
-        deep_dive_sections:
-          - title: "FinOps Governance & Tagging Automation"
-            content: |
-              • Developed automated Kubernetes resource tagging controllers to enforce strict cost-center attribution across all microservices and namespaces.
-              • Integrated custom tagging schemas with Datadog to provide engineering managers and finance teams with real-time visibility into cloud expenditure.
-          - title: "Dynamic Compute Bin-Packing & Spot Orchestration"
-            content: |
-              • Replaced rigid static EC2 instance fleets with Karpenter provisioners, enabling sub-second node scaling and intelligent workload bin-packing.
-              • Utilized AWS Spot instances for fault-tolerant data processing and batch workflows, slashing compute expenses without compromising reliability.
-        subsystems:
-          - id: karpenter-autoscaling
-            name: "Karpenter Node Provisioner"
-            type: "Cost Optimization"
-            logoKey: "karpenter"
-            description: "High-performance Kubernetes autoscaler optimizing node selection, spot utilization, and bin-packing."
-            techStackLogos: ["karpenter", "kubernetes", "aws"]
-            components:
-              - name: "Sub-Second Provisioning"
-                spec: "Directly provisions optimal EC2 instance types based on pod resource requirements and availability."
-              - name: "Spot Interruption Handling"
-                spec: "Gracefully drains and reschedules workloads during AWS spot termination notices."
-
-          - id: kubecost-attribution
-            name: "Kubecost Analytics Engine"
-            type: "FinOps Dashboard"
-            logoKey: "kubecost"
-            description: "Granular cost allocation platform tracking expenditure by team, service, and namespace."
-            techStackLogos: ["kubecost", "kubernetes", "prometheus"]
-            components:
-              - name: "Cost Allocation Tagging"
-                spec: "Automated attribution of shared cluster resources to specific business units."
-              - name: "Spend Optimization Recommendations"
-                spec: "Provides actionable right-sizing and idle resource cleanup insights."
-
-      - id: "infrastructure-cost-reduction-grm"
-        title: "40% Technology Spend Reduction via Architectural Consolidation"
-        problem: "Acquisitions and decentralized IT management across 20+ locations created massive infrastructure redundancy and escalating tech spend."
-        solution: "Designed a centralized architectural vision, consolidating 5 acquired IT departments, constructing a consolidated VMware vSphere data center, and migrating web workloads to AWS."
-        metrics:
-          - "40% Overall Tech Spend Reduction"
-          - "5 Acquired IT Departments Consolidated"
-          - "Centralized Private Cloud & AWS Hybrid"
-        architecture: |
-          graph TD
-            A[5 Acquired IT Depts & 20+ Locations] --> B[Architectural Consolidation]
-            B --> C[Centralized VMware vSphere Private Cloud]
-            B --> D[AWS Cloud Web Farm Migration]
-            C & D --> E[40% Cost Reduction & Unified Operations]
-        deep_dive_sections:
-          - title: "Organizational & Infrastructure Consolidation"
-            content: |
-              • Assumed direct leadership over 5 acquired IT departments, standardizing operating procedures, tooling, and hardware vendor contracts.
-              • Merged disparate email, directory, and database systems into a unified enterprise architecture.
-          - title: "Hybrid Private/Public Cost Strategy"
-            content: |
-              • Built a highly efficient VMware vSphere cluster for core local workloads while leveraging AWS EC2 and VPC for scalable web hosting and disaster recovery.
-              • Eliminated redundant software licenses, duplicate hardware maintenance contracts, and third-party vendor expenses.
-        subsystems:
-          - id: vmware-vsphere-cluster
-            name: "VMware vSphere Enterprise Cluster"
-            type: "Private Cloud"
-            logoKey: "vmware"
-            description: "Consolidated enterprise virtualization cluster providing high availability for core databases and applications."
-            techStackLogos: ["vmware", "windows", "linux"]
-            components:
-              - name: "P2V Server Migration"
-                spec: "Executed Physical-to-Virtual migrations to reduce physical hardware footprint."
-              - name: "Automated Backup & Recovery"
-                spec: "Configured VMware Data Recovery (VDR) for resilient business continuity."
-
   - id: "security-governance"
     title: "Security, Governance & Compliance"
     subtitle: "DevSecOps · SOC 2 · Security automation · Policy enforcement · Risk management"
@@ -861,6 +813,96 @@ strategic_domains:
               - name: "Alerting & Reporting"
                 spec: "Uses Datadog metrics to support security alerts, operational reporting, and remediation prioritization."
 
+  - id: "cost-optimization"
+    title: "Cost Optimization & Operational Excellence"
+    subtitle: "FinOps · Cloud economics · Resource optimization · Operational efficiency"
+    image: "cost-optimization.jpg"
+    case_studies:
+      - id: "finops-optimization"
+        title: "FinOps & 50% Cloud Spend Reduction"
+        problem: "Cloud costs were spiraling across data and ML operations due to rigid compute setups, over-provisioned instances, and lack of granular cost visibility."
+        solution: "Implemented dynamic node autoscaling with Karpenter and Kubernetes HPA. Built automated Kubernetes resource inventory systems tagged to Datadog dashboards, optimizing bin-packing and spot instance utilization."
+        metrics:
+          - "50% Cloud Spend Reduction"
+          - "$50k Annual DataOps OpEx Savings"
+          - "Automated Bin-Packing & Spot Instances"
+        architecture: |
+          graph TD
+            A[EKS Cluster Workloads] --> B{Karpenter / HPA Autoscaling}
+            B -->|Dynamic Provisioning| C[Spot Instances]
+            B -->|Optimized Bin-Packing| D[Right-Sized Nodes]
+            C & D --> E[Datadog Inventory & Attribution]
+            E --> F[50% Cost Reduction Achieved]
+        deep_dive_sections:
+          - title: "FinOps Governance & Tagging Automation"
+            content: |
+              • Developed automated Kubernetes resource tagging controllers to enforce strict cost-center attribution across all microservices and namespaces.
+              • Integrated custom tagging schemas with Datadog to provide engineering managers and finance teams with real-time visibility into cloud expenditure.
+          - title: "Dynamic Compute Bin-Packing & Spot Orchestration"
+            content: |
+              • Replaced rigid static EC2 instance fleets with Karpenter provisioners, enabling sub-second node scaling and intelligent workload bin-packing.
+              • Utilized AWS Spot instances for fault-tolerant data processing and batch workflows, slashing compute expenses without compromising reliability.
+        subsystems:
+          - id: karpenter-autoscaling
+            name: "Karpenter Node Provisioner"
+            type: "Cost Optimization"
+            logoKey: "karpenter"
+            description: "High-performance Kubernetes autoscaler optimizing node selection, spot utilization, and bin-packing."
+            techStackLogos: ["karpenter", "kubernetes", "aws"]
+            components:
+              - name: "Sub-Second Provisioning"
+                spec: "Directly provisions optimal EC2 instance types based on pod resource requirements and availability."
+              - name: "Spot Interruption Handling"
+                spec: "Gracefully drains and reschedules workloads during AWS spot termination notices."
+
+          - id: kubecost-attribution
+            name: "Kubecost Analytics Engine"
+            type: "FinOps Dashboard"
+            logoKey: "kubecost"
+            description: "Granular cost allocation platform tracking expenditure by team, service, and namespace."
+            techStackLogos: ["kubecost", "kubernetes", "prometheus"]
+            components:
+              - name: "Cost Allocation Tagging"
+                spec: "Automated attribution of shared cluster resources to specific business units."
+              - name: "Spend Optimization Recommendations"
+                spec: "Provides actionable right-sizing and idle resource cleanup insights."
+
+      - id: "infrastructure-cost-reduction-grm"
+        title: "40% Technology Spend Reduction via Architectural Consolidation"
+        problem: "Acquisitions and decentralized IT management across 20+ locations created massive infrastructure redundancy and escalating tech spend."
+        solution: "Designed a centralized architectural vision, consolidating 5 acquired IT departments, constructing a consolidated VMware vSphere data center, and migrating web workloads to AWS."
+        metrics:
+          - "40% Overall Tech Spend Reduction"
+          - "5 Acquired IT Departments Consolidated"
+          - "Centralized Private Cloud & AWS Hybrid"
+        architecture: |
+          graph TD
+            A[5 Acquired IT Depts & 20+ Locations] --> B[Architectural Consolidation]
+            B --> C[Centralized VMware vSphere Private Cloud]
+            B --> D[AWS Cloud Web Farm Migration]
+            C & D --> E[40% Cost Reduction & Unified Operations]
+        deep_dive_sections:
+          - title: "Organizational & Infrastructure Consolidation"
+            content: |
+              • Assumed direct leadership over 5 acquired IT departments, standardizing operating procedures, tooling, and hardware vendor contracts.
+              • Merged disparate email, directory, and database systems into a unified enterprise architecture.
+          - title: "Hybrid Private/Public Cost Strategy"
+            content: |
+              • Built a highly efficient VMware vSphere cluster for core local workloads while leveraging AWS EC2 and VPC for scalable web hosting and disaster recovery.
+              • Eliminated redundant software licenses, duplicate hardware maintenance contracts, and third-party vendor expenses.
+        subsystems:
+          - id: vmware-vsphere-cluster
+            name: "VMware vSphere Enterprise Cluster"
+            type: "Private Cloud"
+            logoKey: "vmware"
+            description: "Consolidated enterprise virtualization cluster providing high availability for core databases and applications."
+            techStackLogos: ["vmware", "windows", "linux"]
+            components:
+              - name: "P2V Server Migration"
+                spec: "Executed Physical-to-Virtual migrations to reduce physical hardware footprint."
+              - name: "Automated Backup & Recovery"
+                spec: "Configured VMware Data Recovery (VDR) for resilient business continuity."
+
   - id: "reliability-resilience"
     title: "Reliability & Resilience Engineering"
     subtitle: "Observability · SRE · High availability · Disaster recovery · Incident management"
@@ -938,48 +980,6 @@ strategic_domains:
                 spec: "Tracks requests across 600+ microservices to identify sub-50ms latency bottlenecks."
               - name: "Log Aggregation & Indexing"
                 spec: "Centralized log collection and parsing across all EKS clusters."
-
-  - id: "data-ai-platform"
-    title: "Data & AI Platform Modernization"
-    subtitle: "MLOps · Data platforms · Vector search · AI infrastructure · AI governance"
-    image: "data-ai-platform.jpg"
-    case_studies:
-      - id: "vespa-search"
-        title: "Sub-50ms Vespa Cloud Vector Search"
-        problem: "Real-time ad serving required extremely low latency (<50ms) hybrid search combining vector embeddings and BM25 ranking across massive scale datasets."
-        solution: "Deployed production Vespa Cloud search infrastructure. Optimized multi-phase tensor ranking and real-time streaming ingestion via Kafka, achieving sub-50ms query latency at high QPS."
-        metrics:
-          - "<50ms Query Latency"
-          - "High QPS Ad Serving"
-          - "Hybrid Vector + BM25 Search"
-        architecture: |
-          graph LR
-            A[Kafka Real-Time Streaming] --> B[Vespa Cloud Cluster]
-            B --> C{Hybrid Search Engine}
-            B --> D[Vector Tensor Ranking]
-            B --> E[BM25 Text Ranking]
-            D & E --> F[Sub-50ms Response Time]
-        deep_dive_sections:
-          - title: "Tensor Ranking & Schema Optimization"
-            content: |
-              • Configured custom `services.xml` schemas and multi-phase tensor ranking expressions in Vespa Cloud to execute complex matching algorithms in under 50ms.
-              • Combined approximate nearest neighbor (ANN) vector search with traditional BM25 keyword matching for optimal ad relevance and click-through rates.
-          - title: "Real-Time Ingestion Pipeline"
-            content: |
-              • Engineered high-throughput real-time streaming ingestion pipelines from Apache Kafka directly into Vespa cluster nodes.
-              • Maintained consistency and sub-second index freshness across high-volume advertising campaigns.
-        subsystems:
-          - id: vespa-cloud-cluster
-            name: "Vespa Cloud Search Engine"
-            type: "Vector & Text Search"
-            logoKey: "vespa"
-            description: "Distributed big data serving engine optimized for real-time vector search and tensor ranking."
-            techStackLogos: ["vespa", "kafka", "aws"]
-            components:
-              - name: "Multi-Phase Tensor Ranking"
-                spec: "Executes complex machine learning ranking models over indexed vector embeddings."
-              - name: "Real-Time Kafka Ingestion"
-                spec: "Ingests streaming ad telemetry and campaign updates with zero indexing lag."
 
       - id: "mlops-ai-governance"
         title: "Automated MLOps Retraining & AI Governance Platform"
