@@ -64,10 +64,10 @@ function MermaidDiagram({ chart, id }: { chart: string; id: string }) {
 }
 
 interface CaseStudiesProps {
-  domains: StrategicDomain[];
+  domains?: StrategicDomain[];
 }
 
-export default function CaseStudies({ domains }: CaseStudiesProps) {
+export default function CaseStudies({ domains = [] }: CaseStudiesProps) {
   const [selectedDomain, setSelectedDomain] = React.useState<StrategicDomain | null>(null);
   const [selectedCaseStudy, setSelectedCaseStudy] = React.useState<CaseStudy | null>(null);
   const [inspectedSubsystem, setInspectedSubsystem] = React.useState<Subsystem | null>(null);
@@ -136,8 +136,8 @@ export default function CaseStudies({ domains }: CaseStudiesProps) {
                 )}
 
                 <div className="absolute bottom-3 right-3 px-3 py-1 rounded-full text-xs font-mono font-medium bg-[#1c1917]/75 text-[#fbf8f3] backdrop-blur-xs border border-white/10 flex items-center gap-1.5 shadow-sm">
-                  <span>{domain.case_studies.length}</span>
-                  <span>{domain.case_studies.length === 1 ? 'Initiative' : 'Initiatives'}</span>
+                  <span>{domain.case_studies?.length ?? 0}</span>
+                  <span>{(domain.case_studies?.length ?? 0) === 1 ? 'Initiative' : 'Initiatives'}</span>
                 </div>
               </div>
 
@@ -173,7 +173,7 @@ export default function CaseStudies({ domains }: CaseStudiesProps) {
                     Strategic Domain
                   </Badge>
                   <span className="text-xs text-[#78716c]">
-                    {selectedDomain.case_studies.length} {selectedDomain.case_studies.length === 1 ? 'Case Study' : 'Case Studies'}
+                    {selectedDomain.case_studies?.length ?? 0} {(selectedDomain.case_studies?.length ?? 0) === 1 ? 'Case Study' : 'Case Studies'}
                   </span>
                 </div>
                 <DialogTitle className="text-2xl sm:text-3xl font-bold text-[#292524]">
@@ -190,7 +190,7 @@ export default function CaseStudies({ domains }: CaseStudiesProps) {
                 </h4>
 
                 <div className="grid grid-cols-1 gap-4">
-                  {selectedDomain.case_studies.map((study) => (
+                  {(selectedDomain.case_studies || []).map((study) => (
                     <div
                       key={study.id}
                       onClick={() => setSelectedCaseStudy(study)}

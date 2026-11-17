@@ -79,6 +79,7 @@ export interface CareerData {
     storage_data_center: SkillItem[];
     automation_scripting_api: SkillItem[];
     engineering_tools_collaboration: SkillItem[];
+    [key: string]: SkillItem[];
   };
   strategic_domains: StrategicDomain[];
   experience: {
@@ -93,9 +94,90 @@ export interface CareerData {
   resumes: Record<RolePersona, string>;
 }
 
+function getDataFilePath(filenameWithoutExt: string): string | null {
+  const possibleDirs = [
+    path.join(process.cwd(), 'data'),
+    path.join(process.cwd(), 'portfolio', 'data'),
+  ];
+  const extensions = ['.yml', '.yaml'];
+
+  for (const dir of possibleDirs) {
+    for (const ext of extensions) {
+      const fullPath = path.join(dir, `${filenameWithoutExt}${ext}`);
+      if (fs.existsSync(fullPath)) {
+        return fullPath;
+      }
+    }
+  }
+  return null;
+}
+
+export function getStrategicDomains(): StrategicDomain[] {
+  const filePath = getDataFilePath('strategic_domains');
+  if (filePath) {
+    try {
+      const fileContents = fs.readFileSync(filePath, 'utf8');
+      const parsed = yaml.load(fileContents) as any;
+      if (Array.isArray(parsed)) {
+        return parsed;
+      }
+      if (parsed && Array.isArray(parsed.strategic_domains)) {
+        return parsed.strategic_domains;
+      }
+    } catch (error) {
+      console.error('Error loading strategic_domains file:', error);
+    }
+  }
+  return [];
+}
+
+export function getSkills(): CareerData['skills'] {
+  const filePath = getDataFilePath('skills');
+  if (filePath) {
+    try {
+      const fileContents = fs.readFileSync(filePath, 'utf8');
+      const parsed = yaml.load(fileContents) as any;
+      if (parsed) {
+        if (parsed.skills && typeof parsed.skills === 'object') {
+          return parsed.skills;
+        }
+        return parsed;
+      }
+    } catch (error) {
+      console.error('Error loading skills file:', error);
+    }
+  }
+  return {} as CareerData['skills'];
+}
+
 export function getCareerData(): CareerData {
-  const filePath = path.join(process.cwd(), 'data', 'career.yml');
-  const fileContents = fs.readFileSync(filePath, 'utf8');
-  return yaml.load(fileContents) as CareerData;
+  let careerData: Partial<CareerData> = {};
+  const careerFilePath = getDataFilePath('career');
+  if (careerFilePath) {
+    try {
+      const fileContents = fs.readFileSync(careerFilePath, 'utf8');
+      careerData = (yaml.load(fileContents) as CareerData) || {};
+    } catch (error) {
+      console.error('Error loading career file:', error);
+    }
+  }
+
+  // Load strategic domains from strategic_domains.yml (fallback to career.yml if present)
+  const separateDomains = getStrategicDomains();
+  if (separateDomains && separateDomains.length > 0) {
+    careerData.strategic_domains = separateDomains;
+  } else if (!careerData.strategic_domains) {
+    careerData.strategic_domains = [];
+  }
+
+  // Load skills from skills.yml (fallback to career.yml if present)
+  const separateSkills = getSkills();
+  if (separateSkills && Object.keys(separateSkills).length > 0) {
+    careerData.skills = separateSkills;
+  } else if (!careerData.skills) {
+    careerData.skills = {} as CareerData['skills'];
+  }
+
+  return careerData as CareerData;
 }
 
