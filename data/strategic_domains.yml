@@ -295,6 +295,25 @@ strategic_domains:
             content: |
               - Integrated Backstage with GitHub and AWS ECR plugins to automate the onboarding of GitHub and ECR repositories, container registries, health endpoints, and CI/CD configurations in minutes.
               - Integrated direct feedback loops and usage telemetry into the IDP to continuously iterate on developer experience and eliminate friction.
+          - title: "Service Onboarding of a Python API Service"
+            image: "api-service-1.png"
+          - title: "Service Onboarding of a Python API Service"
+            image: "api-service-2.png"
+          - title: "Service Onboarding of a Python API Service"
+            image: "api-service-3.png"
+          - title: "Service Onboarding of a Python API Service"
+            image: "api-service-4.png"
+          - title: "Deployment Onboarding of a Python API Service"
+            image: "api-deploy-1.png"
+          - title: "Deployment Onboarding of a Python API Service"
+            image: "api-deploy-2.png"
+          - title: "Deployment Onboarding of a Python API Service"
+            image: "api-deploy-3.png"
+          - title: "python demo-2 Service"
+            links:
+              - label: "GitHub Project Repo"
+                url: "https://github.com/devops-end2end/python-demo-2"
+
         subsystems:
           - id: backstage-service-onboarding
             name: "Backstage"
@@ -370,6 +389,11 @@ strategic_domains:
               Transitioning from push-based deployment models to declarative GitOps:
               - **Declarative Manifests:** Replaced push-based Ansible scripts with Git-backed Kubernetes manifests.
               - **Automated Synchronization:** Argo CD continuously monitors state and automatically synchronizes cluster deployments, providing audit trails and instant rollback capabilities.
+          - title: "Pipeline Run"
+            image: "pipeline-run.png"
+            links:
+              - label: "CI/CD Pipeline Run"
+                url: "https://github.com/devops-end2end/python-demo-2/actions/runs/44525597989"
         subsystems:
           - id: "source-control-ci"
             name: "Source Control & CI Orchestrator"
@@ -1030,3 +1054,104 @@ strategic_domains:
                 spec: "Executes complex machine learning ranking models over indexed vector embeddings."
               - name: "Real-Time Kafka Ingestion"
                 spec: "Ingests streaming ad telemetry and campaign updates with zero indexing lag."
+
+      - id: drift-triggered-mlops-dataops-pipeline
+        title: "Event-Driven DataOps & Drift-Triggered MLOps on Kubernetes"
+        problem: >
+          In a high-throughput Ad Tech environment, legacy on-premises Hadoop
+          clusters struggled to scale on fixed datacenter hardware, while organic
+          adoption across data engineering and data science created scheduler sprawl
+          across Django-Celery, YARN, Azkaban, Airflow, and Skybot cron. Retiring
+          five legacy schedulers without disrupting production ad pipelines or
+          missing SLAs posed high operational risk, while fragmented tooling,
+          inconsistent dataset management, and manual retraining slowed adaptation
+          when ad traffic and feature distributions drifted.
+
+        solution: >
+          Consolidated fragmented orchestration onto Kubernetes with clear team
+          ownership boundaries and a centralized Feature Store for dataset
+          management. Data engineering standardized on Argo Events and Argo Workflows
+          for dataset pipelines—running Spark via the Spark Operator on Kubernetes
+          rather than static Hadoop clusters—while data science and AI teams used
+          Kubeflow and MLflow for training and production model workflows. Automated
+          data-drift checks emit events to Argo Events to trigger dataset rebuilds
+          and retraining runs, trading legacy scheduler sprawl for explicit data
+          and model handoff contracts across teams.
+
+        metrics:
+          - "5 legacy schedulers retired"
+          - "Spark migrated to K8s"
+          - "Drift-triggered retraining"
+          - "Centralized Feature Store"
+
+        architecture: |
+          flowchart LR
+            AdTraffic[Ad Traffic & Event Logs] --> DriftMonitor[Data Drift Detector]
+            DriftMonitor -->|Drift Event| ArgoEvents[Argo Events]
+            ArgoEvents --> ArgoWF[Argo Workflows]
+            ArgoWF --> SparkOp[Spark Operator on K8s]
+            SparkOp --> FeatureStore[Feature Store / Datasets]
+            FeatureStore --> Kubeflow[Kubeflow Training & Pipelines]
+            Kubeflow --> MLflow[MLflow Tracking & Registry]
+            MLflow --> ProdModels[Production Ad Models]
+
+        subsystems:
+          - id: event-workflow-orchestration
+            name: Event-Driven Data Orchestration
+            type: Workflow & Event Orchestrator
+            logoKey: argo
+            description: >
+              Replaces fragmented legacy schedulers for data engineering pipelines,
+              reacting to drift signals and coordinating dataset generation steps on
+              Kubernetes.
+            techStackLogos:
+              - argo
+              - kubernetes
+            components:
+              - name: Argo Events
+                spec: Listens for drift detection events and triggers downstream workflow DAGs.
+              - name: Argo Workflows
+                spec: Orchestrates multi-step DataOps pipelines and dataset build stages on Kubernetes.
+
+          - id: spark-on-kubernetes
+            name: Distributed Batch Processing on Kubernetes
+            type: Compute Engine
+            logoKey: apachespark
+            description: >
+              Runs Spark transformations on elastic Kubernetes compute rather than
+              capacity-constrained on-premises Hadoop clusters.
+            techStackLogos:
+              - apachespark
+              - kubernetes
+            components:
+              - name: Spark Operator
+                spec: Declaratively manages SparkApplication lifecycles, executors, and resource allocation on Kubernetes.
+
+          - id: feature-store-platform
+            name: Centralized Feature Store
+            type: Dataset & Feature Layer
+            logoKey: kubernetes
+            description: >
+              Manages curated datasets and features across data engineering producers
+              and data science/AI consumers.
+            techStackLogos:
+              - kubernetes
+            components:
+              - name: Curated Dataset & Feature Store
+                spec: Serves versioned datasets and features produced by Data Engineering workflows for ML training and inference.
+
+          - id: ml-training-lifecycle
+            name: ML Training & Model Lifecycle
+            type: MLOps Platform
+            logoKey: kubeflow
+            description: >
+              Owns model training, pipeline execution, experiment tracking, and
+              model registry workflows for Data Science and AI teams.
+            techStackLogos:
+              - kubeflow
+              - mlflow
+            components:
+              - name: Kubeflow
+                spec: Orchestrates model training and ML pipeline execution triggered after dataset updates.
+              - name: MLflow
+                spec: Tracks training runs, metrics, artifacts, and model versions for production promotion.
