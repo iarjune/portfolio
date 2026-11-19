@@ -268,17 +268,33 @@ strategic_domains:
             C --> E[Standardized GitHub & ECR Repo]
             D & E --> F[Production-Ready Application Stack]
         deep_dive_sections:
+          - title: "Backstage Golden Path Templates"
+            image: "backstage-templates.png"
+            links:
+              - label: "Deployment"
+                url: "https://github.com/devops-end2end/templates/tree/main/deployment"
+              - label: "Python API Service"
+                url: "https://github.com/devops-end2end/templates/tree/main/service/python"
+              - label: "Java API Service"
+                url: "https://github.com/devops-end2end/templates/tree/main/service/java"
+              - label: "Go API Service"
+                url: "https://github.com/devops-end2end/templates/tree/main/service/go"
+              - label: "Node.js FE Service"
+                url: "https://github.com/devops-end2end/templates/tree/main/service/nodejs-fe"
+              - label: "Node.js BE Service"
+                url: "https://github.com/devops-end2end/templates/tree/main/service/nodejs-be"
+
           - title: "Architecture Decisions & Trade-offs"
             content: |
-              • Service Onboarding scaffolds a repository, provisions infrastructure, sets up CI/CD pipelines, and deploys a working "Hello World" service out of the box.
-              • Chose Backstage as the IDP to unify service catalogs, documentation, and scaffolding across polyglot microservice runtimes.
-              • Balanced standardization with flexibility by offering extensible golden path templates for Go, Java, Python, and Node.js while keeping core observability, health checks, and security defaults enforced.
-              • Decoupled application scaffolding from infrastructure provisioning so developer portals remain focused on service ownership, API specs, and rapid onboarding.
+              - Service Onboarding scaffolds a repository, provisions infrastructure, sets up CI/CD pipelines, and deploys a working "Hello World" service out of the box.
+              - Chose Backstage as the IDP to unify service catalogs, documentation, and scaffolding across polyglot microservice runtimes.
+              - Balanced standardization with flexibility by offering extensible golden path templates for Go, Java, Python, and Node.js while keeping core observability, health checks, and security defaults enforced.
+              - Decoupled application scaffolding from infrastructure provisioning so developer portals remain focused on service ownership, API specs, and rapid onboarding.
 
           - title: "Implementation Strategy & Developer Experience"
             content: |
-              • Integrated Backstage with GitHub and AWS ECR plugins to automate the onboarding of GitHub and ECR repositories, container registries, health endpoints, and CI/CD configurations in minutes.
-              • Integrated direct feedback loops and usage telemetry into the IDP to continuously iterate on developer experience and eliminate friction.
+              - Integrated Backstage with GitHub and AWS ECR plugins to automate the onboarding of GitHub and ECR repositories, container registries, health endpoints, and CI/CD configurations in minutes.
+              - Integrated direct feedback loops and usage telemetry into the IDP to continuously iterate on developer experience and eliminate friction.
         subsystems:
           - id: backstage-service-onboarding
             name: "Backstage"
@@ -386,48 +402,6 @@ strategic_domains:
             components:
               - name: "Argo CD Sync Engine"
                 spec: "Replaces push-based Ansible scripts with automated, pull-based GitOps deployment synchronization."
-
-  - id: "data-ai-platform"
-    title: "Data & AI Platform Modernization"
-    subtitle: "MLOps · Data platforms · Vector search · AI infrastructure · AI governance"
-    image: "data-ai-platform.jpg"
-    case_studies:
-      - id: "vespa-search"
-        title: "Sub-50ms Vespa Cloud Vector Search"
-        problem: "Real-time ad serving required extremely low latency (<50ms) hybrid search combining vector embeddings and BM25 ranking across massive scale datasets."
-        solution: "Deployed production Vespa Cloud search infrastructure. Optimized multi-phase tensor ranking and real-time streaming ingestion via Kafka, achieving sub-50ms query latency at high QPS."
-        metrics:
-          - "<50ms Query Latency"
-          - "High QPS Ad Serving"
-          - "Hybrid Vector + BM25 Search"
-        architecture: |
-          graph LR
-            A[Kafka Real-Time Streaming] --> B[Vespa Cloud Cluster]
-            B --> C{Hybrid Search Engine}
-            B --> D[Vector Tensor Ranking]
-            B --> E[BM25 Text Ranking]
-            D & E --> F[Sub-50ms Response Time]
-        deep_dive_sections:
-          - title: "Tensor Ranking & Schema Optimization"
-            content: |
-              • Configured custom `services.xml` schemas and multi-phase tensor ranking expressions in Vespa Cloud to execute complex matching algorithms in under 50ms.
-              • Combined approximate nearest neighbor (ANN) vector search with traditional BM25 keyword matching for optimal ad relevance and click-through rates.
-          - title: "Real-Time Ingestion Pipeline"
-            content: |
-              • Engineered high-throughput real-time streaming ingestion pipelines from Apache Kafka directly into Vespa cluster nodes.
-              • Maintained consistency and sub-second index freshness across high-volume advertising campaigns.
-        subsystems:
-          - id: vespa-cloud-cluster
-            name: "Vespa Cloud Search Engine"
-            type: "Vector & Text Search"
-            logoKey: "vespa"
-            description: "Distributed big data serving engine optimized for real-time vector search and tensor ranking."
-            techStackLogos: ["vespa", "kafka", "aws"]
-            components:
-              - name: "Multi-Phase Tensor Ranking"
-                spec: "Executes complex machine learning ranking models over indexed vector embeddings."
-              - name: "Real-Time Kafka Ingestion"
-                spec: "Ingests streaming ad telemetry and campaign updates with zero indexing lag."
 
   - id: "cloud-transformation"
     title: "Cloud Transformation"
@@ -642,6 +616,169 @@ strategic_domains:
               - name: Cloud Target Landing Zone
                 spec: Migrated workloads onto 5 EKS clusters across us-east-1 (mgmt, test, prod) and us-west-1 (mgmt, prod) prior to physical rack power-down.
 
+  - id: "reliability-resilience"
+    title: "Reliability & Resilience Engineering"
+    subtitle: "Observability · SRE · High availability · Disaster recovery · Incident management"
+    image: "reliability-resilience.jpg"
+    case_studies:
+      - id: "global-private-cloud"
+        title: "Global Private Cloud Architecture at Scale (AppNexus)"
+        problem: "Rapid international growth required scaling big data infrastructure processing 170TB of data daily and executing 5 million ETL transactions per second."
+        solution: "Engineered and expanded global private cloud infrastructure across 3 data centers in Europe and Asia, provisioning 200+ racks (10,000+ bare-metal Dell servers, 4,000+ Xen VMs) with automated PXE/Kickstart and Puppet pipelines."
+        metrics:
+          - "10,000+ Physical Servers"
+          - "170TB Daily Data Ingestion"
+          - "5M ETL Transactions / Sec"
+        architecture: |
+          graph TD
+            A[5M ETL Transactions / Sec] --> B[Global Data Centers - 3 Regions]
+            B --> C[10,000+ Dell Bare-Metal Servers]
+            B --> D[4,000+ Xen Virtual Instances]
+            E[Automated PXE / Kickstart / Puppet] --> C & D
+        deep_dive_sections:
+          - title: "Global Scale-Out & Hardware Architecture"
+            content: |
+              - Provisioned 200 server racks across 3 international data centers in Europe and Asia, deploying over 10,000 Dell physical servers and 4,000 Xen virtual machines.
+              - Tuned Linux kernel parameters, top-of-rack (TOR) networking switches, and NAS/SAN storage arrays (Nexenta, Isilon) to handle extreme big data throughput.
+          - title: "Automation & Provisioning Pipelines"
+            content: |
+              - Built end-to-end automated provisioning pipelines using PXE boot, TFTP, Kickstart, and customized RPM spec builds managed via Puppet.
+              - Maintained 99.99% infrastructure availability across massive distributed clusters supporting hundreds of engineers and real-time ad exchanges.
+        subsystems:
+          - id: xen-private-cloud
+            name: "Global Xen Private Cloud"
+            type: "Virtualization Infrastructure"
+            logoKey: "linux"
+            description: "Large-scale virtual machine infrastructure powering global ad-serving and big data analytics."
+            techStackLogos: ["linux", "xen", "puppet"]
+            components:
+              - name: "Xen Hypervisor Fleet"
+                spec: "Managed 4,000+ Xen virtual machines distributed across international data centers."
+              - name: "Bare-Metal Provisioning"
+                spec: "Automated zero-touch server provisioning via PXE and Kickstart."
+
+      - id: "observability-sre-transformation"
+        title: "Standardized Datadog Observability & Incident Response"
+        problem: "Fragmented monitoring tools (Prometheus, ELK, Nagios, Graphite) caused alert fatigue, delayed root-cause analysis, and extended MTTR during outages."
+        solution: "Replaced fragmented legacy monitoring with a standardized Datadog APM, logging, metrics, and tracing stack integrated with PagerDuty, establishing high-signal observability across all microservices."
+        metrics:
+          - "Unified Datadog Observability Stack"
+          - "Integrated PagerDuty Incident Response"
+          - "Significantly Reduced MTTR"
+        architecture: |
+          graph TD
+            A[Microservices & K8s Pods] --> B[Datadog Agent & APM]
+            B --> C[Logs, Metrics & Distributed Tracing]
+            C --> D[Unified Datadog Dashboards]
+            C --> E[PagerDuty Incident Escalation]
+            E --> F[Reduced MTTR & SRE Efficiency]
+        deep_dive_sections:
+          - title: "Observability Consolidation Strategy"
+            content: |
+              - Consolidated disparate monitoring systems into a single unified Datadog platform covering APM, infrastructure metrics, log management, and distributed tracing.
+              - Instrumented 600+ microservices with standardized trace headers to track latency bottlenecks across complex ad-serving workflows.
+          - title: "SRE Incident Management & Alert Tuning"
+            content: |
+              - Partnered with SRE teams to establish SLO-based alerting and integrate Datadog directly with PagerDuty for intelligent on-call routing.
+              - Eliminated alert noise and significantly reduced Mean Time to Resolution (MTTR) during critical production incidents.
+        subsystems:
+          - id: datadog-apm-tracing
+            name: "Datadog APM & Tracing"
+            type: "Observability Platform"
+            logoKey: "datadog"
+            description: "Comprehensive application performance monitoring and distributed tracing engine."
+            techStackLogos: ["datadog", "kubernetes", "python", "go"]
+            components:
+              - name: "Distributed Tracing"
+                spec: "Tracks requests across 600+ microservices to identify sub-50ms latency bottlenecks."
+              - name: "Log Aggregation & Indexing"
+                spec: "Centralized log collection and parsing across all EKS clusters."
+
+      - id: "mlops-ai-governance"
+        title: "Automated MLOps Retraining & AI Governance Platform"
+        problem: "Legacy MLOps pipelines (Hadoop Spark, Airflow) were slow and complex, and unmanaged adoption of AI developer tools posed severe data leakage and compliance risks."
+        solution: "Constructed modern event-driven MLOps pipelines using Kubeflow, MLflow, and Argo Workflows triggered by metric drift. Established centralized LLM proxy gateways with automated PII sanitization to safely roll out AI tools (Claude Code, Copilot, ChatGPT)."
+        metrics:
+          - "Automated Drift-Triggered Retraining"
+          - "PII-Sanitized Centralized LLM Gateways"
+          - "Legacy Hadoop & Airflow Replacement"
+        architecture: |
+          graph TD
+            A[Metric Drift Detection] --> B[Argo Events & Workflows]
+            B --> C[Kubeflow & MLflow Training Pipelines]
+            B --> D[Automated Model Validation & Deployment]
+            E[Developer AI Tools] --> F[Centralized LLM Proxy]
+            F -->|Automated PII Sanitization| G[External LLM Providers]
+        deep_dive_sections:
+          - title: "Event-Driven MLOps & Model Retraining"
+            content: |
+              - Replaced legacy Hadoop and Airflow data pipelines with modern event-driven workflows powered by Argo Events, Argo Workflows, and Kubeflow.
+              - Implemented automated model monitoring to detect feature and metric drift, triggering seamless retraining and deployment pipelines via MLflow.
+          - title: "Enterprise AI Governance & PII Sanitization"
+            content: |
+              - Established a centralized LLM proxy gateway supporting Claude Code, GitHub Copilot, and ChatGPT across engineering teams.
+              - Implemented automated PII masking and data sanitization filters to ensure proprietary source code and sensitive data never leaked to external AI vendors.
+        subsystems:
+          - id: kubeflow-mlflow-platform
+            name: "Kubeflow & MLflow MLOps Engine"
+            type: "Machine Learning Platform"
+            logoKey: "kubeflow"
+            description: "Scalable machine learning pipeline orchestration and model registry platform."
+            techStackLogos: ["kubeflow", "mlflow", "kubernetes", "python"]
+            components:
+              - name: "Automated Retraining Pipelines"
+                spec: "Triggers model training upon statistical detection of data or concept drift."
+              - name: "Model Registry & Tracking"
+                spec: "Manages artifact versioning, lineage, and promotion to production inference endpoints."
+
+          - id: centralized-llm-proxy
+            name: "Centralized LLM Proxy Gateway"
+            type: "AI Security & Governance"
+            logoKey: "openai"
+            description: "Secure enterprise gateway for developer AI tools featuring automated PII sanitization and rate limiting."
+            techStackLogos: ["python", "kubernetes", "openai", "docker"]
+            components:
+              - name: "PII Sanitization Engine"
+                spec: "Automatically redacts internal IP addresses, credentials, and customer data from prompt payloads."
+              - name: "Access & Cost Governance"
+                spec: "Monitors token consumption and enforces usage quotas across engineering teams."
+
+      - id: "scheduling-platform-migration"
+        title: "Scheduling Platform & Airflow Migration to Argo Workflows & K8s Spark"
+        problem: "Legacy scheduling and data processing platforms relying on Hadoop YARN, Azkaban, Django, Skybot, and Airflow suffered from resource contention, scaling limits, and high maintenance overhead."
+        solution: "Engineered a comprehensive migration of batch data pipelines and scheduling platforms from legacy Hadoop YARN and Airflow to Kubernetes-native Argo Workflows and the K8s Spark Operator."
+        metrics:
+          - "Legacy Scheduling Platforms Replaced"
+          - "Kubernetes-Native Spark Operator Adoption"
+          - "Optimized Batch Processing Scale"
+        architecture: |
+          graph TD
+            A[Legacy Hadoop YARN / Airflow / Azkaban] -->|Platform Modernization| B(Argo Workflows Orchestration)
+            B --> C[Kubernetes Spark Operator]
+            C --> D[Elastic EKS Batch Compute]
+            D --> E[High-Throughput Data Pipeline Execution]
+        deep_dive_sections:
+          - title: "Migration Architecture & Containerization"
+            content: |
+              - Migrated hundreds of complex data processing jobs from legacy Hadoop YARN, Azkaban, and Airflow environments into containerized Argo Workflows.
+              - Adopted the Kubernetes Spark Operator to execute distributed spark jobs directly on EKS, eliminating heavy dependency on dedicated Hadoop clusters.
+          - title: "Operational Efficiency & Reliability"
+            content: |
+              - Established declarative workflow definitions with built-in retries, timeout handling, and parallel execution stages.
+              - Reduced cluster resource wastage through dynamic container scheduling and spot instance integration.
+        subsystems:
+          - id: k8s-spark-operator
+            name: "Kubernetes Spark Operator"
+            type: "Distributed Compute"
+            logoKey: "apachespark"
+            description: "Native Kubernetes operator for managing Apache Spark applications with automated scaling and lifecycle management."
+            techStackLogos: ["apachespark", "kubernetes", "docker"]
+            components:
+              - name: "Custom Resource Definition (CRD)"
+                spec: "Declares Spark applications as Kubernetes objects for native GitOps management."
+              - name: "Dynamic Executor Scaling"
+                spec: "Automatically scales spark driver and executor pods based on workload demands."
+
   - id: "security-governance"
     title: "Security, Governance & Compliance"
     subtitle: "DevSecOps · SOC 2 · Security automation · Policy enforcement · Risk management"
@@ -665,12 +802,12 @@ strategic_domains:
         deep_dive_sections:
           - title: "Automated Supply Chain Security & Scanning"
             content: |
-              • Integrated static application security testing (SAST) and container vulnerability scanning into every CI/CD pipeline using Snyk and SonarQube.
-              • Generated Software Bill of Materials (SBOM) artifacts automatically during image builds to maintain complete supply chain provenance.
+              - Integrated static application security testing (SAST) and container vulnerability scanning into every CI/CD pipeline using Snyk and SonarQube.
+              - Generated Software Bill of Materials (SBOM) artifacts automatically during image builds to maintain complete supply chain provenance.
           - title: "Policy Enforcement & Secrets Governance"
             content: |
-              • Deployed Open Policy Agent (OPA) Gatekeeper to enforce declarative compliance policies and security guardrails across all Kubernetes deployments.
-              • Integrated Akeyless and HashiCorp Vault for secure, dynamic runtime secrets injection into Kubernetes pods, eliminating static credentials.
+              - Deployed Open Policy Agent (OPA) Gatekeeper to enforce declarative compliance policies and security guardrails across all Kubernetes deployments.
+              - Integrated Akeyless and HashiCorp Vault for secure, dynamic runtime secrets injection into Kubernetes pods, eliminating static credentials.
         subsystems:
           - id: opa-gatekeeper
             name: "Open Policy Agent (OPA) Gatekeeper"
@@ -721,8 +858,8 @@ strategic_domains:
         deep_dive_sections:
           - title: "Exposure-Aware Security Discovery"
             content: |
-              • Developed automated discovery routines to identify internet-facing Kubernetes applications across namespaces by evaluating AWS ALB annotations and public IngressClass conventions.
-              • Correlated exposed endpoints with backend Services, Deployments, and container images to establish accurate blast-radius maps.
+              - Developed automated discovery routines to identify internet-facing Kubernetes applications across namespaces by evaluating AWS ALB annotations and public IngressClass conventions.
+              - Correlated exposed endpoints with backend Services, Deployments, and container images to establish accurate blast-radius maps.
           - title: "Containerized Scheduled Assessment"
             content: |
               Packaged the scanner as a containerized workload and deployed it as a Kubernetes CronJob. Established recurring security assessments without requiring manual execution or integration into individual application build pipelines. Implemented configurable parallel scanning to efficiently assess multiple application images within each execution cycle.
@@ -731,8 +868,8 @@ strategic_domains:
               Integrated Snyk Container to assess discovered images against known vulnerability intelligence. Aggregated unique Critical, High, Medium, and Low findings and generated structured JSON output designed for ingestion into Datadog as metrics. Preserved application, image, and exposure context to support security analysis.
           - title: "Observability & Automated Alerting & Reporting"
             content: |
-              • Exported structured vulnerability findings directly into Datadog as custom metrics, enabling real-time security dashboards, historical trend analysis, alerting and reporting..
-              • Enabled security and engineering teams to monitor the vulnerability posture of publicly exposed workloads over time and identify applications requiring remediation.
+              - Exported structured vulnerability findings directly into Datadog as custom metrics, enabling real-time security dashboards, historical trend analysis, alerting and reporting..
+              - Enabled security and engineering teams to monitor the vulnerability posture of publicly exposed workloads over time and identify applications requiring remediation.
         subsystems:
           - id: kubernetes-exposure-scanner
             name: "Kubernetes Exposure Scanner"
@@ -785,12 +922,12 @@ strategic_domains:
         deep_dive_sections:
           - title: "FinOps Governance & Tagging Automation"
             content: |
-              • Developed automated Kubernetes resource tagging controllers to enforce strict cost-center attribution across all microservices and namespaces.
-              • Integrated custom tagging schemas with Datadog to provide engineering managers and finance teams with real-time visibility into cloud expenditure.
+              - Developed automated Kubernetes resource tagging controllers to enforce strict cost-center attribution across all microservices and namespaces.
+              - Integrated custom tagging schemas with Datadog to provide engineering managers and finance teams with real-time visibility into cloud expenditure.
           - title: "Dynamic Compute Bin-Packing & Spot Orchestration"
             content: |
-              • Replaced rigid static EC2 instance fleets with Karpenter provisioners, enabling sub-second node scaling and intelligent workload bin-packing.
-              • Utilized AWS Spot instances for fault-tolerant data processing and batch workflows, slashing compute expenses without compromising reliability.
+              - Replaced rigid static EC2 instance fleets with Karpenter provisioners, enabling sub-second node scaling and intelligent workload bin-packing.
+              - Utilized AWS Spot instances for fault-tolerant data processing and batch workflows, slashing compute expenses without compromising reliability.
         subsystems:
           - id: karpenter-autoscaling
             name: "Karpenter Node Provisioner"
@@ -833,12 +970,12 @@ strategic_domains:
         deep_dive_sections:
           - title: "Organizational & Infrastructure Consolidation"
             content: |
-              • Assumed direct leadership over 5 acquired IT departments, standardizing operating procedures, tooling, and hardware vendor contracts.
-              • Merged disparate email, directory, and database systems into a unified enterprise architecture.
+              - Assumed direct leadership over 5 acquired IT departments, standardizing operating procedures, tooling, and hardware vendor contracts.
+              - Merged disparate email, directory, and database systems into a unified enterprise architecture.
           - title: "Hybrid Private/Public Cost Strategy"
             content: |
-              • Built a highly efficient VMware vSphere cluster for core local workloads while leveraging AWS EC2 and VPC for scalable web hosting and disaster recovery.
-              • Eliminated redundant software licenses, duplicate hardware maintenance contracts, and third-party vendor expenses.
+              - Built a highly efficient VMware vSphere cluster for core local workloads while leveraging AWS EC2 and VPC for scalable web hosting and disaster recovery.
+              - Eliminated redundant software licenses, duplicate hardware maintenance contracts, and third-party vendor expenses.
         subsystems:
           - id: vmware-vsphere-cluster
             name: "VMware vSphere Enterprise Cluster"
@@ -852,165 +989,44 @@ strategic_domains:
               - name: "Automated Backup & Recovery"
                 spec: "Configured VMware Data Recovery (VDR) for resilient business continuity."
 
-  - id: "reliability-resilience"
-    title: "Reliability & Resilience Engineering"
-    subtitle: "Observability · SRE · High availability · Disaster recovery · Incident management"
-    image: "reliability-resilience.jpg"
+  - id: "data-ai-platform"
+    title: "Data & AI Platform Modernization"
+    subtitle: "MLOps · Data platforms · Vector search · AI infrastructure · AI governance"
+    image: "data-ai-platform.jpg"
     case_studies:
-      - id: "global-private-cloud"
-        title: "Global Private Cloud Architecture at Scale (AppNexus)"
-        problem: "Rapid international growth required scaling big data infrastructure processing 170TB of data daily and executing 5 million ETL transactions per second."
-        solution: "Engineered and expanded global private cloud infrastructure across 3 data centers in Europe and Asia, provisioning 200+ racks (10,000+ bare-metal Dell servers, 4,000+ Xen VMs) with automated PXE/Kickstart and Puppet pipelines."
+      - id: "vespa-search"
+        title: "Sub-50ms Vespa Cloud Vector Search"
+        problem: "Real-time ad serving required extremely low latency (<50ms) hybrid search combining vector embeddings and BM25 ranking across massive scale datasets."
+        solution: "Deployed production Vespa Cloud search infrastructure. Optimized multi-phase tensor ranking and real-time streaming ingestion via Kafka, achieving sub-50ms query latency at high QPS."
         metrics:
-          - "10,000+ Physical Servers"
-          - "170TB Daily Data Ingestion"
-          - "5M ETL Transactions / Sec"
+          - "<50ms Query Latency"
+          - "High QPS Ad Serving"
+          - "Hybrid Vector + BM25 Search"
         architecture: |
-          graph TD
-            A[5M ETL Transactions / Sec] --> B[Global Data Centers - 3 Regions]
-            B --> C[10,000+ Dell Bare-Metal Servers]
-            B --> D[4,000+ Xen Virtual Instances]
-            E[Automated PXE / Kickstart / Puppet] --> C & D
+          graph LR
+            A[Kafka Real-Time Streaming] --> B[Vespa Cloud Cluster]
+            B --> C{Hybrid Search Engine}
+            B --> D[Vector Tensor Ranking]
+            B --> E[BM25 Text Ranking]
+            D & E --> F[Sub-50ms Response Time]
         deep_dive_sections:
-          - title: "Global Scale-Out & Hardware Architecture"
+          - title: "Tensor Ranking & Schema Optimization"
             content: |
-              • Provisioned 200 server racks across 3 international data centers in Europe and Asia, deploying over 10,000 Dell physical servers and 4,000 Xen virtual machines.
-              • Tuned Linux kernel parameters, top-of-rack (TOR) networking switches, and NAS/SAN storage arrays (Nexenta, Isilon) to handle extreme big data throughput.
-          - title: "Automation & Provisioning Pipelines"
+              - Configured custom `services.xml` schemas and multi-phase tensor ranking expressions in Vespa Cloud to execute complex matching algorithms in under 50ms.
+              - Combined approximate nearest neighbor (ANN) vector search with traditional BM25 keyword matching for optimal ad relevance and click-through rates.
+          - title: "Real-Time Ingestion Pipeline"
             content: |
-              • Built end-to-end automated provisioning pipelines using PXE boot, TFTP, Kickstart, and customized RPM spec builds managed via Puppet.
-              • Maintained 99.99% infrastructure availability across massive distributed clusters supporting hundreds of engineers and real-time ad exchanges.
+              - Engineered high-throughput real-time streaming ingestion pipelines from Apache Kafka directly into Vespa cluster nodes.
+              - Maintained consistency and sub-second index freshness across high-volume advertising campaigns.
         subsystems:
-          - id: xen-private-cloud
-            name: "Global Xen Private Cloud"
-            type: "Virtualization Infrastructure"
-            logoKey: "linux"
-            description: "Large-scale virtual machine infrastructure powering global ad-serving and big data analytics."
-            techStackLogos: ["linux", "xen", "puppet"]
+          - id: vespa-cloud-cluster
+            name: "Vespa Cloud Search Engine"
+            type: "Vector & Text Search"
+            logoKey: "vespa"
+            description: "Distributed big data serving engine optimized for real-time vector search and tensor ranking."
+            techStackLogos: ["vespa", "kafka", "aws"]
             components:
-              - name: "Xen Hypervisor Fleet"
-                spec: "Managed 4,000+ Xen virtual machines distributed across international data centers."
-              - name: "Bare-Metal Provisioning"
-                spec: "Automated zero-touch server provisioning via PXE and Kickstart."
-
-      - id: "observability-sre-transformation"
-        title: "Standardized Datadog Observability & Incident Response"
-        problem: "Fragmented monitoring tools (Prometheus, ELK, Nagios, Graphite) caused alert fatigue, delayed root-cause analysis, and extended MTTR during outages."
-        solution: "Replaced fragmented legacy monitoring with a standardized Datadog APM, logging, metrics, and tracing stack integrated with PagerDuty, establishing high-signal observability across all microservices."
-        metrics:
-          - "Unified Datadog Observability Stack"
-          - "Integrated PagerDuty Incident Response"
-          - "Significantly Reduced MTTR"
-        architecture: |
-          graph TD
-            A[Microservices & K8s Pods] --> B[Datadog Agent & APM]
-            B --> C[Logs, Metrics & Distributed Tracing]
-            C --> D[Unified Datadog Dashboards]
-            C --> E[PagerDuty Incident Escalation]
-            E --> F[Reduced MTTR & SRE Efficiency]
-        deep_dive_sections:
-          - title: "Observability Consolidation Strategy"
-            content: |
-              • Consolidated disparate monitoring systems into a single unified Datadog platform covering APM, infrastructure metrics, log management, and distributed tracing.
-              • Instrumented 600+ microservices with standardized trace headers to track latency bottlenecks across complex ad-serving workflows.
-          - title: "SRE Incident Management & Alert Tuning"
-            content: |
-              • Partnered with SRE teams to establish SLO-based alerting and integrate Datadog directly with PagerDuty for intelligent on-call routing.
-              • Eliminated alert noise and significantly reduced Mean Time to Resolution (MTTR) during critical production incidents.
-        subsystems:
-          - id: datadog-apm-tracing
-            name: "Datadog APM & Tracing"
-            type: "Observability Platform"
-            logoKey: "datadog"
-            description: "Comprehensive application performance monitoring and distributed tracing engine."
-            techStackLogos: ["datadog", "kubernetes", "python", "go"]
-            components:
-              - name: "Distributed Tracing"
-                spec: "Tracks requests across 600+ microservices to identify sub-50ms latency bottlenecks."
-              - name: "Log Aggregation & Indexing"
-                spec: "Centralized log collection and parsing across all EKS clusters."
-
-      - id: "mlops-ai-governance"
-        title: "Automated MLOps Retraining & AI Governance Platform"
-        problem: "Legacy MLOps pipelines (Hadoop Spark, Airflow) were slow and complex, and unmanaged adoption of AI developer tools posed severe data leakage and compliance risks."
-        solution: "Constructed modern event-driven MLOps pipelines using Kubeflow, MLflow, and Argo Workflows triggered by metric drift. Established centralized LLM proxy gateways with automated PII sanitization to safely roll out AI tools (Claude Code, Copilot, ChatGPT)."
-        metrics:
-          - "Automated Drift-Triggered Retraining"
-          - "PII-Sanitized Centralized LLM Gateways"
-          - "Legacy Hadoop & Airflow Replacement"
-        architecture: |
-          graph TD
-            A[Metric Drift Detection] --> B[Argo Events & Workflows]
-            B --> C[Kubeflow & MLflow Training Pipelines]
-            B --> D[Automated Model Validation & Deployment]
-            E[Developer AI Tools] --> F[Centralized LLM Proxy]
-            F -->|Automated PII Sanitization| G[External LLM Providers]
-        deep_dive_sections:
-          - title: "Event-Driven MLOps & Model Retraining"
-            content: |
-              • Replaced legacy Hadoop and Airflow data pipelines with modern event-driven workflows powered by Argo Events, Argo Workflows, and Kubeflow.
-              • Implemented automated model monitoring to detect feature and metric drift, triggering seamless retraining and deployment pipelines via MLflow.
-          - title: "Enterprise AI Governance & PII Sanitization"
-            content: |
-              • Established a centralized LLM proxy gateway supporting Claude Code, GitHub Copilot, and ChatGPT across engineering teams.
-              • Implemented automated PII masking and data sanitization filters to ensure proprietary source code and sensitive data never leaked to external AI vendors.
-        subsystems:
-          - id: kubeflow-mlflow-platform
-            name: "Kubeflow & MLflow MLOps Engine"
-            type: "Machine Learning Platform"
-            logoKey: "kubeflow"
-            description: "Scalable machine learning pipeline orchestration and model registry platform."
-            techStackLogos: ["kubeflow", "mlflow", "kubernetes", "python"]
-            components:
-              - name: "Automated Retraining Pipelines"
-                spec: "Triggers model training upon statistical detection of data or concept drift."
-              - name: "Model Registry & Tracking"
-                spec: "Manages artifact versioning, lineage, and promotion to production inference endpoints."
-
-          - id: centralized-llm-proxy
-            name: "Centralized LLM Proxy Gateway"
-            type: "AI Security & Governance"
-            logoKey: "openai"
-            description: "Secure enterprise gateway for developer AI tools featuring automated PII sanitization and rate limiting."
-            techStackLogos: ["python", "kubernetes", "openai", "docker"]
-            components:
-              - name: "PII Sanitization Engine"
-                spec: "Automatically redacts internal IP addresses, credentials, and customer data from prompt payloads."
-              - name: "Access & Cost Governance"
-                spec: "Monitors token consumption and enforces usage quotas across engineering teams."
-
-      - id: "scheduling-platform-migration"
-        title: "Scheduling Platform & Airflow Migration to Argo Workflows & K8s Spark"
-        problem: "Legacy scheduling and data processing platforms relying on Hadoop YARN, Azkaban, Django, Skybot, and Airflow suffered from resource contention, scaling limits, and high maintenance overhead."
-        solution: "Engineered a comprehensive migration of batch data pipelines and scheduling platforms from legacy Hadoop YARN and Airflow to Kubernetes-native Argo Workflows and the K8s Spark Operator."
-        metrics:
-          - "Legacy Scheduling Platforms Replaced"
-          - "Kubernetes-Native Spark Operator Adoption"
-          - "Optimized Batch Processing Scale"
-        architecture: |
-          graph TD
-            A[Legacy Hadoop YARN / Airflow / Azkaban] -->|Platform Modernization| B(Argo Workflows Orchestration)
-            B --> C[Kubernetes Spark Operator]
-            C --> D[Elastic EKS Batch Compute]
-            D --> E[High-Throughput Data Pipeline Execution]
-        deep_dive_sections:
-          - title: "Migration Architecture & Containerization"
-            content: |
-              • Migrated hundreds of complex data processing jobs from legacy Hadoop YARN, Azkaban, and Airflow environments into containerized Argo Workflows.
-              • Adopted the Kubernetes Spark Operator to execute distributed spark jobs directly on EKS, eliminating heavy dependency on dedicated Hadoop clusters.
-          - title: "Operational Efficiency & Reliability"
-            content: |
-              • Established declarative workflow definitions with built-in retries, timeout handling, and parallel execution stages.
-              • Reduced cluster resource wastage through dynamic container scheduling and spot instance integration.
-        subsystems:
-          - id: k8s-spark-operator
-            name: "Kubernetes Spark Operator"
-            type: "Distributed Compute"
-            logoKey: "apachespark"
-            description: "Native Kubernetes operator for managing Apache Spark applications with automated scaling and lifecycle management."
-            techStackLogos: ["apachespark", "kubernetes", "docker"]
-            components:
-              - name: "Custom Resource Definition (CRD)"
-                spec: "Declares Spark applications as Kubernetes objects for native GitOps management."
-              - name: "Dynamic Executor Scaling"
-                spec: "Automatically scales spark driver and executor pods based on workload demands."
+              - name: "Multi-Phase Tensor Ranking"
+                spec: "Executes complex machine learning ranking models over indexed vector embeddings."
+              - name: "Real-Time Kafka Ingestion"
+                spec: "Ingests streaming ad telemetry and campaign updates with zero indexing lag."

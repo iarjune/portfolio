@@ -91,12 +91,6 @@ experience:
       - title: Internal Developer Platform (IDP) & Golden Path Self-Service
         story: Centralized developer autonomy by constructing an Internal Developer Portal (IDP) backed by developer-managed Golden Path scaffolding templates, REST APIs, and Crossplane orchestration. Provided 100+ engineers with full self-service autonomy over environment provisioning, service onboarding, event-driven pipelines, and experimentation setups. This standardized scaffolding eliminated operational friction and cognitive overhead, allowing product teams to seamlessly onboard and manage microservices across all environments.
 
-      - title: Bare-Metal Datacenter Operations & Network Modernization
-        story: Managed multi-datacenter operations consisting of 200+ Dell physical hosts and 600+ KVM virtual instances. Spearheaded major physical network upgrades by swapping legacy Juniper Top-of-Rack (TOR) switches for high-performance Arista switches to optimize throughput and lower latency across on-prem infrastructure. Built automated bare-metal and VM provisioning engines using Puppet (Roles & Profiles/Hiera), The Foreman, and PXE/Kickstart workflows to streamline infrastructure lifecycle management prior to cloud-native adoption.
-
-      - title: Full Datacenter Decommissioning & Zero-Downtime EKS Migration
-        story: Orchestrated the zero-downtime end-to-end cloud migration of 600+ microservices from two legacy physical data centers into the multi-region, multi-account AWS EKS platform. Containerized all legacy workloads with Docker, defined multi-region infrastructure using Terraform, and established global edge-serving points of presence to enhance user-facing latency. Successfully executed the post-migration hardware decommissioning of both physical data centers with zero disruption to ad-serving pipelines.
-
       - title: CI/CD Pipeline Modernization, DevSecOps & Compliance
         story: Executed a full-scale CI/CD transformation by migrating 500+ repositories from Bitbucket Server to Bitbucket Cloud, and ultimately consolidating 900+ repositories onto GitHub Actions and Kubernetes-native Argo Workflows. Replaced legacy Jenkins/Ansible build systems with containerized pipelines and custom Python libraries. Integrated Snyk, JFrog Artifactory, SonarQube/SonarCloud, and Akeyless (HashiCorp Vault) for automated static analysis, container vulnerability scanning, and pod secret injection. Automated Software Bill of Materials (SBOM) generation and zero-day patch pipelines, authoring security control procedures and deploying Open Policy Agent (OPA) guardrails that directly enabled the company to achieve SOC 2 certification.
 
@@ -108,6 +102,12 @@ experience:
 
       - title: Enterprise Observability & Incident Governance
         story: Streamlined a fragmented legacy monitoring stack (Prometheus, ELK/Graylog, Nagios, Catchpoint, Logstash, Filebeat, Telegraf, Graphite, Grafana) into a unified enterprise observability platform based on Datadog (APM Tracing & Logs). Implemented Linkerd service mesh in non-production environments for QE observability, contract testing shift-left, and distributed latency troubleshooting. Connected Datadog directly with PagerDuty for real-time incident routing and automated alert escalations, significantly reducing MTTR across mission-critical ad-serving pipelines.
+
+      - title: Bare-Metal Datacenter Operations & Network Modernization
+        story: Managed multi-datacenter operations consisting of 200+ Dell physical hosts and 600+ KVM virtual instances. Spearheaded major physical network upgrades by swapping legacy Juniper Top-of-Rack (TOR) switches for high-performance Arista switches to optimize throughput and lower latency across on-prem infrastructure. Built automated bare-metal and VM provisioning engines using Puppet (Roles & Profiles/Hiera), The Foreman, and PXE/Kickstart workflows to streamline infrastructure lifecycle management prior to cloud-native adoption.
+
+      - title: Full Datacenter Decommissioning & Zero-Downtime EKS Migration
+        story: Orchestrated the zero-downtime end-to-end cloud migration of 600+ microservices from two legacy physical data centers into the multi-region, multi-account AWS EKS platform. Containerized all legacy workloads with Docker, defined multi-region infrastructure using Terraform, and established global edge-serving points of presence to enhance user-facing latency. Successfully executed the post-migration hardware decommissioning of both physical data centers with zero disruption to ad-serving pipelines.
 
     detailed_achievements:
       - category: "Platform Engineering & Leadership"
