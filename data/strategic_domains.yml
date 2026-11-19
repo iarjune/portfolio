@@ -1085,15 +1085,16 @@ strategic_domains:
           - "Centralized Feature Store"
 
         architecture: |
-          flowchart LR
-            AdTraffic[Ad Traffic & Event Logs] --> DriftMonitor[Data Drift Detector]
-            DriftMonitor -->|Drift Event| ArgoEvents[Argo Events]
-            ArgoEvents --> ArgoWF[Argo Workflows]
+          flowchart TD
+            ProdModels[Production Ad Models] -->|Serves Live Traffic & Logs| AdLogs[Ad Traffic & Event Logs]
+            AdLogs --> DriftMonitor[Data Drift Detector]
+            DriftMonitor -->|Drift Detected| ArgoEvents[Argo Events]
+            ArgoEvents -->|Triggers DataOps DAG| ArgoWF[Argo Workflows]
             ArgoWF --> SparkOp[Spark Operator on K8s]
-            SparkOp --> FeatureStore[Feature Store / Datasets]
-            FeatureStore --> Kubeflow[Kubeflow Training & Pipelines]
-            Kubeflow --> MLflow[MLflow Tracking & Registry]
-            MLflow --> ProdModels[Production Ad Models]
+            SparkOp -->|Writes Datasets| FeatureStore[Feature Store]
+            FeatureStore -->|Feeds Training Data| Kubeflow[Kubeflow Pipelines]
+            Kubeflow -->|Logs Runs & Models| MLflow[MLflow Tracking & Registry]
+            MLflow -->|Promotes Updated Model| ProdModels
 
         subsystems:
           - id: event-workflow-orchestration
