@@ -319,7 +319,7 @@ strategic_domains:
             name: "Backstage"
             type: "Developer Portal"
             logoKey: "backstage"
-            repoUrl: "https://github.com/devops-end2end/gitops/tree/main/components/backstage"
+            repoUrl: "https://github.com/devops-end2end/gitops/tree/main/infra/backstage"
             description: "Internal Developers Portal for creating, cataloging and operating services."
             techStackLogos: ["backstage", "github", "aws", "kubernetes"]
             components:
@@ -894,6 +894,10 @@ strategic_domains:
             content: |
               - Exported structured vulnerability findings directly into Datadog as custom metrics, enabling real-time security dashboards, historical trend analysis, alerting and reporting..
               - Enabled security and engineering teams to monitor the vulnerability posture of publicly exposed workloads over time and identify applications requiring remediation.
+          - links:
+              label: "k8s-public-service-vul-scanner"
+              url: "https://github.com/devops-end2end/k8s-public-service-vul-scanner"
+
         subsystems:
           - id: kubernetes-exposure-scanner
             name: "Kubernetes Exposure Scanner"
