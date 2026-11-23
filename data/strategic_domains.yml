@@ -952,6 +952,9 @@ strategic_domains:
             content: |
               - Developed automated Kubernetes resource tagging controllers to enforce strict cost-center attribution across all microservices and namespaces.
               - Integrated custom tagging schemas with Datadog to provide engineering managers and finance teams with real-time visibility into cloud expenditure.
+            links:
+              - label: "K8s Resource Tagging Project"
+                url: "https://github.com/devops-end2end/eks-inventory/"
           - title: "Dynamic Compute Bin-Packing & Spot Orchestration"
             content: |
               - Replaced rigid static EC2 instance fleets with Karpenter provisioners, enabling sub-second node scaling and intelligent workload bin-packing.
