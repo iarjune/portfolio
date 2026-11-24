@@ -5,13 +5,11 @@ An interactive, persona-driven portfolio site for a Senior Engineering Manager /
 ## ✨ Features
 
 - **Persona Switcher** — Toggle between `Manager`, `Architect`, and `Master` perspectives. The hero value proposition, career timeline filtering, and emphasis adapt to the selected persona.
+- **Tailored Resume Downloader** — Links to persona-specific PDF resumes.
 - **Command Palette** — A `cmdk`-powered palette (opened with `⌘K` / `Ctrl+K`) for quick navigation between pages and triggering actions like opening the resume modal.
-- **Career Timeline** — Animated, expandable timeline of roles with achievements, tech stacks, and persona-aware filtering.
 - **Architecture Case Studies** — Card grid of case studies that open into a dialog with problem/solution context, outcome metrics, and a **Mermaid**-rendered architecture diagram.
+- **Career Timeline** — Animated, expandable timeline of roles with achievements, tech stacks, and persona-aware filtering.
 - **Skill Matrix** — Categorised competencies across Cloud & K8s, GitOps & CI/CD, Data/ML/Search, DevSecOps & Observability, and Hardware & Networking.
-- **Tailored Resume Generator** — A modal that generates a downloadable, persona-specific PDF resume using `@react-pdf/renderer`. It can also be opened via the `open-resume-modal` window event (dispatched by the command palette).
-- **System Topology Viewer** — A data-driven view of domains and subsystems (see `types/topology.ts` and `lib/topology.ts`).
-- **Dark, high-contrast UI** — Tailwind v4 with a Geist font pairing and a dark-first theme.
 
 ## 🛠 Tech Stack
 
@@ -22,7 +20,6 @@ An interactive, persona-driven portfolio site for a Senior Engineering Manager /
 | Styling | [Tailwind CSS v4](https://tailwindcss.com) (CSS-first config) |
 | Animation | [Framer Motion](https://www.framer.com/motion/) |
 | Diagrams | [Mermaid](https://mermaid.js.org) |
-| PDF generation | [@react-pdf/renderer](https://react-pdf.org) |
 | Command palette | [cmdk](https://cmdk.paco.me) |
 | Icons | [react-icons](https://react-icons.github.io/react-icons/) (`si` set) |
 | Content | [js-yaml](https://github.com/nodeca/js-yaml) (YAML data files) |
@@ -76,25 +73,25 @@ npm run lint
 ├── app/
 │   ├── globals.css          # Tailwind v4 import + theme tokens
 │   ├── layout.tsx           # Root layout, fonts, metadata
-│   ├── page.tsx             # Home page (loads career data)
-│   └── topology/
-│       └── page.tsx         # System topology viewer page
+│   └── page.tsx             # Home page (loads career data)
 ├── components/
 │   ├── CareerTimeline.tsx   # Animated, filterable career timeline
 │   ├── CaseStudies.tsx      # Case study cards + Mermaid dialog
 │   ├── CommandPalette.tsx   # cmdk-based command palette
+│   ├── DeepDive.tsx         # Initiative Details
 │   ├── Hero.tsx             # Persona switcher + value proposition
 │   ├── HomeClient.tsx       # Client shell for the home page
 │   ├── InspectorDrawer.tsx  # Subsystem detail drawer
 │   ├── LogoIcon.tsx         # Brand icon mapping (react-icons/si)
-│   ├── ResumeGenerator.tsx  # Persona-specific PDF resume modal
 │   ├── SkillMatrix.tsx      # Categorised skill grid
 │   ├── SubsystemCard.tsx    # Topology subsystem card
-│   ├── TopologyViewer.tsx   # Topology visualisation
 │   └── ui/                  # shadcn/ui primitives (badge, button, dialog, …)
 ├── data/
+│   ├── resume/              # Resumes in pdf format
 │   ├── career.yml           # Career, skills, and case study content
-│   └── system-topology.yaml # Domains & subsystems topology
+│   ├── skills.yml           # Skill details
+│   ├── strategic_domains.yml # Strategic domains
+│   └── strategic_domains-schema.ym # Strategic domains schema
 ├── .github/
 │   └── workflows/
 │       └── deploy.yaml      # GitHub Actions deploy to GitHub Pages
@@ -107,20 +104,20 @@ npm run lint
 └── README.md
 ```
 
-## ✏️ Customisation
+## ✏️ Customization
 
 ### Content
 
 Most content is data-driven and lives in YAML:
 
 - **`data/career.yml`** — name, label, status, persona value propositions, skills, case studies, and experience. The shape is typed by `CareerData` in `lib/data.ts`.
-- **`data/system-topology.yaml`** — domains and subsystems rendered by the topology viewer. The shape is typed by `TopologyData` in `types/topology.ts`.
-
+- **`data/strategic_domains.yml`** — The shape is typed by `StrategicDomain` in `lib/data.ts`.
+- **`data/skills.yml`** —  The shape is typed by `CareerData` in `lib/data.ts`.
 Edit these files to update the site without touching component code.
 
 ### Personas
 
-The three personas (`manager`, `architect`, `master`) are defined in:
+The three personas (`lead`, `platform`, `infra`) are defined in:
 
 - `components/Hero.tsx` — labels and titles per persona.
 - `data/career.yml` — the `basics.value_props` copy per persona.

@@ -9,40 +9,33 @@ basics:
   value_props:
     # Lead Ops Engineer and Mgmt
     persona1: |-
-      <b>Great engineering organizations don't scale by adding more tools or people to solve operational problems. They scale by building platforms, automation, and engineering practices that make reliability, efficiency, and developer autonomy the default.</b>
+      <b>Great engineering organizations don't scale by throwing more people or tools at operational bottlenecks—they scale through automation, resilient architecture, and engineering practices that make reliability and efficiency the default.</b>
 
-      I bring a rare combination of deep systems engineering expertise, platform architecture, and hands-on engineering leadership. Throughout my career, I've worked across infrastructure, data platforms, SRE, DevOps, and MLOps, translating complex operational challenges into scalable engineering solutions. I've led the modernization of legacy infrastructure into cloud-native Kubernetes platforms, migrated 600+ microservices to AWS with zero downtime, and built self-service developer platforms that empowered more than 100 engineers to provision infrastructure and deploy applications independently.
+      Combining deep systems engineering with hands-on leadership across infrastructure, SRE, platform engineering, and MLOps, I bridge technical execution and team management to keep production systems fast, reliable, and cost-effective.
 
-      My approach extends beyond technology. I believe effective engineering leaders create clarity, remove friction, and enable engineers to do their best work. I've mentored 15+ engineers, aligned cross-functional teams around architectural direction, and driven engineering practices that improve delivery, observability, and operational resilience. By combining automation, intelligent resource management, and infrastructure modernization, I've also reduced company-wide cloud spending by 50%.
+      I have led the modernization of legacy environments into cloud-native Kubernetes platforms, migrating 600+ microservices to AWS with zero downtime and cutting company-wide cloud spend by 50% through automation and intelligent resource management. Alongside building self-service capabilities for 100+ engineers, I have mentored 15+ engineers, aligned cross-functional teams around architectural standards, and strengthened observability, incident readiness, and operational resilience.
 
-      Whether leading an engineering team or serving as a hands-on technical lead, I focus on outcomes that matter: faster delivery, resilient systems, lower operational overhead, and engineering teams that can scale without accumulating unnecessary complexity.
+      Whether managing an operations team or acting as a hands-on technical lead, I create clarity, eliminate operational toil, and build systems and teams that scale without unnecessary complexity.
 
-      I'm at my best where challenging technical problems meet opportunities to transform how engineering teams operate.
     # Infra & MLOPs Engineer
     persona2: |-
-      <b>Production machine learning is only as effective as the infrastructure, data pipelines, and operational systems supporting it. Moving models from experimentation to production—and keeping them reliable, performant, and relevant over time—requires more than ML tooling. It requires a deep understanding of distributed systems, data engineering, infrastructure automation, and production operations.</b>
+      <b>Production machine learning succeeds or fails on the distributed systems, data pipelines, and operational foundations beneath it.</b> 
 
-      I bring this systems-first perspective to MLOps, combining extensive experience in cloud-native architecture, Kubernetes orchestration, streaming data platforms, and GitOps to build the foundations that make machine learning operationally sustainable. I've engineered high-throughput data infrastructure and low-latency retrieval systems, supporting real-time workloads where performance, availability, and predictable scaling directly affect business outcomes.
+      As a Lead Infrastructure and MLOps engineer, I bring a systems-first approach—combining Kubernetes orchestration, GitOps, streaming data, and low-latency retrieval—to take ML and data workloads from experimentation into reliable, high-throughput production.
 
-      My focus is on eliminating the operational friction between model development and production. By integrating Argo Workflows, Argo Events, Kubeflow, MLflow, and feature stores, I've built automated DataOps and MLOps workflows that connect event-driven data processing, model retraining, and deployment. These Kubernetes-native architectures replaced legacy Hadoop and Airflow-based workflows with more automated, reproducible, and operationally consistent pipelines.
+      I have architected event-driven DataOps and MLOps workflows using Argo Workflows, Argo Events, Kubeflow, MLflow, and feature stores, replacing legacy Hadoop and Airflow pipelines with automated, reproducible Kubernetes-native execution. Alongside orchestration, I operate data-intensive and low-latency systems including Kafka, Aerospike, ClickHouse, and Vespa so real-time inference, feature access, and analytical feedback loops scale predictably under production load.
 
-      Beyond orchestration, I engineer the production environment that ML systems depend on: scalable compute, reliable streaming, observability, security guardrails, and cost-efficient resource utilization. My experience operating complex systems like Kafka, Aerospike, ClickHouse, and Vespa bridges the gap between data-intensive ML workloads and the demands of real-time production systems.
-
-      I build MLOps platforms that turn machine learning from a collection of experimental workflows into a repeatable, scalable, and production-ready engineering discipline
+      My focus is removing operational friction between ML development and production without sacrificing reliability, observability, security guardrails, or cost efficiency—turning ad-hoc model workflows into resilient, production-grade systems.
 
     # Platform Engineer
     persona3: |-
-      <b>A successful internal developer platform does more than provision infrastructure, it transforms the way engineering teams build, deploy, and operate software.</b> I approach platform engineering as a product, combining systems architecture, developer experience, and operational excellence to create platforms that make the secure, reliable path the easiest path.
+      <b>A successful internal developer platform does more than provision infrastructure, it transforms the way engineering organizations build, deploy, and operate software.</b> 
 
-      I've spent my career turning fragmented infrastructure and manual operational processes into cohesive, self-service engineering ecosystems. At adMarketplace, I transformed a complex hybrid environment into a Kubernetes-native platform, building developer portals, automated provisioning workflows, and standardized delivery patterns that empowered 100+ engineers to operate infrastructure with greater autonomy. By bringing infrastructure, CI/CD, and GitOps together, I helped establish a consistent engineering experience across hundreds of microservices and modernize delivery pipelines spanning more than 900 repositories.
+      I approach internal platforms as products, combining systems architecture, self-service tooling, developer experience, and operational excellence to create platforms that make the secure, reliable path the easiest path.
 
-      My philosophy is to engineer away friction without engineering away control. I build golden paths that accelerate delivery while embedding security, policy enforcement, observability, and cost governance into the platform itself. Rather than treating these capabilities as separate operational responsibilities, I integrate them into the developer workflow, making reliability, compliance, and efficiency natural outcomes of good engineering.
+      At adMarketplace, I transformed a fragmented hybrid infrastructure into a cohesive, self-service, Kubernetes-native platform, unifying CI/CD and GitOps across 900+ repositories and hundreds of microservices. By standardizing golden paths with embedded security, policy guardrails, observability, and cost visibility, I gave 100+ engineers faster self-service delivery, greater operational autonomy, and a consistent developer experience with less toil and cognitive load.
 
-      I measure platform success by its impact on the people and systems it serves: less cognitive overhead, faster feedback, greater developer autonomy, and lower operational costs. That approach has helped me drive company-wide cloud cost reductions of 50%, standardize enterprise observability, and introduce secure AI-assisted engineering workflows.
-
-      I bring the perspective of both a systems engineer who understands what happens beneath the abstractions and a platform architect who understands why those abstractions matter to developers and the business.
-
-      My goal is simple: build platforms that make engineering teams faster, systems more resilient, and operational complexity progressively less visible.
+      My philosophy is to engineer away friction without engineering away control, and my goal is simple: build platforms that make engineering teams faster, systems more resilient, and operational complexity progressively less visible.
 
 resumes:
   persona1: "https://raw.githubusercontent.com/iarjune/portfolio/main/data/resumes/Ivan.Arjune.347-781-4826_Lead.pdf"
